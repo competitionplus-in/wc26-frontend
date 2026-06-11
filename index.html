@@ -23,19 +23,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-body: #030712;
-            --bg-surface: rgba(30, 41, 59, 0.4);
-            --bg-card: #0f172a;
-            --bg-elevated: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-glow: #38bdf8;
+            /* Premium Light Mode Palette */
+            --bg-body: #f1f5f9; /* Soft cool gray for the page background */
+            --bg-surface: rgba(255, 255, 255, 0.85); /* Frosty white for the main card */
+            --bg-card: #ffffff; /* Pure white for internal elements */
+            --bg-elevated: #e2e8f0; /* Slightly darker gray for borders and inactive icons */
+            --text-main: #0f172a; /* Deep slate instead of pure black for better reading */
+            --text-muted: #64748b; /* Mid-gray for secondary text */
+            --accent-glow: #2563eb; /* Vibrant royal blue */
             --accent-green: #10b981;
             --live-red: #ef4444;
             --yellow-card: #eab308;
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --team-home: #3b82f6; 
-            --team-away: #ec4899; 
+            --border-glass: rgba(0, 0, 0, 0.08); /* Faint dark borders */
+            --team-home: #2563eb; 
+            --team-away: #db2777; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Barlow', sans-serif; }
@@ -43,8 +44,9 @@
         body {
             background-color: var(--bg-body); color: var(--text-main);
             display: flex; flex-direction: column; align-items: center; padding: 20px;
+            /* Light ambient gradients for depth */
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.04) 0%, transparent 40%);
             background-attachment: fixed; min-height: 100vh;
         }
@@ -53,11 +55,12 @@
 
         .match-center {
             background-color: var(--bg-surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            width: 100%; max-width: 750px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            width: 100%; max-width: 750px; border-radius: 24px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); /* Softened the heavy shadow for light mode */
             border: 1px solid var(--border-glass); overflow: hidden; align-self: center; margin-bottom: 20px;
         }
 
-        .header { padding: 20px 25px; border-bottom: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.2); }
+        .header { padding: 20px 25px; border-bottom: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.5); }
         .match-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
         
         .live-badge {
@@ -67,7 +70,7 @@
         .live-badge::before { content: ''; width: 6px; height: 6px; background-color: var(--live-red); border-radius: 50%; animation: pulse 2s infinite; }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
             70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
@@ -76,8 +79,8 @@
         
         .match-clock {
             font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; color: var(--accent-glow); font-weight: 700;
-            margin-bottom: 25px; display: inline-flex; align-items: center; background: rgba(56, 189, 248, 0.08);
-            padding: 4px 18px; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.15); letter-spacing: 0.5px;
+            margin-bottom: 25px; display: inline-flex; align-items: center; background: rgba(37, 99, 235, 0.08);
+            padding: 4px 18px; border-radius: 9999px; border: 1px solid rgba(37, 99, 235, 0.15); letter-spacing: 0.5px;
         }
 
         .teams-container { display: flex; justify-content: center; align-items: center; gap: 20px; }
@@ -85,30 +88,30 @@
         
         .team-flag {
             width: 76px; height: 76px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); border: 2px solid var(--border-glass); overflow: hidden; background-color: var(--bg-elevated);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border: 2px solid var(--border-glass); overflow: hidden; background-color: var(--bg-card);
         }
         .team-flag img { width: 100%; height: 100%; object-fit: cover; }
-        .team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+        .team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: 0.5px; color: var(--text-main); }
 
         .score-box { display: flex; align-items: center; gap: 20px; }
         .score {
             font-family: 'Barlow Condensed', sans-serif; font-size: 6rem; font-weight: 800; line-height: 1;
-            background: linear-gradient(to bottom, #ffffff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            /* Updated the text gradient for light mode */
+            background: linear-gradient(to bottom, #0f172a, #475569); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
         
-        /* Fixed styling to prevent layout shift during vs text swap */
         #home-score, #away-score { min-width: 60px; display: inline-block; }
 
         .score-divider { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; color: var(--text-muted); font-weight: 600; opacity: 0.4; }
 
-        .tabs { display: flex; border-top: 1px solid var(--border-glass); background-color: rgba(15, 23, 42, 0.6); }
+        .tabs { display: flex; border-top: 1px solid var(--border-glass); background-color: rgba(248, 250, 252, 0.8); }
         .tab {
-            flex: 1; padding: 16px 0; text-align: center; color: var(--text-muted); font-weight: 600; font-size: 0.9rem;
+            flex: 1; padding: 16px 0; text-align: center; color: var(--text-muted); font-weight: 700; font-size: 0.9rem;
             cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase;
             font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; border-bottom: 2px solid transparent;
         }
-        .tab:hover { color: var(--text-main); background-color: rgba(255, 255, 255, 0.02); }
-        .tab.active { color: var(--text-main); border-bottom-color: var(--accent-glow); background: linear-gradient(to top, rgba(56, 189, 248, 0.04), transparent); }
+        .tab:hover { color: var(--text-main); background-color: rgba(0, 0, 0, 0.02); }
+        .tab.active { color: var(--accent-glow); border-bottom-color: var(--accent-glow); background: linear-gradient(to top, rgba(37, 99, 235, 0.05), transparent); }
 
         .panel-content { padding: 30px 25px; min-height: 280px; }
         .tab-panel { display: none; }
@@ -116,52 +119,53 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Preview Component Architecture --- */
+        /* --- Custom Preview Design Rules --- */
         .preview-grid { display: flex; flex-direction: column; gap: 25px; }
-        .preview-card { background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border-glass); padding: 20px; border-radius: 12px; }
-        .preview-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; color: var(--accent-glow); text-transform: uppercase; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px;}
+        .preview-card { background: rgba(255, 255, 255, 0.6); border: 1px solid var(--border-glass); padding: 20px; border-radius: 12px; }
+        .preview-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px;}
         .prob-bar { display: flex; height: 24px; border-radius: 6px; overflow: hidden; margin-top: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; color: white; line-height: 24px; text-align: center; }
-        .prob-home { background: #2563eb; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-        .prob-draw { background: #475569; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-        .prob-away { background: #db2777; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .prob-home { background: var(--team-home); transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .prob-draw { background: #94a3b8; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .prob-away { background: var(--team-away); transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         
         .players-split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .player-focus { padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid var(--accent-glow); border-radius: 4px; }
+        .player-focus { padding: 10px; background: rgba(0,0,0,0.02); border-left: 4px solid var(--team-home); border-radius: 4px; }
         .player-focus.away { border-left-color: var(--team-away); }
         .player-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-        .player-val { font-size: 1.1rem; font-weight: 600; margin-top: 2px; }
+        .player-val { font-size: 1.1rem; font-weight: 700; margin-top: 2px; color: var(--text-main); }
 
         .stat-row { margin-bottom: 24px; }
-        .stat-labels { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
-        .stat-name { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .stat-labels { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .stat-name { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
         .bar-container { display: flex; height: 6px; border-radius: 9999px; overflow: hidden; background-color: var(--bg-elevated); }
-        .bar-home { background: linear-gradient(to right, #2563eb, var(--accent-glow)); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .bar-away { background: linear-gradient(to left, #db2777, #ec4899); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bar-home { background: linear-gradient(to right, #3b82f6, var(--team-home)); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bar-away { background: linear-gradient(to left, #f43f5e, var(--team-away)); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .event-list { display: flex; flex-direction: column; gap: 20px; position: relative; }
         .event { display: flex; align-items: center; gap: 16px; position: relative; }
-        .event-time { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent-glow); width: 40px; text-align: right; }
-        .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-elevated); border: 1px solid var(--border-glass); z-index: 2; }
-        .event-icon svg { width: 14px; height: 14px; }
-        .icon-goal { color: white; background-color: var(--accent-green); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
-        .icon-yellow { color: #000; background-color: var(--yellow-card); }
-        .icon-red { color: white; background-color: var(--live-red); }
-        .icon-sub { color: var(--text-main); }
-        .event-details { flex: 1; font-size: 1rem; font-weight: 500; }
-        .event-subtext { display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+        .event-time { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text-main); width: 40px; text-align: right; }
+        .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-card); border: 1px solid var(--border-glass); z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .event-icon svg { width: 14px; height: 14px; color: var(--text-main); }
+        .icon-goal { color: white; background-color: var(--accent-green); border-color: var(--accent-green); box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+        .icon-goal svg { color: white; }
+        .icon-yellow { background-color: var(--yellow-card); border-color: var(--yellow-card); }
+        .icon-red { color: white; background-color: var(--live-red); border-color: var(--live-red); }
+        .icon-red svg { color: white; }
+        .event-details { flex: 1; font-size: 1rem; font-weight: 600; color: var(--text-main); }
+        .event-subtext { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
 
         .lineups-box { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .lineup-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid var(--border-glass); padding-bottom: 5px; }
+        .lineup-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid var(--border-glass); padding-bottom: 5px; font-weight: 700; }
         .player-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .player-list li { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .player-list li { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text-main); }
         .player-list li::before { content: ''; width: 4px; height: 4px; background-color: var(--text-muted); border-radius: 50%; }
 
         .standings-table { width: 100%; border-collapse: collapse; text-align: left; }
         .standings-table th { color: var(--text-muted); font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding-bottom: 12px; border-bottom: 1px solid var(--border-glass); }
-        .standings-table td { padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.03); font-size: 0.95rem; font-weight: 500; }
+        .standings-table td { padding: 14px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.05); font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
         .table-center { text-align: center; }
 
-        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; margin-bottom: 30px; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; margin-bottom: 30px; font-weight: 500; }
 
         @media (max-width: 600px) {
             .score { font-size: 4.5rem; }
@@ -289,7 +293,6 @@
         
         let countdownTicker = null;
         let lastKnownStatus = null;
-        // Reference hook to cleanly teardown polling inside client space
         let coreSyncLoopInterval = null; 
 
         function switchTab(event, panelId) {
@@ -399,12 +402,11 @@
 
                 if (data.setup.status === 'pre-match') {
                     badge.innerText = 'UPCOMING';
-                    badge.style.color = '#94a3b8'; badge.style.borderColor = '#94a3b8';
-                    badge.style.backgroundColor = 'rgba(148, 163, 184, 0.1)';
+                    badge.style.color = '#64748b'; badge.style.borderColor = '#cbd5e1';
+                    badge.style.backgroundColor = '#f8fafc';
                     badge.style.animation = 'none';
                     clock.style.display = 'inline-flex';
                     
-                    // UX Fix: Clean match card headers before kickoff
                     homeScoreEl.innerText = '-';
                     awayScoreEl.innerText = '-';
                     dividerEl.innerText = 'VS';
@@ -412,22 +414,19 @@
                     if(!countdownTicker) startCountdownTimer(data.setup.countdownTarget);
                 } else {
                     if(countdownTicker) { clearInterval(countdownTicker); countdownTicker = null; }
-                    dividerEl.innerText = '-'; // Revert back to scorecard structural symbol
+                    dividerEl.innerText = '-';
 
                     if (data.setup.status === 'post-match') {
                         badge.innerText = 'FULL TIME';
-                        badge.style.color = '#f8fafc'; badge.style.borderColor = '#f8fafc';
-                        badge.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                        badge.style.color = '#0f172a'; badge.style.borderColor = '#cbd5e1';
+                        badge.style.backgroundColor = '#e2e8f0';
                         badge.style.animation = 'none';
                         clock.style.display = 'inline-flex';
                         clock.innerHTML = `🏁 MATCH ENDED`;
                         
-                        // Hydrate final stats before execution suspension
                         homeScoreEl.innerText = data.homeScore;
                         awayScoreEl.innerText = data.awayScore;
 
-                        // CRITICAL: Terminate background tracking polling to preserve Render free resources
-                        console.log('Match context concluded. Disabling background client synchronization loop.');
                         if(coreSyncLoopInterval) clearInterval(coreSyncLoopInterval);
                         return; 
                     } else {
@@ -491,7 +490,6 @@
             }
         }
 
-        // Initialize execution handle to preserve garbage collection and interval control mappings
         coreSyncLoopInterval = setInterval(fetchEngineUpdates, 10000);
         fetchEngineUpdates(); 
     </script>
