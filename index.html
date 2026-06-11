@@ -41,12 +41,11 @@
         .match-center {
             background-color: var(--bg-card); 
             width: 100%; max-width: 750px; border-radius: 16px; 
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-glass); 
             overflow: hidden; align-self: center; margin-bottom: 20px;
         }
 
-        /* --- Header Adjusted for No Overflow --- */
         .header { padding: 20px 25px; border-bottom: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); gap: 15px; }
         .match-info { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; line-height: 1.3; }
         
@@ -62,7 +61,6 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* --- Scoreboard & New Venue Section --- */
         .score-board { padding: 40px 20px; text-align: center; position: relative; }
         
         .match-clock {
@@ -82,25 +80,27 @@
         .team-name { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-main); }
 
         .score-box { display: flex; align-items: center; gap: 20px; }
-        .score { font-family: 'Oswald', sans-serif; font-size: 6rem; font-weight: 800; line-height: 1; color: var(--text-main); }
-        #home-score, #away-score { min-width: 60px; display: inline-block; }
-        .score-divider { 
-            font-family: 'Oswald', sans-serif; 
-            font-size: 3rem; 
-            color: var(--text-muted); 
-            font-weight: 600; 
-            opacity: 0.8; /* Increased from 0.4 */
+        .score { font-family: 'Oswald', sans-serif; font-size: 6rem; font-weight: 800; line-height: 1; color: var(--text-main); display: inline-block; }
+        #home-score, #away-score { min-width: 60px; text-align: center; }
+        .score-divider { font-family: 'Oswald', sans-serif; font-size: 3rem; color: var(--text-muted); font-weight: 600; opacity: 0.8; }
+
+        /* --- NEW: Score Goal Pop Animation --- */
+        .score-anim-goal {
+            animation: goalPop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes goalPop {
+            0% { transform: scale(1); color: var(--text-main); }
+            30% { transform: scale(1.4); color: var(--accent-green); text-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+            100% { transform: scale(1); color: var(--text-main); }
         }
 
         .match-venue {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-            margin-top: 25px; font-size: 0.85rem; color: var(--text-main); /* Changed from muted to main */
-            font-weight: 600; /* Increased font weight */
+            margin-top: 25px; font-size: 0.85rem; color: var(--text-main); font-weight: 600;
             background: #f1f5f9; padding: 8px 18px; border-radius: 9999px; border: 1px solid var(--border-glass);
         }
         .match-venue svg { width: 14px; height: 14px; color: var(--text-muted); }
 
-        /* --- Tabs --- */
         .tabs { 
             display: flex; border-top: 1px solid var(--border-glass); background-color: #f8fafc; 
             overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
@@ -110,10 +110,17 @@
         .tab {
             flex: 0 0 auto; padding: 16px 20px; text-align: center; color: var(--text-muted); font-weight: 700; font-size: 0.9rem;
             cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase;
-            font-family: 'Oswald', sans-serif; letter-spacing: 1px; border-bottom: 2px solid transparent;
+            font-family: 'Oswald', sans-serif; letter-spacing: 1px; border-bottom: 2px solid transparent; position: relative;
         }
         .tab:hover { color: var(--text-main); background-color: rgba(0, 0, 0, 0.02); }
         .tab.active { color: var(--accent-glow); border-bottom-color: var(--accent-glow); background: transparent; }
+
+        /* --- NEW: Notification Dot for Background Events --- */
+        .tab.has-alert::after {
+            content: ''; position: absolute; top: 12px; right: 12px; width: 8px; height: 8px;
+            background-color: var(--live-red); border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--bg-card); animation: pulse 2s infinite;
+        }
 
         .panel-content { padding: 30px 25px; min-height: 280px; }
         .tab-panel { display: none; }
@@ -121,13 +128,8 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Redesigned Overflow-Proof Preview Panel --- */
         .preview-grid { display: flex; flex-direction: column; gap: 25px; }
-        .preview-card { 
-            background: #f1f5f9; /* Darkened from #f8fafc to match body background */
-            border: 1px solid var(--border-glass); 
-            padding: 20px; border-radius: 12px; 
-        }
+        .preview-card { background: #f1f5f9; border: 1px solid var(--border-glass); padding: 20px; border-radius: 12px; }
         .preview-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px;}
         
         .prob-labels { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 0.5px;}
@@ -148,7 +150,6 @@
         .player-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
         .player-val { font-size: 1.05rem; font-weight: 700; margin-top: 4px; color: var(--text-main); }
 
-        /* Panels: Stats, Timeline, Lineups, Standings (Unchanged) */
         .stat-row { margin-bottom: 24px; }
         .stat-labels { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
         .stat-name { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
@@ -158,6 +159,16 @@
 
         .event-list { display: flex; flex-direction: column; gap: 20px; position: relative; }
         .event { display: flex; align-items: center; gap: 16px; position: relative; }
+        
+        /* --- NEW: Slide in animation for new timeline events --- */
+        .event-slide-in {
+            animation: slideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
         .event-time { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); width: 40px; text-align: right; }
         .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-card); border: 1px solid var(--border-glass); z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .event-icon svg { width: 14px; height: 14px; color: var(--text-main); }
@@ -177,11 +188,7 @@
 
         .standings-table { width: 100%; border-collapse: collapse; text-align: left; }
         .standings-table th { color: var(--text-muted); font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding-bottom: 12px; border-bottom: 1px solid var(--border-glass); }
-        .standings-table td { 
-            padding: 14px 0; 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Darkened from 0.05 */
-            font-size: 0.95rem; font-weight: 600; color: var(--text-main); 
-        }
+        .standings-table td { padding: 14px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.1); font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
         .table-center { text-align: center; }
 
         footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; margin-bottom: 30px; font-weight: 500; }
@@ -200,7 +207,6 @@
             .lineups-box { grid-template-columns: 1fr; gap: 20px; }
             .players-split { grid-template-columns: 1fr; gap: 12px; }
             .panel-content { padding: 20px 15px; }
-            /* Shrink prob labels for tiny screens */
             .prob-labels { font-size: 0.75rem; }
         }
     </style>
@@ -255,16 +261,13 @@
             <section id="panel-preview" class="tab-panel active">
                 <h3 class="sr-only">Match Analysis Preview</h3>
                 <div class="preview-grid">
-                    
                     <div class="preview-card">
                         <div class="preview-title">📊 Win Probability Meter</div>
-                        
                         <div class="prob-labels">
                             <div class="prob-label"><span class="dot dot-home"></span><span id="prob-text-home">Home</span></div>
                             <div class="prob-label"><span class="dot dot-draw"></span><span id="prob-text-draw">Draw</span></div>
                             <div class="prob-label"><span class="dot dot-away"></span><span id="prob-text-away">Away</span></div>
                         </div>
-
                         <div class="prob-bar">
                             <div id="prob-home-bar" class="prob-home" style="width: 33.3%"></div>
                             <div id="prob-draw-bar" class="prob-draw" style="width: 33.3%"></div>
@@ -341,18 +344,40 @@
         
         let countdownTicker = null;
         let lastKnownStatus = null;
-        let coreSyncLoopInterval = null; 
+        
+        // --- ADAPTIVE ENGINE VARIABLES ---
+        let syncTimer = null; 
+        let prevHomeScore = null;
+        let prevAwayScore = null;
+        let prevEventsLength = 0;
+        let currentActiveTab = 'panel-preview';
 
         function switchTab(event, panelId) {
+            currentActiveTab = panelId; 
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            
             if(event) {
                 event.currentTarget.classList.add('active');
             } else {
                 if(panelId === 'panel-preview') document.getElementById('tab-preview').classList.add('active');
                 if(panelId === 'panel-timeline') document.getElementById('tab-timeline').classList.add('active');
             }
+            
+            if(panelId === 'panel-timeline') {
+                document.getElementById('tab-timeline').classList.remove('has-alert');
+            }
+            
             document.getElementById(panelId).classList.add('active');
+        }
+
+        function triggerAnimation(elementId, animationClass) {
+            const el = document.getElementById(elementId);
+            if(el) {
+                el.classList.remove(animationClass);
+                void el.offsetWidth; 
+                el.classList.add(animationClass);
+            }
         }
 
         function generateStatRow(name, homeVal, awayVal) {
@@ -401,13 +426,13 @@
             countdownTicker = setInterval(updateTicker, 1000);
         }
 
+        // --- THE NEW ADAPTIVE FETCH ENGINE ---
         async function fetchEngineUpdates() {
             try {
                 const response = await fetch(`${BACKEND_ENDPOINT}?viewerId=${viewerId}`);
                 if (!response.ok) throw new Error('Data stream breakdown');
                 const data = await response.json();
 
-                // --- 1. SETUP ENGINE HYDRATION (Split Header & Venue) ---
                 document.getElementById('match-info-text').innerText = data.setup.matchInfo;
                 document.getElementById('match-venue-text').innerText = data.setup.matchVenue;
                 
@@ -419,24 +444,19 @@
                 document.getElementById('home-flag').src = `https://flagcdn.com/w160/${data.setup.homeTeam.code}.png`;
                 document.getElementById('away-flag').src = `https://flagcdn.com/w160/${data.setup.awayTeam.code}.png`;
 
-                // --- 2. DYNAMIC PREVIEW DATA SYNC ---
                 document.getElementById('home-player-team').innerText = `${data.setup.homeTeam.name} Key Player`;
                 document.getElementById('home-player-name').innerText = data.setup.playersToWatch.home;
                 document.getElementById('away-player-team').innerText = `${data.setup.awayTeam.name} Key Player`;
                 document.getElementById('away-player-name').innerText = data.setup.playersToWatch.away;
 
-                // Probability Injection
                 const hp = data.setup.probabilities.home, dp = data.setup.probabilities.draw, ap = data.setup.probabilities.away;
-                
                 document.getElementById('prob-text-home').innerText = `${data.setup.homeTeam.name} ${hp}%`;
                 document.getElementById('prob-text-draw').innerText = `Draw ${dp}%`;
                 document.getElementById('prob-text-away').innerText = `${data.setup.awayTeam.name} ${ap}%`;
-                
                 document.getElementById('prob-home-bar').style.width = `${hp}%`;
                 document.getElementById('prob-draw-bar').style.width = `${dp}%`;
                 document.getElementById('prob-away-bar').style.width = `${ap}%`;
 
-                // --- 3. ARCHITECTURAL LAYOUT SWITCHER ---
                 const badge = document.getElementById('match-status-badge');
                 const clock = document.getElementById('match-clock');
                 const homeScoreEl = document.getElementById('home-score');
@@ -478,9 +498,6 @@
                         
                         homeScoreEl.innerText = data.homeScore;
                         awayScoreEl.innerText = data.awayScore;
-
-                        if(coreSyncLoopInterval) clearInterval(coreSyncLoopInterval);
-                        return; 
                     } else {
                         badge.innerText = 'LIVE';
                         badge.style.color = 'var(--live-red)'; badge.style.borderColor = 'rgba(239, 68, 68, 0.25)';
@@ -490,28 +507,41 @@
                     }
                 }
 
-                // --- 4. CORE LIVE RE-HYDRATION ---
                 if (data.setup.status !== 'pre-match') {
+                    if (prevHomeScore !== null && data.homeScore > prevHomeScore) triggerAnimation('home-score', 'score-anim-goal');
+                    if (prevAwayScore !== null && data.awayScore > prevAwayScore) triggerAnimation('away-score', 'score-anim-goal');
+                    
                     homeScoreEl.innerText = data.homeScore;
                     awayScoreEl.innerText = data.awayScore;
+                    prevHomeScore = data.homeScore;
+                    prevAwayScore = data.awayScore;
                 }
 
                 let timelineHTML = '';
                 if(data.events && data.events.length > 0) {
-                    data.events.forEach(e => {
+                    const newEventsAdded = (prevEventsLength > 0 && data.events.length > prevEventsLength) ? (data.events.length - prevEventsLength) : 0;
+                    
+                    if(newEventsAdded > 0 && currentActiveTab !== 'panel-timeline') {
+                        document.getElementById('tab-timeline').classList.add('has-alert');
+                    }
+
+                    data.events.forEach((e, index) => {
                         let icon = 'circle-dot', mod = 'icon-goal';
                         if(e.type === 'yellow') { icon = 'square'; mod = 'icon-yellow'; }
                         else if(e.type === 'red') { icon = 'square'; mod = 'icon-red'; }
                         else if(e.type === 'sub') { icon = 'arrow-left-right'; mod = 'icon-sub'; }
 
+                        let animClass = (newEventsAdded > 0 && index < newEventsAdded) ? 'event-slide-in' : '';
+
                         timelineHTML += `
-                            <div class="event">
+                            <div class="event ${animClass}">
                                 <div class="event-time">${e.time}</div>
                                 <div class="event-icon ${mod}"><i data-lucide="${icon}"></i></div>
                                 <div class="event-details">${e.detail}<span class="event-subtext">${e.subtext}</span></div>
                             </div>
                         `;
                     });
+                    prevEventsLength = data.events.length;
                 } else {
                     timelineHTML = '<div style="text-align:center;color:var(--text-muted);padding-top:20px;">Awaiting events notification matrix...</div>';
                 }
@@ -535,14 +565,43 @@
                     <tr><td>${data.setup.awayTeam.name}</td><td class="table-center">${data.standings.away.gd}</td><td class="table-center"><strong>${data.standings.away.pts}</strong></td></tr>
                 `;
 
-                lucide.createIcons(); // Re-initialize icons (importantly for the new map pin!)
+                lucide.createIcons(); 
+
+                // --- THE SMART SCHEDULER ---
+                // Stop the loop entirely if the match is over
+                if (data.setup.status === 'post-match') {
+                    console.log("Match ended. Terminating data stream.");
+                    return; 
+                }
+
+                // Determine how long to wait before checking again
+                let nextInterval = 10000; // Default 10 seconds
+                
+                if (document.hidden) {
+                    nextInterval = 60000; // 60 seconds if user is on another tab
+                } else if (data.setup.status === 'pre-match') {
+                    nextInterval = 30000; // 30 seconds if game hasn't kicked off yet
+                }
+
+                syncTimer = setTimeout(fetchEngineUpdates, nextInterval);
 
             } catch (err) {
                 console.error('Core stream breakdown:', err);
+                // If the server hiccups, wait 15 seconds and try again automatically
+                syncTimer = setTimeout(fetchEngineUpdates, 15000);
             }
         }
 
-        coreSyncLoopInterval = setInterval(fetchEngineUpdates, 10000);
+        // --- THE WAKE-UP PROTOCOL ---
+        // Instantly grab fresh data the second the user switches back to this tab
+        document.addEventListener("visibilitychange", () => {
+            if (!document.hidden && lastKnownStatus !== 'post-match') {
+                clearTimeout(syncTimer); // Cancel the slow background timer
+                fetchEngineUpdates(); // Fetch immediately
+            }
+        });
+
+        // Start the engine on initial load
         fetchEngineUpdates(); 
     </script>
 </body>
