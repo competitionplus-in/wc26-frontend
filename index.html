@@ -5,66 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Live Football Match Center - Real-Time World Cup Scores & Stats</title>
+    <meta name="google-site-verification" content="Va50WY7JwzGXh5Vtkj4kAAmHYJk_ja8oUNfNALKj6Zo" />
     <meta name="description" content="Get real-time live scores, match stats, dynamic timelines, formations, and group standings for the live football match center. Follow every goal instantly.">
     <meta name="keywords" content="live football match, live score, world cup 2026, football stats, real time score board, football timeline">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://footballmatchlive2026.vercel.app">
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://footballmatchlive2026.vercel.app">
-    <meta property="og:title" content="Live Football Match Center - Real-Time World Cup Scores">
-    <meta property="og:description" content="Follow real-time live scores, match statistics, lineups, and group standings instantly over the live web.">
-    <meta property="og:image" content="https://footballmatchlive2026.vercel.app/og-image.jpg">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Live Football Match Center - Real-Time World Cup Scores">
-    <meta name="twitter:description" content="Follow real-time live scores, match statistics, lineups, and group standings instantly over the live web.">
-
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Premium Light Mode Palette */
-            --bg-body: #f1f5f9; /* Soft cool gray for the page background */
-            --bg-surface: rgba(255, 255, 255, 0.85); /* Frosty white for the main card */
-            --bg-card: #ffffff; /* Pure white for internal elements */
-            --bg-elevated: #e2e8f0; /* Slightly darker gray for borders and inactive icons */
-            --text-main: #0f172a; /* Deep slate instead of pure black for better reading */
-            --text-muted: #64748b; /* Mid-gray for secondary text */
-            --accent-glow: #2563eb; /* Vibrant royal blue */
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-elevated: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-glow: #2563eb;
             --accent-green: #10b981;
             --live-red: #ef4444;
             --yellow-card: #eab308;
-            --border-glass: rgba(0, 0, 0, 0.08); /* Faint dark borders */
+            --border-glass: #cbd5e1;
             --team-home: #2563eb; 
             --team-away: #db2777; 
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Barlow', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background-color: var(--bg-body); color: var(--text-main);
             display: flex; flex-direction: column; align-items: center; padding: 20px;
-            /* Light ambient gradients for depth */
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.04) 0%, transparent 40%);
-            background-attachment: fixed; min-height: 100vh;
+            min-height: 100vh;
         }
 
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
         .match-center {
-            background-color: var(--bg-surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            width: 100%; max-width: 750px; border-radius: 24px; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); /* Softened the heavy shadow for light mode */
-            border: 1px solid var(--border-glass); overflow: hidden; align-self: center; margin-bottom: 20px;
+            background-color: var(--bg-card); 
+            width: 100%; max-width: 750px; border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
+            border: 1px solid var(--border-glass); 
+            overflow: hidden; align-self: center; margin-bottom: 20px;
         }
 
-        .header { padding: 20px 25px; border-bottom: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.5); }
-        .match-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
+        /* --- Header Adjusted for No Overflow --- */
+        .header { padding: 20px 25px; border-bottom: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); gap: 15px; }
+        .match-info { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; line-height: 1.3; }
         
         .live-badge {
-            background-color: rgba(239, 68, 68, 0.12); color: var(--live-red); padding: 6px 14px; border-radius: 9999px;
+            flex-shrink: 0; background-color: rgba(239, 68, 68, 0.12); color: var(--live-red); padding: 6px 14px; border-radius: 9999px;
             font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(239, 68, 68, 0.25); letter-spacing: 1px;
         }
         .live-badge::before { content: ''; width: 6px; height: 6px; background-color: var(--live-red); border-radius: 50%; animation: pulse 2s infinite; }
@@ -75,10 +62,11 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
+        /* --- Scoreboard & New Venue Section --- */
         .score-board { padding: 40px 20px; text-align: center; position: relative; }
         
         .match-clock {
-            font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; color: var(--accent-glow); font-weight: 700;
+            font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: var(--accent-glow); font-weight: 700;
             margin-bottom: 25px; display: inline-flex; align-items: center; background: rgba(37, 99, 235, 0.08);
             padding: 4px 18px; border-radius: 9999px; border: 1px solid rgba(37, 99, 235, 0.15); letter-spacing: 0.5px;
         }
@@ -88,30 +76,44 @@
         
         .team-flag {
             width: 76px; height: 76px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border: 2px solid var(--border-glass); overflow: hidden; background-color: var(--bg-card);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border: 2px solid var(--border-glass); overflow: hidden; background-color: var(--bg-card);
         }
         .team-flag img { width: 100%; height: 100%; object-fit: cover; }
-        .team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: 0.5px; color: var(--text-main); }
+        .team-name { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-main); }
 
         .score-box { display: flex; align-items: center; gap: 20px; }
-        .score {
-            font-family: 'Barlow Condensed', sans-serif; font-size: 6rem; font-weight: 800; line-height: 1;
-            /* Updated the text gradient for light mode */
-            background: linear-gradient(to bottom, #0f172a, #475569); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        
+        .score { font-family: 'Oswald', sans-serif; font-size: 6rem; font-weight: 800; line-height: 1; color: var(--text-main); }
         #home-score, #away-score { min-width: 60px; display: inline-block; }
+        .score-divider { 
+            font-family: 'Oswald', sans-serif; 
+            font-size: 3rem; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            opacity: 0.8; /* Increased from 0.4 */
+        }
 
-        .score-divider { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; color: var(--text-muted); font-weight: 600; opacity: 0.4; }
+        .match-venue {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            margin-top: 25px; font-size: 0.85rem; color: var(--text-main); /* Changed from muted to main */
+            font-weight: 600; /* Increased font weight */
+            background: #f1f5f9; padding: 8px 18px; border-radius: 9999px; border: 1px solid var(--border-glass);
+        }
+        .match-venue svg { width: 14px; height: 14px; color: var(--text-muted); }
 
-        .tabs { display: flex; border-top: 1px solid var(--border-glass); background-color: rgba(248, 250, 252, 0.8); }
+        /* --- Tabs --- */
+        .tabs { 
+            display: flex; border-top: 1px solid var(--border-glass); background-color: #f8fafc; 
+            overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+        
         .tab {
-            flex: 1; padding: 16px 0; text-align: center; color: var(--text-muted); font-weight: 700; font-size: 0.9rem;
+            flex: 0 0 auto; padding: 16px 20px; text-align: center; color: var(--text-muted); font-weight: 700; font-size: 0.9rem;
             cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase;
-            font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; border-bottom: 2px solid transparent;
+            font-family: 'Oswald', sans-serif; letter-spacing: 1px; border-bottom: 2px solid transparent;
         }
         .tab:hover { color: var(--text-main); background-color: rgba(0, 0, 0, 0.02); }
-        .tab.active { color: var(--accent-glow); border-bottom-color: var(--accent-glow); background: linear-gradient(to top, rgba(37, 99, 235, 0.05), transparent); }
+        .tab.active { color: var(--accent-glow); border-bottom-color: var(--accent-glow); background: transparent; }
 
         .panel-content { padding: 30px 25px; min-height: 280px; }
         .tab-panel { display: none; }
@@ -119,34 +121,47 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Custom Preview Design Rules --- */
+        /* --- Redesigned Overflow-Proof Preview Panel --- */
         .preview-grid { display: flex; flex-direction: column; gap: 25px; }
-        .preview-card { background: rgba(255, 255, 255, 0.6); border: 1px solid var(--border-glass); padding: 20px; border-radius: 12px; }
-        .preview-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px;}
-        .prob-bar { display: flex; height: 24px; border-radius: 6px; overflow: hidden; margin-top: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; color: white; line-height: 24px; text-align: center; }
-        .prob-home { background: var(--team-home); transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-        .prob-draw { background: #94a3b8; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-        .prob-away { background: var(--team-away); transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .preview-card { 
+            background: #f1f5f9; /* Darkened from #f8fafc to match body background */
+            border: 1px solid var(--border-glass); 
+            padding: 20px; border-radius: 12px; 
+        }
+        .preview-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px;}
+        
+        .prob-labels { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 0.5px;}
+        .prob-label { display: flex; align-items: center; gap: 6px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot-home { background-color: var(--team-home); }
+        .dot-draw { background-color: #94a3b8; }
+        .dot-away { background-color: var(--team-away); }
+
+        .prob-bar { display: flex; height: 8px; border-radius: 9999px; overflow: hidden; }
+        .prob-home { background: var(--team-home); transition: width 0.8s ease; }
+        .prob-draw { background: #94a3b8; transition: width 0.8s ease; }
+        .prob-away { background: var(--team-away); transition: width 0.8s ease; }
         
         .players-split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .player-focus { padding: 10px; background: rgba(0,0,0,0.02); border-left: 4px solid var(--team-home); border-radius: 4px; }
+        .player-focus { padding: 10px; background: #ffffff; border: 1px solid var(--border-glass); border-left: 4px solid var(--team-home); border-radius: 6px; }
         .player-focus.away { border-left-color: var(--team-away); }
-        .player-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-        .player-val { font-size: 1.1rem; font-weight: 700; margin-top: 2px; color: var(--text-main); }
+        .player-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        .player-val { font-size: 1.05rem; font-weight: 700; margin-top: 4px; color: var(--text-main); }
 
+        /* Panels: Stats, Timeline, Lineups, Standings (Unchanged) */
         .stat-row { margin-bottom: 24px; }
         .stat-labels { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-        .stat-name { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        .stat-name { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
         .bar-container { display: flex; height: 6px; border-radius: 9999px; overflow: hidden; background-color: var(--bg-elevated); }
-        .bar-home { background: linear-gradient(to right, #3b82f6, var(--team-home)); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .bar-away { background: linear-gradient(to left, #f43f5e, var(--team-away)); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bar-home { background: var(--team-home); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bar-away { background: var(--team-away); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .event-list { display: flex; flex-direction: column; gap: 20px; position: relative; }
         .event { display: flex; align-items: center; gap: 16px; position: relative; }
-        .event-time { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text-main); width: 40px; text-align: right; }
+        .event-time { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); width: 40px; text-align: right; }
         .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-card); border: 1px solid var(--border-glass); z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .event-icon svg { width: 14px; height: 14px; color: var(--text-main); }
-        .icon-goal { color: white; background-color: var(--accent-green); border-color: var(--accent-green); box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+        .icon-goal { color: white; background-color: var(--accent-green); border-color: var(--accent-green); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
         .icon-goal svg { color: white; }
         .icon-yellow { background-color: var(--yellow-card); border-color: var(--yellow-card); }
         .icon-red { color: white; background-color: var(--live-red); border-color: var(--live-red); }
@@ -155,23 +170,38 @@
         .event-subtext { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
 
         .lineups-box { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .lineup-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid var(--border-glass); padding-bottom: 5px; font-weight: 700; }
+        .lineup-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid var(--border-glass); padding-bottom: 5px; font-weight: 700; }
         .player-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .player-list li { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text-main); }
         .player-list li::before { content: ''; width: 4px; height: 4px; background-color: var(--text-muted); border-radius: 50%; }
 
         .standings-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .standings-table th { color: var(--text-muted); font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding-bottom: 12px; border-bottom: 1px solid var(--border-glass); }
-        .standings-table td { padding: 14px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.05); font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+        .standings-table th { color: var(--text-muted); font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding-bottom: 12px; border-bottom: 1px solid var(--border-glass); }
+        .standings-table td { 
+            padding: 14px 0; 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Darkened from 0.05 */
+            font-size: 0.95rem; font-weight: 600; color: var(--text-main); 
+        }
         .table-center { text-align: center; }
 
         footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; margin-bottom: 30px; font-weight: 500; }
 
         @media (max-width: 600px) {
-            .score { font-size: 4.5rem; }
-            .team-flag { width: 60px; height: 60px; }
+            .header { padding: 15px; }
+            .match-info { font-size: 0.75rem; letter-spacing: 0.5px; }
+            .teams-container { width: 100%; padding: 0 10px; justify-content: space-between; gap: 5px; }
+            .team { width: 32%; min-width: auto; } 
+            .team-flag { width: 50px; height: 50px; }
+            .team-name { font-size: 1.1rem; text-align: center; line-height: 1.1; word-wrap: break-word; }
+            .score { font-size: 3.5rem; }
+            .score-divider { font-size: 2rem; }
+            #home-score, #away-score { min-width: auto; }
+            .score-box { gap: 10px; }
             .lineups-box { grid-template-columns: 1fr; gap: 20px; }
             .players-split { grid-template-columns: 1fr; gap: 12px; }
+            .panel-content { padding: 20px 15px; }
+            /* Shrink prob labels for tiny screens */
+            .prob-labels { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -206,6 +236,10 @@
                     <div id="away-team-name" class="team-name">...</div>
                 </div>
             </div>
+
+            <div class="match-venue">
+                <i data-lucide="map-pin"></i> <span id="match-venue-text">Loading Venue...</span>
+            </div>
         </section>
 
         <nav class="tabs" id="navigation-tabs" aria-label="Match Center Navigation tabs">
@@ -221,14 +255,23 @@
             <section id="panel-preview" class="tab-panel active">
                 <h3 class="sr-only">Match Analysis Preview</h3>
                 <div class="preview-grid">
+                    
                     <div class="preview-card">
                         <div class="preview-title">📊 Win Probability Meter</div>
+                        
+                        <div class="prob-labels">
+                            <div class="prob-label"><span class="dot dot-home"></span><span id="prob-text-home">Home</span></div>
+                            <div class="prob-label"><span class="dot dot-draw"></span><span id="prob-text-draw">Draw</span></div>
+                            <div class="prob-label"><span class="dot dot-away"></span><span id="prob-text-away">Away</span></div>
+                        </div>
+
                         <div class="prob-bar">
-                            <div id="prob-home-bar" class="prob-home" style="width: 33.3%">Home</div>
-                            <div id="prob-draw-bar" class="prob-draw" style="width: 33.3%">Draw</div>
-                            <div id="prob-away-bar" class="prob-away" style="width: 33.4%">Away</div>
+                            <div id="prob-home-bar" class="prob-home" style="width: 33.3%"></div>
+                            <div id="prob-draw-bar" class="prob-draw" style="width: 33.3%"></div>
+                            <div id="prob-away-bar" class="prob-away" style="width: 33.4%"></div>
                         </div>
                     </div>
+
                     <div class="preview-card">
                         <div class="preview-title">⭐ Key Players to Watch</div>
                         <div class="players-split">
@@ -289,13 +332,12 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         const BACKEND_ENDPOINT = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
-        // Check for an existing unique ID in the fan's browser
-       let viewerId = localStorage.getItem('wc_viewer_id');
-      // If they are a first-time visitor, generate a new ID and save it permanently
-      if (!viewerId) {
-      viewerId = Math.random().toString(36).substring(2, 15);
-     localStorage.setItem('wc_viewer_id', viewerId);
-     }
+        
+        let viewerId = localStorage.getItem('wc_viewer_id');
+        if (!viewerId) {
+            viewerId = Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('wc_viewer_id', viewerId);
+        }
         
         let countdownTicker = null;
         let lastKnownStatus = null;
@@ -365,8 +407,10 @@
                 if (!response.ok) throw new Error('Data stream breakdown');
                 const data = await response.json();
 
-                // --- 1. SETUP ENGINE HYDRATION ---
-                document.getElementById('match-info-text').innerText = `${data.setup.matchInfo} • ${data.setup.matchVenue}`;
+                // --- 1. SETUP ENGINE HYDRATION (Split Header & Venue) ---
+                document.getElementById('match-info-text').innerText = data.setup.matchInfo;
+                document.getElementById('match-venue-text').innerText = data.setup.matchVenue;
+                
                 document.getElementById('home-team-name').innerText = data.setup.homeTeam.name;
                 document.getElementById('away-team-name').innerText = data.setup.awayTeam.name;
                 document.getElementById('home-lineup-title').innerText = `${data.setup.homeTeam.name} Lineup`;
@@ -381,14 +425,16 @@
                 document.getElementById('away-player-team').innerText = `${data.setup.awayTeam.name} Key Player`;
                 document.getElementById('away-player-name').innerText = data.setup.playersToWatch.away;
 
+                // Probability Injection
                 const hp = data.setup.probabilities.home, dp = data.setup.probabilities.draw, ap = data.setup.probabilities.away;
-                const homeBar = document.getElementById('prob-home-bar');
-                const drawBar = document.getElementById('prob-draw-bar');
-                const awayBar = document.getElementById('prob-away-bar');
                 
-                homeBar.style.width = `${hp}%`; homeBar.innerText = `${data.setup.homeTeam.name} ${hp}%`;
-                drawBar.style.width = `${dp}%`; drawBar.innerText = `DRAW ${dp}%`;
-                awayBar.style.width = `${ap}%`; awayBar.innerText = `${data.setup.awayTeam.name} ${ap}%`;
+                document.getElementById('prob-text-home').innerText = `${data.setup.homeTeam.name} ${hp}%`;
+                document.getElementById('prob-text-draw').innerText = `Draw ${dp}%`;
+                document.getElementById('prob-text-away').innerText = `${data.setup.awayTeam.name} ${ap}%`;
+                
+                document.getElementById('prob-home-bar').style.width = `${hp}%`;
+                document.getElementById('prob-draw-bar').style.width = `${dp}%`;
+                document.getElementById('prob-away-bar').style.width = `${ap}%`;
 
                 // --- 3. ARCHITECTURAL LAYOUT SWITCHER ---
                 const badge = document.getElementById('match-status-badge');
@@ -415,7 +461,7 @@
                     
                     homeScoreEl.innerText = '-';
                     awayScoreEl.innerText = '-';
-                    dividerEl.innerText = 'VS';
+                    dividerEl.innerText = 'V';
                     
                     if(!countdownTicker) startCountdownTimer(data.setup.countdownTarget);
                 } else {
@@ -485,11 +531,11 @@
                 buildLineupList('away-lineup-list', data.lineups.away);
 
                 document.getElementById('standings-rows-container').innerHTML = `
-                    <tr><td>🇺🇳 ${data.setup.homeTeam.name}</td><td class="table-center">${data.standings.home.gd}</td><td class="table-center"><strong>${data.standings.home.pts}</strong></td></tr>
-                    <tr><td>🇺🇳 ${data.setup.awayTeam.name}</td><td class="table-center">${data.standings.away.gd}</td><td class="table-center"><strong>${data.standings.away.pts}</strong></td></tr>
+                    <tr><td>${data.setup.homeTeam.name}</td><td class="table-center">${data.standings.home.gd}</td><td class="table-center"><strong>${data.standings.home.pts}</strong></td></tr>
+                    <tr><td>${data.setup.awayTeam.name}</td><td class="table-center">${data.standings.away.gd}</td><td class="table-center"><strong>${data.standings.away.pts}</strong></td></tr>
                 `;
 
-                lucide.createIcons();
+                lucide.createIcons(); // Re-initialize icons (importantly for the new map pin!)
 
             } catch (err) {
                 console.error('Core stream breakdown:', err);
