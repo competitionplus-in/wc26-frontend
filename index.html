@@ -289,7 +289,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         const BACKEND_ENDPOINT = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
-        const viewerId = Math.random().toString(36).substring(2, 15);
+        // Check for an existing unique ID in the fan's browser
+       let viewerId = localStorage.getItem('wc_viewer_id');
+      // If they are a first-time visitor, generate a new ID and save it permanently
+      if (!viewerId) {
+      viewerId = Math.random().toString(36).substring(2, 15);
+     localStorage.setItem('wc_viewer_id', viewerId);
+     }
         
         let countdownTicker = null;
         let lastKnownStatus = null;
