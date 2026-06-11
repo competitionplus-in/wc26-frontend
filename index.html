@@ -23,7 +23,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Futuristic Cosmic Dark Mode Palette */
             --bg-body: #030712;
             --bg-surface: rgba(30, 41, 59, 0.4);
             --bg-card: #0f172a;
@@ -35,100 +34,37 @@
             --live-red: #ef4444;
             --yellow-card: #eab308;
             --border-glass: rgba(255, 255, 255, 0.08);
-            
             --team-home: #3b82f6; 
             --team-away: #ec4899; 
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Barlow', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Barlow', sans-serif; }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            background-color: var(--bg-body); color: var(--text-main);
+            display: flex; flex-direction: column; align-items: center; padding: 20px;
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.04) 0%, transparent 40%);
-            background-attachment: fixed;
-            min-height: 100vh;
+            background-attachment: fixed; min-height: 100vh;
         }
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
         .match-center {
-            background-color: var(--bg-surface);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            width: 100%;
-            max-width: 750px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--border-glass);
-            overflow: hidden;
-            align-self: center;
-            margin-bottom: 20px;
+            background-color: var(--bg-surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            width: 100%; max-width: 750px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-glass); overflow: hidden; align-self: center; margin-bottom: 20px;
         }
 
-        /* --- Header --- */
-        .header {
-            padding: 20px 25px;
-            border-bottom: 1px solid var(--border-glass);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .match-info {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .header { padding: 20px 25px; border-bottom: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.2); }
+        .match-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
+        
         .live-badge {
-            background-color: rgba(239, 68, 68, 0.12);
-            color: var(--live-red);
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(239, 68, 68, 0.25);
-            letter-spacing: 1px;
+            background-color: rgba(239, 68, 68, 0.12); color: var(--live-red); padding: 6px 14px; border-radius: 9999px;
+            font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(239, 68, 68, 0.25); letter-spacing: 1px;
         }
-
-        .live-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background-color: var(--live-red);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
+        .live-badge::before { content: ''; width: 6px; height: 6px; background-color: var(--live-red); border-radius: 50%; animation: pulse 2s infinite; }
 
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
@@ -136,313 +72,102 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* --- Scoreboard Display --- */
-        .score-board {
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-        }
-
+        .score-board { padding: 40px 20px; text-align: center; position: relative; }
+        
         .match-clock {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.4rem;
-            color: var(--accent-glow);
-            font-weight: 700;
-            margin-bottom: 25px;
-            display: inline-flex;
-            align-items: center;
-            background: rgba(56, 189, 248, 0.08);
-            padding: 4px 18px;
-            border-radius: 9999px;
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            letter-spacing: 0.5px;
+            font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; color: var(--accent-glow); font-weight: 700;
+            margin-bottom: 25px; display: inline-flex; align-items: center; background: rgba(56, 189, 248, 0.08);
+            padding: 4px 18px; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.15); letter-spacing: 0.5px;
         }
 
-        .teams-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .team {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 140px;
-        }
-
+        .teams-container { display: flex; justify-content: center; align-items: center; gap: 20px; }
+        .team { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 140px; }
+        
         .team-flag {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--border-glass);
-            overflow: hidden; 
-            background-color: var(--bg-elevated);
+            width: 76px; height: 76px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); border: 2px solid var(--border-glass); overflow: hidden; background-color: var(--bg-elevated);
         }
+        .team-flag img { width: 100%; height: 100%; object-fit: cover; }
+        .team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
 
-        .team-flag img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-        }
-
-        .team-name {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .score-box {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
+        .score-box { display: flex; align-items: center; gap: 20px; }
         .score {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 6rem;
-            font-weight: 800;
-            line-height: 1;
-            background: linear-gradient(to bottom, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Barlow Condensed', sans-serif; font-size: 6rem; font-weight: 800; line-height: 1;
+            background: linear-gradient(to bottom, #ffffff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
+        
+        /* Fixed styling to prevent layout shift during vs text swap */
+        #home-score, #away-score { min-width: 60px; display: inline-block; }
 
-        .score-divider {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 3rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            opacity: 0.4;
-        }
+        .score-divider { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; color: var(--text-muted); font-weight: 600; opacity: 0.4; }
 
-        /* --- Tab System Navigation --- */
-        .tabs {
-            display: flex;
-            border-top: 1px solid var(--border-glass);
-            background-color: rgba(15, 23, 42, 0.6);
-        }
-
+        .tabs { display: flex; border-top: 1px solid var(--border-glass); background-color: rgba(15, 23, 42, 0.6); }
         .tab {
-            flex: 1;
-            padding: 16px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            font-family: 'Barlow Condensed', sans-serif;
-            letter-spacing: 1px;
-            border-bottom: 2px solid transparent;
+            flex: 1; padding: 16px 0; text-align: center; color: var(--text-muted); font-weight: 600; font-size: 0.9rem;
+            cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase;
+            font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; border-bottom: 2px solid transparent;
         }
+        .tab:hover { color: var(--text-main); background-color: rgba(255, 255, 255, 0.02); }
+        .tab.active { color: var(--text-main); border-bottom-color: var(--accent-glow); background: linear-gradient(to top, rgba(56, 189, 248, 0.04), transparent); }
 
-        .tab:hover {
-            color: var(--text-main);
-            background-color: rgba(255, 255, 255, 0.02);
-        }
+        .panel-content { padding: 30px 25px; min-height: 280px; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.35s ease-out; }
 
-        .tab.active {
-            color: var(--text-main);
-            border-bottom-color: var(--accent-glow);
-            background: linear-gradient(to top, rgba(56, 189, 248, 0.04), transparent);
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Panel Windows Layout --- */
-        .panel-content {
-            padding: 30px 25px;
-            min-height: 280px;
-        }
+        /* --- Preview Component Architecture --- */
+        .preview-grid { display: flex; flex-direction: column; gap: 25px; }
+        .preview-card { background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border-glass); padding: 20px; border-radius: 12px; }
+        .preview-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; color: var(--accent-glow); text-transform: uppercase; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px;}
+        .prob-bar { display: flex; height: 24px; border-radius: 6px; overflow: hidden; margin-top: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; color: white; line-height: 24px; text-align: center; }
+        .prob-home { background: #2563eb; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .prob-draw { background: #475569; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .prob-away { background: #db2777; transition: width 0.8s ease; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        
+        .players-split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .player-focus { padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid var(--accent-glow); border-radius: 4px; }
+        .player-focus.away { border-left-color: var(--team-away); }
+        .player-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+        .player-val { font-size: 1.1rem; font-weight: 600; margin-top: 2px; }
 
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-            animation: fadeIn 0.35s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Panel: Match Stats View --- */
-        .stat-row {
-            margin-bottom: 24px;
-        }
-
-        .stat-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .stat-name {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .bar-container {
-            display: flex;
-            height: 6px;
-            border-radius: 9999px;
-            overflow: hidden;
-            background-color: var(--bg-elevated);
-        }
-
+        .stat-row { margin-bottom: 24px; }
+        .stat-labels { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+        .stat-name { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .bar-container { display: flex; height: 6px; border-radius: 9999px; overflow: hidden; background-color: var(--bg-elevated); }
         .bar-home { background: linear-gradient(to right, #2563eb, var(--accent-glow)); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .bar-away { background: linear-gradient(to left, #db2777, #ec4899); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* --- Panel: Timeline View --- */
-        .event-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-        }
-
-        .event {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-        }
-
-        .event-time {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent-glow);
-            width: 40px;
-            text-align: right;
-        }
-
-        .event-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: var(--bg-elevated);
-            border: 1px solid var(--border-glass);
-            z-index: 2;
-        }
-
+        .event-list { display: flex; flex-direction: column; gap: 20px; position: relative; }
+        .event { display: flex; align-items: center; gap: 16px; position: relative; }
+        .event-time { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent-glow); width: 40px; text-align: right; }
+        .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-elevated); border: 1px solid var(--border-glass); z-index: 2; }
         .event-icon svg { width: 14px; height: 14px; }
         .icon-goal { color: white; background-color: var(--accent-green); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
         .icon-yellow { color: #000; background-color: var(--yellow-card); }
         .icon-red { color: white; background-color: var(--live-red); }
         .icon-sub { color: var(--text-main); }
+        .event-details { flex: 1; font-size: 1rem; font-weight: 500; }
+        .event-subtext { display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
 
-        .event-details {
-            flex: 1;
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        .lineups-box { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .lineup-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid var(--border-glass); padding-bottom: 5px; }
+        .player-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .player-list li { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .player-list li::before { content: ''; width: 4px; height: 4px; background-color: var(--text-muted); border-radius: 50%; }
 
-        .event-subtext {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        /* --- Panel: Lineups View --- */
-        .lineups-box {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .lineup-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 5px;
-        }
-
-        .player-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .player-list li {
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .player-list li::before {
-            content: '';
-            width: 4px;
-            height: 4px;
-            background-color: var(--text-muted);
-            border-radius: 50%;
-        }
-
-        /* --- Panel: Standings View --- */
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        .standings-table th {
-            color: var(--text-muted);
-            font-family: 'Barlow Condensed', sans-serif;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-glass);
-        }
-
-        .standings-table td {
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
+        .standings-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .standings-table th { color: var(--text-muted); font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding-bottom: 12px; border-bottom: 1px solid var(--border-glass); }
+        .standings-table td { padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.03); font-size: 0.95rem; font-weight: 500; }
         .table-center { text-align: center; }
 
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 10px;
-            margin-bottom: 30px;
-        }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; margin-bottom: 30px; }
 
-        /* Responsive Breakpoints */
         @media (max-width: 600px) {
             .score { font-size: 4.5rem; }
-            .team-flag { width: 60px; height: 60px; font-size: 1.4rem; }
+            .team-flag { width: 60px; height: 60px; }
             .lineups-box { grid-template-columns: 1fr; gap: 20px; }
-            .panel-content { padding: 20px 15px; }
+            .players-split { grid-template-columns: 1fr; gap: 12px; }
         }
     </style>
 </head>
@@ -452,12 +177,12 @@
 
     <main class="match-center">
         <header class="header">
-            <div id="match-info-text" class="match-info">Loading...</div>
+            <div id="match-info-text" class="match-info">Loading Parameters...</div>
             <div id="match-status-badge" class="live-badge">...</div>
         </header>
 
         <section class="score-board">
-            <h2 class="sr-only">Current Live Scoreboard</h2>
+            <h2 class="sr-only">Current Scoreboard Module</h2>
             <div id="match-clock" class="match-clock">0'</div>
             
             <div class="teams-container">
@@ -467,9 +192,9 @@
                 </div>
                 
                 <div class="score-box">
-                    <div id="home-score" class="score">0</div>
-                    <div class="score-divider">-</div>
-                    <div id="away-score" class="score">0</div>
+                    <div id="home-score" class="score">-</div>
+                    <div id="central-divider" class="score-divider">-</div>
+                    <div id="away-score" class="score">-</div>
                 </div>
 
                 <div class="team">
@@ -479,8 +204,9 @@
             </div>
         </section>
 
-        <nav class="tabs" aria-label="Match Center Navigation tabs">
-            <div class="tab active" onclick="switchTab(event, 'panel-timeline')" role="tab">Timeline</div>
+        <nav class="tabs" id="navigation-tabs" aria-label="Match Center Navigation tabs">
+            <div id="tab-preview" class="tab active" onclick="switchTab(event, 'panel-preview')" role="tab">Preview</div>
+            <div id="tab-timeline" class="tab" onclick="switchTab(event, 'panel-timeline')" role="tab">Timeline</div>
             <div class="tab" onclick="switchTab(event, 'panel-stats')" role="tab">Match Stats</div>
             <div class="tab" onclick="switchTab(event, 'panel-lineups')" role="tab">Lineups</div>
             <div class="tab" onclick="switchTab(event, 'panel-standings')" role="tab">Standings</div>
@@ -488,34 +214,53 @@
 
         <div class="panel-content">
             
-            <section id="panel-timeline" class="tab-panel active">
-                <h3 class="sr-only">Match Events Timeline</h3>
-                <div id="timeline-container" class="event-list">
-                    <div style="text-align:center;color:var(--text-muted);padding-top:20px;">Match is underway. Awaiting timeline events...</div>
+            <section id="panel-preview" class="tab-panel active">
+                <h3 class="sr-only">Match Analysis Preview</h3>
+                <div class="preview-grid">
+                    <div class="preview-card">
+                        <div class="preview-title">📊 Win Probability Meter</div>
+                        <div class="prob-bar">
+                            <div id="prob-home-bar" class="prob-home" style="width: 33.3%">Home</div>
+                            <div id="prob-draw-bar" class="prob-draw" style="width: 33.3%">Draw</div>
+                            <div id="prob-away-bar" class="prob-away" style="width: 33.4%">Away</div>
+                        </div>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-title">⭐ Key Players to Watch</div>
+                        <div class="players-split">
+                            <div class="player-focus">
+                                <div id="home-player-team" class="player-label">Home Star</div>
+                                <div id="home-player-name" class="player-val">Loading...</div>
+                            </div>
+                            <div class="player-focus away">
+                                <div id="away-player-team" class="player-label">Away Star</div>
+                                <div id="away-player-name" class="player-val">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
+            
+            <section id="panel-timeline" class="tab-panel">
+                <h3 class="sr-only">Match Events Timeline</h3>
+                <div id="timeline-container" class="event-list"></div>
             </section>
 
             <section id="panel-stats" class="tab-panel">
                 <h3 class="sr-only">Real-Time Team Performance Statistics</h3>
-                <div id="stats-container">
-                    <div style="text-align:center;color:var(--text-muted);padding-top:20px;">Loading Live Performance Statistics (Possession, Shots, Targets)...</div>
-                </div>
+                <div id="stats-container"></div>
             </section>
 
             <section id="panel-lineups" class="tab-panel">
                 <h3 class="sr-only">Team Formations and Starting Lineups</h3>
                 <div class="lineups-box">
                     <div>
-                        <h4 id="home-lineup-title" class="lineup-title">Home Starting XI</h4>
-                        <ul id="home-lineup-list" class="player-list">
-                            <li>Awaiting lineup notification...</li>
-                        </ul>
+                        <h4 id="home-lineup-title" class="lineup-title">Home XI</h4>
+                        <ul id="home-lineup-list" class="player-list"></ul>
                     </div>
                     <div>
-                        <h4 id="away-lineup-title" class="lineup-title">Away Starting XI</h4>
-                        <ul id="away-lineup-list" class="player-list">
-                            <li>Awaiting lineup notification...</li>
-                        </ul>
+                        <h4 id="away-lineup-title" class="lineup-title">Away XI</h4>
+                        <ul id="away-lineup-list" class="player-list"></ul>
                     </div>
                 </div>
             </section>
@@ -524,14 +269,9 @@
                 <h3 class="sr-only">Current Group Stage Standings Table</h3>
                 <table class="standings-table">
                     <thead>
-                        <tr>
-                            <th>Team</th>
-                            <th class="table-center">GD</th>
-                            <th class="table-center">PTS</th>
-                        </tr>
+                        <tr><th>Team</th><th class="table-center">GD</th><th class="table-center">PTS</th></tr>
                     </thead>
-                    <tbody id="standings-rows-container">
-                        </tbody>
+                    <tbody id="standings-rows-container"></tbody>
                 </table>
             </section>
 
@@ -539,19 +279,28 @@
     </main>
 
     <footer>
-        <p>© 2026 Live Football Match Center. All real-time scoreboard data updates automatically.</p>
+        <p>© 2026 Live Football Match Center. All real-time data synchronizes automatically.</p>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         const BACKEND_ENDPOINT = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
         const viewerId = Math.random().toString(36).substring(2, 15);
+        
+        let countdownTicker = null;
+        let lastKnownStatus = null;
+        // Reference hook to cleanly teardown polling inside client space
+        let coreSyncLoopInterval = null; 
 
         function switchTab(event, panelId) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            
-            event.currentTarget.classList.add('active');
+            if(event) {
+                event.currentTarget.classList.add('active');
+            } else {
+                if(panelId === 'panel-preview') document.getElementById('tab-preview').classList.add('active');
+                if(panelId === 'panel-timeline') document.getElementById('tab-timeline').classList.add('active');
+            }
             document.getElementById(panelId).classList.add('active');
         }
 
@@ -573,54 +322,129 @@
             `;
         }
 
+        function startCountdownTimer(targetISOString) {
+            if(countdownTicker) clearInterval(countdownTicker);
+            
+            const badge = document.getElementById('match-status-badge');
+            const clock = document.getElementById('match-clock');
+            
+            function updateTicker() {
+                const distance = new Date(targetISOString).getTime() - new Date().getTime();
+                
+                if (distance < 0) {
+                    badge.innerText = "UPCOMING";
+                    clock.innerHTML = "00:00:00";
+                    clearInterval(countdownTicker);
+                    return;
+                }
+                
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                const pad = num => String(num).padStart(2, '0');
+                clock.innerHTML = `⏱️ ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+            }
+            
+            updateTicker();
+            countdownTicker = setInterval(updateTicker, 1000);
+        }
+
         async function fetchEngineUpdates() {
             try {
                 const response = await fetch(`${BACKEND_ENDPOINT}?viewerId=${viewerId}`);
-                if (!response.ok) throw new Error('Data sync stream failed');
+                if (!response.ok) throw new Error('Data stream breakdown');
                 const data = await response.json();
 
-                // --- 1. SETUP & INFO SYNC ---
-                document.getElementById('match-info-text').innerText = `${data.setup.matchInfo} • ${data.setup.matchVenue} • ${data.setup.matchTime}`;
+                // --- 1. SETUP ENGINE HYDRATION ---
+                document.getElementById('match-info-text').innerText = `${data.setup.matchInfo} • ${data.setup.matchVenue}`;
                 document.getElementById('home-team-name').innerText = data.setup.homeTeam.name;
                 document.getElementById('away-team-name').innerText = data.setup.awayTeam.name;
-                document.getElementById('home-lineup-title').innerText = `${data.setup.homeTeam.name} Starting XI`;
-                document.getElementById('away-lineup-title').innerText = `${data.setup.awayTeam.name} Starting XI`;
+                document.getElementById('home-lineup-title').innerText = `${data.setup.homeTeam.name} Lineup`;
+                document.getElementById('away-lineup-title').innerText = `${data.setup.awayTeam.name} Lineup`;
                 
                 document.getElementById('home-flag').src = `https://flagcdn.com/w160/${data.setup.homeTeam.code}.png`;
                 document.getElementById('away-flag').src = `https://flagcdn.com/w160/${data.setup.awayTeam.code}.png`;
 
-                // --- 2. MATCH PHASE STATUS SYNC ---
+                // --- 2. DYNAMIC PREVIEW DATA SYNC ---
+                document.getElementById('home-player-team').innerText = `${data.setup.homeTeam.name} Key Player`;
+                document.getElementById('home-player-name').innerText = data.setup.playersToWatch.home;
+                document.getElementById('away-player-team').innerText = `${data.setup.awayTeam.name} Key Player`;
+                document.getElementById('away-player-name').innerText = data.setup.playersToWatch.away;
+
+                const hp = data.setup.probabilities.home, dp = data.setup.probabilities.draw, ap = data.setup.probabilities.away;
+                const homeBar = document.getElementById('prob-home-bar');
+                const drawBar = document.getElementById('prob-draw-bar');
+                const awayBar = document.getElementById('prob-away-bar');
+                
+                homeBar.style.width = `${hp}%`; homeBar.innerText = `${data.setup.homeTeam.name} ${hp}%`;
+                drawBar.style.width = `${dp}%`; drawBar.innerText = `DRAW ${dp}%`;
+                awayBar.style.width = `${ap}%`; awayBar.innerText = `${data.setup.awayTeam.name} ${ap}%`;
+
+                // --- 3. ARCHITECTURAL LAYOUT SWITCHER ---
                 const badge = document.getElementById('match-status-badge');
                 const clock = document.getElementById('match-clock');
-                
-                if (data.setup.status === 'pre-match') {
-                    badge.innerText = 'UPCOMING';
-                    badge.style.color = '#94a3b8';
-                    badge.style.borderColor = '#94a3b8';
-                    badge.style.backgroundColor = 'rgba(148, 163, 184, 0.1)';
-                    badge.style.animation = 'none'; 
-                    clock.style.display = 'none'; 
-                } else if (data.setup.status === 'post-match') {
-                    badge.innerText = 'FULL TIME';
-                    badge.style.color = '#f8fafc';
-                    badge.style.borderColor = '#f8fafc';
-                    badge.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                    badge.style.animation = 'none';
-                    clock.style.display = 'none';
-                } else {
-                    badge.innerText = 'LIVE';
-                    badge.style.color = 'var(--live-red)';
-                    badge.style.borderColor = 'rgba(239, 68, 68, 0.25)';
-                    badge.style.backgroundColor = 'rgba(239, 68, 68, 0.12)';
-                    clock.style.display = 'inline-flex';
-                    clock.innerHTML = `${data.clock}<span style="animation: pulse 1.3s infinite;">'</span>`;
+                const homeScoreEl = document.getElementById('home-score');
+                const awayScoreEl = document.getElementById('away-score');
+                const dividerEl = document.getElementById('central-divider');
+
+                if(lastKnownStatus !== data.setup.status) {
+                    if(data.setup.status === 'pre-match') {
+                        switchTab(null, 'panel-preview');
+                    } else {
+                        switchTab(null, 'panel-timeline');
+                    }
+                    lastKnownStatus = data.setup.status;
                 }
 
-                // --- 3. CORE CONTENT SCORE HYDRATION ---
-                document.getElementById('home-score').innerText = data.homeScore;
-                document.getElementById('away-score').innerText = data.awayScore;
+                if (data.setup.status === 'pre-match') {
+                    badge.innerText = 'UPCOMING';
+                    badge.style.color = '#94a3b8'; badge.style.borderColor = '#94a3b8';
+                    badge.style.backgroundColor = 'rgba(148, 163, 184, 0.1)';
+                    badge.style.animation = 'none';
+                    clock.style.display = 'inline-flex';
+                    
+                    // UX Fix: Clean match card headers before kickoff
+                    homeScoreEl.innerText = '-';
+                    awayScoreEl.innerText = '-';
+                    dividerEl.innerText = 'VS';
+                    
+                    if(!countdownTicker) startCountdownTimer(data.setup.countdownTarget);
+                } else {
+                    if(countdownTicker) { clearInterval(countdownTicker); countdownTicker = null; }
+                    dividerEl.innerText = '-'; // Revert back to scorecard structural symbol
 
-                // 2B. Real-Time Timeline Matrix Renderer loop
+                    if (data.setup.status === 'post-match') {
+                        badge.innerText = 'FULL TIME';
+                        badge.style.color = '#f8fafc'; badge.style.borderColor = '#f8fafc';
+                        badge.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                        badge.style.animation = 'none';
+                        clock.style.display = 'inline-flex';
+                        clock.innerHTML = `🏁 MATCH ENDED`;
+                        
+                        // Hydrate final stats before execution suspension
+                        homeScoreEl.innerText = data.homeScore;
+                        awayScoreEl.innerText = data.awayScore;
+
+                        // CRITICAL: Terminate background tracking polling to preserve Render free resources
+                        console.log('Match context concluded. Disabling background client synchronization loop.');
+                        if(coreSyncLoopInterval) clearInterval(coreSyncLoopInterval);
+                        return; 
+                    } else {
+                        badge.innerText = 'LIVE';
+                        badge.style.color = 'var(--live-red)'; badge.style.borderColor = 'rgba(239, 68, 68, 0.25)';
+                        badge.style.backgroundColor = 'rgba(239, 68, 68, 0.12)';
+                        clock.style.display = 'inline-flex';
+                        clock.innerHTML = `${data.clock}<span style="animation: pulse 1.3s infinite;">'</span>`;
+                    }
+                }
+
+                // --- 4. CORE LIVE RE-HYDRATION ---
+                if (data.setup.status !== 'pre-match') {
+                    homeScoreEl.innerText = data.homeScore;
+                    awayScoreEl.innerText = data.awayScore;
+                }
+
                 let timelineHTML = '';
                 if(data.events && data.events.length > 0) {
                     data.events.forEach(e => {
@@ -638,39 +462,37 @@
                         `;
                     });
                 } else {
-                    timelineHTML = '<div style="text-align:center;color:var(--text-muted);padding-top:20px;">Match is underway. Awaiting timeline events...</div>';
+                    timelineHTML = '<div style="text-align:center;color:var(--text-muted);padding-top:20px;">Awaiting events notification matrix...</div>';
                 }
                 document.getElementById('timeline-container').innerHTML = timelineHTML;
 
-                // 2C. Dynamic Graphical Progress Bars Calculation
                 document.getElementById('stats-container').innerHTML = 
                     generateStatRow('Possession', data.stats.possession.home, data.stats.possession.away) +
                     generateStatRow('Shots', data.stats.shots.home, data.stats.shots.away) +
                     generateStatRow('Shots on Target', data.stats.shotsOnTarget.home, data.stats.shotsOnTarget.away);
 
-                // 2D. Lineup Comma Separated Split Map Execution
                 const buildLineupList = (targetId, commaString) => {
                     const el = document.getElementById(targetId);
-                    if(!commaString) { el.innerHTML = '<li>Awaiting line-up notification</li>'; return; }
+                    if(!commaString) { el.innerHTML = '<li>Awaiting roster confirmation...</li>'; return; }
                     el.innerHTML = commaString.split(',').map(p => `<li>${p.trim()}</li>`).join('');
                 };
                 buildLineupList('home-lineup-list', data.lineups.home);
                 buildLineupList('away-lineup-list', data.lineups.away);
 
-                // 2E. Standings Component List Injection (Fully Dynamic Country Optimization)
                 document.getElementById('standings-rows-container').innerHTML = `
-                    <tr><td>${data.setup.homeTeam.name}</td><td class="table-center">${data.standings.home.gd}</td><td class="table-center"><strong>${data.standings.home.pts}</strong></td></tr>
-                    <tr><td>${data.setup.awayTeam.name}</td><td class="table-center">${data.standings.away.gd}</td><td class="table-center"><strong>${data.standings.away.pts}</strong></td></tr>
+                    <tr><td>🇺🇳 ${data.setup.homeTeam.name}</td><td class="table-center">${data.standings.home.gd}</td><td class="table-center"><strong>${data.standings.home.pts}</strong></td></tr>
+                    <tr><td>🇺🇳 ${data.setup.awayTeam.name}</td><td class="table-center">${data.standings.away.gd}</td><td class="table-center"><strong>${data.standings.away.pts}</strong></td></tr>
                 `;
 
                 lucide.createIcons();
 
             } catch (err) {
-                console.error('Real-Time core stream interruption:', err);
+                console.error('Core stream breakdown:', err);
             }
         }
 
-        setInterval(fetchEngineUpdates, 10000);
+        // Initialize execution handle to preserve garbage collection and interval control mappings
+        coreSyncLoopInterval = setInterval(fetchEngineUpdates, 10000);
         fetchEngineUpdates(); 
     </script>
 </body>
