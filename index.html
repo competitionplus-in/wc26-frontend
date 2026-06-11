@@ -492,6 +492,7 @@
     <script>
         // REPLACE THIS URL WITH YOUR ACTUAL LIVE RENDER SERVER URL IN PRODUCTION
         const BACKEND_ENDPOINT = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
+        const viewerId = Math.random().toString(36).substring(2, 15);
 
         // 1. Interactive Client Side Tab Switch Engine
         function switchTab(event, panelId) {
@@ -524,7 +525,7 @@
         // 2. Continuous Polling Data Fetch Sync Loop Execution
         async function fetchEngineUpdates() {
             try {
-                const response = await fetch(BACKEND_ENDPOINT);
+                const response = await fetch(`${BACKEND_ENDPOINT}?viewerId=${viewerId}`);
                 if (!response.ok) throw new Error('Data sync stream failed');
                 const data = await response.json();
 
