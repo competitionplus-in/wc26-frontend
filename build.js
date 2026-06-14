@@ -37,14 +37,12 @@ let matchCardsHTML = '';
 let currentGroup = '';
 
 schedule.forEach(match => {
-    // Generate Group Headers dynamically
     if (match.group !== currentGroup) {
         matchCardsHTML += `\n<section class="group-section" aria-labelledby="header-${match.group.replace(' ', '-').toLowerCase()}">`;
         matchCardsHTML += `\n<h2 id="header-${match.group.replace(' ', '-').toLowerCase()}" class="group-header">${match.group}</h2>\n`;
         currentGroup = match.group;
     }
 
-    // 🏆 SEO MAGIC: Generate the Clean URL and hardcode the team names!
     matchCardsHTML += `
         <a href="/match/${match.date}/${match.slug}" class="match-card" aria-label="${match.home.name} vs ${match.away.name}">
             <div class="team-block">
@@ -54,7 +52,7 @@ schedule.forEach(match => {
             
             <div class="score-block">
                 <span class="score-time" style="font-size: 0.75rem;">VS</span>
-                <span class="score-main">0 - 0</span>
+                <span class="score-main">v</span>
             </div>
             
             <div class="team-block away">
@@ -70,9 +68,7 @@ matchCardsHTML += `\n</section>`;
 // 4. Inject the generated cards into the template
 const finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
 
-// --- THE VERCEL FIX ---
-
-// 5. Create the "public" folder that Vercel is looking for
+// 5. Create the "public" folder
 const outputDir = path.join(__dirname, 'public');
 if (!fs.existsSync(outputDir)){
     fs.mkdirSync(outputDir, { recursive: true });
@@ -81,9 +77,18 @@ if (!fs.existsSync(outputDir)){
 // 6. Write the brand new index.html into the 'public' folder
 fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
-// 7. Copy match.html into the 'public' folder so it gets deployed too!
+// --- 7. THE TRUE SSG FIX ---
+// Physically build the directories for every single match so Vercel never gives a 404!
 if (fs.existsSync(path.join(__dirname, 'match.html'))) {
-    fs.copyFileSync(path.join(__dirname, 'match.html'), path.join(outputDir, 'match.html'));
+    schedule.forEach(match => {
+        // Create the physical folder path
+        const matchDir = path.join(outputDir, 'match', match.date, match.slug);
+        fs.mkdirSync(matchDir, { recursive: true });
+        
+        // Drop a copy of match.html inside that folder as 'index.html'
+        fs.copyFileSync(path.join(__dirname, 'match.html'), path.join(matchDir, 'index.html'));
+    });
+    console.log("✅ Physically generated dynamic match directories!");
 }
 
 console.log("✅ Successfully generated hardcoded website in the /public folder!");
