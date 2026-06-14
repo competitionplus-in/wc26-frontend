@@ -264,14 +264,13 @@
             matchCards.forEach(async (card) => {
                 try {
                     // 1. Read the href to figure out which match this is
-                    // Example href: "/match/2026-06-11/mexico-vs-south-africa"
                     const href = card.getAttribute('href'); 
                     const parts = href.split('/');
                     if(parts.length < 4) return; // Skip if URL is malformed
                     
-                    const date = parts[2];
+                    const fixtureDate = parts[2]; // e.g., "2026-06-11"
                     const slug = parts[3];
-                    const matchId = `${slug}-${date}`; // Rebuild the Admin ID
+                    const matchId = `${slug}-${fixtureDate}`; // Rebuild the Admin ID
 
                     // 2. Fetch the live data for this specific match
                     const response = await fetch(`${BACKEND_URL}?id=${matchId}`);
@@ -282,23 +281,46 @@
                     const scoreMain = card.querySelector('.score-main');
                     const scoreTime = card.querySelector('.score-time');
 
-                    // 4. Update the DOM if the match has started or finished
-                    if (data.setup.status !== 'pre-match') {
-                        // Inject the real score
+                    // 4. THE SMART UI ROUTER
+                    if (data.setup.status === 'pre-match') {
+                        
+                        // --- THE (+1) TIMEZONE CALCULATOR ---
+                        const localKickoff = new Date(data.setup.countdownTarget);
+                        
+                        // Extract the local year, month, and day to build a YYYY-MM-DD string
+                        const localYear = localKickoff.getFullYear();
+                        const localMonth = String(localKickoff.getMonth() + 1).padStart(2, '0');
+                        const localDay = String(localKickoff.getDate()).padStart(2, '0');
+                        const localDateString = `${localYear}-${localMonth}-${localDay}`;
+
+                        // Format the time beautifully (e.g., "05:30 AM")
+                        let timeString = localKickoff.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        // Compare the local date to the official URL fixture date
+                        if (localDateString > fixtureDate) {
+                            timeString += ' (+1)';
+                        } else if (localDateString < fixtureDate) {
+                            timeString += ' (-1)'; // Just in case they are behind UTC!
+                        }
+
+                        // Inject the smart time into the UI
+                        scoreTime.innerText = timeString;
+                        scoreTime.style.color = 'var(--accent-glow)'; // Give it a nice pop of color
+                        scoreMain.innerText = 'v'; // Replace '0 - 0' with a clean 'v' before kickoff
+
+                    } else if (data.setup.status !== 'pre-match') {
+                        // --- LIVE & POST-MATCH LOGIC ---
                         scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
 
                         if (data.setup.status === 'live') {
-                            // Add the pulsing red live clock
                             scoreTime.innerHTML = `<span class="live-text">${data.clock}'</span>`;
                             scoreMain.style.color = 'var(--live-red)';
                         } else if (data.setup.status === 'post-match') {
-                            // Show Full Time (FT)
                             scoreTime.innerText = 'FT';
                             scoreMain.style.color = 'var(--text-main)';
                         }
                     }
                 } catch (error) {
-                    // If Render is asleep or fails, the user still sees 0-0 (graceful fallback)
                     console.warn('Hydration skipped for:', card.href);
                 }
             });
