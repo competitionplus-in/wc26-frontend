@@ -4,7 +4,6 @@ const path = require('path');
 console.log("🚀 Starting Pitch90 SEO Build Process...");
 
 // 1. Define the Master Tournament Schedule
-// This guarantees Vercel always builds successfully.
 const schedule = [
     {
         date: "2026-06-11",
@@ -66,13 +65,25 @@ schedule.forEach(match => {
     `;
 });
 
-// Close the final section tag
 matchCardsHTML += `\n</section>`;
 
 // 4. Inject the generated cards into the template
 const finalHTML = htmlTemplate.replace('', matchCardsHTML);
 
-// 5. Write the brand new, SEO-perfect index.html file
-fs.writeFileSync(path.join(__dirname, 'index.html'), finalHTML);
+// --- THE VERCEL FIX ---
 
-console.log("✅ Successfully generated hardcoded index.html!");
+// 5. Create the "public" folder that Vercel is looking for
+const outputDir = path.join(__dirname, 'public');
+if (!fs.existsSync(outputDir)){
+    fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// 6. Write the brand new index.html into the 'public' folder
+fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
+
+// 7. Copy match.html into the 'public' folder so it gets deployed too!
+if (fs.existsSync(path.join(__dirname, 'match.html'))) {
+    fs.copyFileSync(path.join(__dirname, 'match.html'), path.join(outputDir, 'match.html'));
+}
+
+console.log("✅ Successfully generated hardcoded website in the /public folder!");
