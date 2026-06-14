@@ -113,7 +113,6 @@
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
             margin: 0 0 10px 5px;
             display: flex;
             align-items: center;
@@ -131,7 +130,7 @@
             align-items: center;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none; /* Wrapping in A tag for SEO routing */
+            text-decoration: none;
             color: inherit;
         }
         .match-card:hover {
@@ -227,46 +226,8 @@
     <main class="content-container">
         
         <h1 class="sr-only">FIFA World Cup 2026 Match Schedule and Live Scores</h1>
-
-        <section class="group-section" aria-labelledby="header-group-b">
-            <h2 id="header-group-b" class="group-header">Group B</h2>
-            
-            <a href="/match?id=can-bih" class="match-card" aria-label="Canada vs Bosnia and Herzegovina, Match Ended 1 to 1">
-                <div class="team-block">
-                    <img src="https://flagcdn.com/w40/ca.png" class="team-flag" alt="Canada Flag">
-                    <span class="team-name">CAN</span>
-                </div>
-                <div class="score-block">
-                    <span class="score-time">FT</span>
-                    <span class="score-main">1 - 1</span>
-                </div>
-                <div class="team-block away">
-                    <span class="team-name">BIH</span>
-                    <img src="https://flagcdn.com/w40/ba.png" class="team-flag" alt="Bosnia Flag">
-                </div>
-            </a>
-        </section>
-
-        <section class="group-section" aria-labelledby="header-group-d">
-            <h2 id="header-group-d" class="group-header">Group D</h2>
-            
-            <a href="/match?id=usa-par" class="match-card" aria-label="USA vs Paraguay, Live Match">
-                <div class="team-block">
-                    <img src="https://flagcdn.com/w40/us.png" class="team-flag" alt="USA Flag">
-                    <span class="team-name">USA</span>
-                </div>
-                <div class="score-block">
-                    <span class="live-text">68'</span>
-                    <span class="score-main">4 - 1</span>
-                </div>
-                <div class="team-block away">
-                    <span class="team-name">PAR</span>
-                    <img src="https://flagcdn.com/w40/py.png" class="team-flag" alt="Paraguay Flag">
-                </div>
-            </a>
-        </section>
-
-    </main>
+        
+        </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
         <a href="/" class="nav-item active">
