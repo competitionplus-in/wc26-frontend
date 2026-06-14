@@ -773,27 +773,47 @@
             `;
         };
 
-        // Check if this specific user already voted on this specific match
+        // Check if user voted on this match previously
         let hasVoted = localStorage.getItem(`voted_${matchId}`) === 'true'; 
 
-        // If they already voted before refreshing, visually lock the buttons
-        if (hasVoted) {
-            document.addEventListener("DOMContentLoaded", () => {
+        // Master function to handle perfect poll math and CSS rendering
+        function renderPollUI(pollData) {
+            const homeVotes = parseInt(pollData.home) || 0;
+            const drawVotes = parseInt(pollData.draw) || 0;
+            const awayVotes = parseInt(pollData.away) || 0;
+            const total = homeVotes + drawVotes + awayVotes;
+
+            const homePct = total === 0 ? 0 : Math.round((homeVotes / total) * 100);
+            const drawPct = total === 0 ? 0 : Math.round((drawVotes / total) * 100);
+            const awayPct = total === 0 ? 0 : (100 - homePct - drawPct);
+
+            document.getElementById('poll-fill-home').style.width = `${homePct}%`;
+            document.getElementById('poll-fill-draw').style.width = `${drawPct}%`;
+            document.getElementById('poll-fill-away').style.width = `${awayPct}%`;
+
+            document.getElementById('poll-pct-home').innerText = `${homePct}%`;
+            document.getElementById('poll-pct-draw').innerText = `${drawPct}%`;
+            document.getElementById('poll-pct-away').innerText = `${awayPct}%`;
+
+            document.getElementById('poll-total-votes').innerText = `${pollData.votes || '0'} Votes`;
+
+            // If the user has already voted, lock the UI and show the percentages
+            if (hasVoted) {
                 document.querySelectorAll('.poll-btn').forEach(btn => btn.classList.add('voted'));
-            });
+            }
         }
 
         async function submitPoll(choice) {
             if(hasVoted) return; 
             
-            // 1. Lock the UI instantly so they can't double-click
+            // 1. Lock the UI instantly
             hasVoted = true;
             localStorage.setItem(`voted_${matchId}`, 'true');
             const buttons = document.querySelectorAll('.poll-btn');
             buttons.forEach(btn => btn.classList.add('voted'));
 
             try {
-                // 2. Send the vote securely to your Render Backend
+                // 2. Send vote to backend
                 const response = await fetch('https://wc26-backend-kd7l.onrender.com/api/vote', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -803,33 +823,12 @@
                 if (!response.ok) throw new Error('Vote failed');
                 const data = await response.json();
 
-                // 3. Update the UI with the *real* live data from MongoDB
+                // 3. Render the updated global results
                 if (data.success && data.newPollData) {
-                    const homeVotes = parseInt(data.newPollData.home) || 0;
-                    const drawVotes = parseInt(data.newPollData.draw) || 0;
-                    const awayVotes = parseInt(data.newPollData.away) || 0;
-                    const total = homeVotes + drawVotes + awayVotes;
-
-                    const homePct = total === 0 ? 0 : Math.round((homeVotes / total) * 100);
-                    const drawPct = total === 0 ? 0 : Math.round((drawVotes / total) * 100);
-                    const awayPct = total === 0 ? 0 : (100 - homePct - drawPct);
-
-                    // Animate the bars
-                    document.getElementById('poll-fill-home').style.width = `${homePct}%`;
-                    document.getElementById('poll-fill-draw').style.width = `${drawPct}%`;
-                    document.getElementById('poll-fill-away').style.width = `${awayPct}%`;
-
-                    // Update the text percentages
-                    document.getElementById('poll-pct-home').innerText = `${homePct}%`;
-                    document.getElementById('poll-pct-draw').innerText = `${drawPct}%`;
-                    document.getElementById('poll-pct-away').innerText = `${awayPct}%`;
-
-                    // Update total votes
-                    document.getElementById('poll-total-votes').innerText = `${data.newPollData.votes} Votes`;
+                    renderPollUI(data.newPollData);
                 }
             } catch (error) {
                 console.error("Voting error:", error);
-                // If the internet drops, unlock the buttons so they can try again
                 hasVoted = false;
                 localStorage.removeItem(`voted_${matchId}`);
                 buttons.forEach(btn => btn.classList.remove('voted'));
@@ -927,11 +926,12 @@
                 document.getElementById('form-away-run').innerHTML = renderFormPills(awayFormArray);
 
                 // --- POLLS ---
-                document.getElementById('poll-total-votes').innerText = `${data.setup.poll?.votes || '0'} Votes`;
-                window.basePollHome = parseInt(data.setup.poll?.home) || 0;
-                window.basePollDraw = parseInt(data.setup.poll?.draw) || 0;
-                window.basePollAway = parseInt(data.setup.poll?.away) || 0;
+                if (data.setup.poll) {
+                    // Instantly render the bars and math from the server on load
+                    renderPollUI(data.setup.poll);
+                }
 
+                // Update team names and flags in the poll UI
                 document.getElementById('poll-name-home').innerText = currentHomeTeamName;
                 document.getElementById('poll-flag-home').src = `https://flagcdn.com/w40/${currentHomeTeamCode}.png`;
                 document.getElementById('poll-name-away').innerText = currentAwayTeamName;
