@@ -773,36 +773,69 @@
             `;
         };
 
-        let hasVoted = false;
-        function submitPoll(choice) {
+        // Check if this specific user already voted on this specific match
+        let hasVoted = localStorage.getItem(`voted_${matchId}`) === 'true'; 
+
+        // If they already voted before refreshing, visually lock the buttons
+        if (hasVoted) {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll('.poll-btn').forEach(btn => btn.classList.add('voted'));
+            });
+        }
+
+        async function submitPoll(choice) {
             if(hasVoted) return; 
-            hasVoted = true;
-
-            let homePct = window.basePollHome || 0;
-            let drawPct = window.basePollDraw || 0;
-            let awayPct = window.basePollAway || 0;
-
-            if(choice === 'home') homePct++;
-            if(choice === 'draw') drawPct++;
-            if(choice === 'away') awayPct++;
             
-            const total = homePct + drawPct + awayPct;
-            homePct = Math.round((homePct / total) * 100);
-            drawPct = Math.round((drawPct / total) * 100);
-            awayPct = 100 - homePct - drawPct; 
-
+            // 1. Lock the UI instantly so they can't double-click
+            hasVoted = true;
+            localStorage.setItem(`voted_${matchId}`, 'true');
             const buttons = document.querySelectorAll('.poll-btn');
             buttons.forEach(btn => btn.classList.add('voted'));
 
-            document.getElementById('poll-fill-home').style.width = `${homePct}%`;
-            document.getElementById('poll-fill-draw').style.width = `${drawPct}%`;
-            document.getElementById('poll-fill-away').style.width = `${awayPct}%`;
+            try {
+                // 2. Send the vote securely to your Render Backend
+                const response = await fetch('https://wc26-backend-kd7l.onrender.com/api/vote', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ matchId: matchId, choice: choice })
+                });
 
-            document.getElementById('poll-pct-home').innerText = `${homePct}%`;
-            document.getElementById('poll-pct-draw').innerText = `${drawPct}%`;
-            document.getElementById('poll-pct-away').innerText = `${awayPct}%`;
+                if (!response.ok) throw new Error('Vote failed');
+                const data = await response.json();
+
+                // 3. Update the UI with the *real* live data from MongoDB
+                if (data.success && data.newPollData) {
+                    const homeVotes = parseInt(data.newPollData.home) || 0;
+                    const drawVotes = parseInt(data.newPollData.draw) || 0;
+                    const awayVotes = parseInt(data.newPollData.away) || 0;
+                    const total = homeVotes + drawVotes + awayVotes;
+
+                    const homePct = total === 0 ? 0 : Math.round((homeVotes / total) * 100);
+                    const drawPct = total === 0 ? 0 : Math.round((drawVotes / total) * 100);
+                    const awayPct = total === 0 ? 0 : (100 - homePct - drawPct);
+
+                    // Animate the bars
+                    document.getElementById('poll-fill-home').style.width = `${homePct}%`;
+                    document.getElementById('poll-fill-draw').style.width = `${drawPct}%`;
+                    document.getElementById('poll-fill-away').style.width = `${awayPct}%`;
+
+                    // Update the text percentages
+                    document.getElementById('poll-pct-home').innerText = `${homePct}%`;
+                    document.getElementById('poll-pct-draw').innerText = `${drawPct}%`;
+                    document.getElementById('poll-pct-away').innerText = `${awayPct}%`;
+
+                    // Update total votes
+                    document.getElementById('poll-total-votes').innerText = `${data.newPollData.votes} Votes`;
+                }
+            } catch (error) {
+                console.error("Voting error:", error);
+                // If the internet drops, unlock the buttons so they can try again
+                hasVoted = false;
+                localStorage.removeItem(`voted_${matchId}`);
+                buttons.forEach(btn => btn.classList.remove('voted'));
+            }
         }
-
+        
         function renderH2H(homeName, homeCode, awayName, awayCode, h2hHistoryArray) {
             const container = document.getElementById('h2h-container');
             const flagHome = `<img src="https://flagcdn.com/w40/${homeCode}.png" alt="Flag" style="width:20px; height:20px; border-radius:50%; object-fit:cover;">`;
