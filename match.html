@@ -596,11 +596,14 @@
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-        // --- 1. PREMIUM ROUTING ENGINE ---
-        // Vercel routes /match/2026-06-12/mexico-vs-south-africa to ?date=...&slug=...
-        const urlParams = new URLSearchParams(window.location.search);
-        const matchDate = urlParams.get('date');
-        const matchSlug = urlParams.get('slug');
+       // --- 1. PREMIUM ROUTING ENGINE ---
+        // Read the clean URL path provided by Vercel
+        // Example URL: /match/2026-06-11/mexico-vs-south-africa
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        
+        // pathParts[0] is "match"
+        const matchDate = pathParts[1];
+        const matchSlug = pathParts[2];
 
         // Security Check: If someone navigates to /match with no parameters, send them home
         if (!matchSlug || !matchDate) {
@@ -609,9 +612,9 @@
         }
 
         // 🏆 Stitch them together to perfectly match your Admin Panel ID!
-        // This creates: "mexico-vs-south-africa-2026-06-12"
+        // This creates: "mexico-vs-south-africa-2026-06-11"
         const matchId = `${matchSlug}-${matchDate}`;
-
+        
         // --- 2. CONFIGURATION & STATE ---
         const BACKEND_ENDPOINT = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
         
