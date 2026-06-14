@@ -240,7 +240,7 @@
         </a>
     </nav>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+   <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
 
@@ -254,6 +254,62 @@
                 scroller.scrollTo({ left: scrollLeft, behavior: 'instant' });
             }
         });
+
+        // ⚡ THE HYDRATION ENGINE ⚡
+        // This quietly fetches live scores from Render and updates the hardcoded 0-0
+        async function hydrateLiveScores() {
+            const matchCards = document.querySelectorAll('.match-card');
+            const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
+
+            matchCards.forEach(async (card) => {
+                try {
+                    // 1. Read the href to figure out which match this is
+                    // Example href: "/match/2026-06-11/mexico-vs-south-africa"
+                    const href = card.getAttribute('href'); 
+                    const parts = href.split('/');
+                    if(parts.length < 4) return; // Skip if URL is malformed
+                    
+                    const date = parts[2];
+                    const slug = parts[3];
+                    const matchId = `${slug}-${date}`; // Rebuild the Admin ID
+
+                    // 2. Fetch the live data for this specific match
+                    const response = await fetch(`${BACKEND_URL}?id=${matchId}`);
+                    if (!response.ok) return;
+                    const data = await response.json();
+
+                    // 3. Find the text elements on the card
+                    const scoreMain = card.querySelector('.score-main');
+                    const scoreTime = card.querySelector('.score-time');
+
+                    // 4. Update the DOM if the match has started or finished
+                    if (data.setup.status !== 'pre-match') {
+                        // Inject the real score
+                        scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
+
+                        if (data.setup.status === 'live') {
+                            // Add the pulsing red live clock
+                            scoreTime.innerHTML = `<span class="live-text">${data.clock}'</span>`;
+                            scoreMain.style.color = 'var(--live-red)';
+                        } else if (data.setup.status === 'post-match') {
+                            // Show Full Time (FT)
+                            scoreTime.innerText = 'FT';
+                            scoreMain.style.color = 'var(--text-main)';
+                        }
+                    }
+                } catch (error) {
+                    // If Render is asleep or fails, the user still sees 0-0 (graceful fallback)
+                    console.warn('Hydration skipped for:', card.href);
+                }
+            });
+        }
+
+        // Run hydration immediately when the user opens the page
+        hydrateLiveScores();
+        
+        // Quietly check for new goals every 30 seconds in the background
+        setInterval(hydrateLiveScores, 30000);
+
     </script>
 </body>
 </html>
