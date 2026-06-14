@@ -91,4 +91,14 @@ if (fs.existsSync(path.join(__dirname, 'match.html'))) {
     console.log("✅ Physically generated dynamic match directories!");
 }
 
+// --- 8. SSG FIX FOR STANDINGS PAGE ---
+if (fs.existsSync(path.join(__dirname, 'standings.html'))) {
+    const standingsDir = path.join(outputDir, 'standings');
+    fs.mkdirSync(standingsDir, { recursive: true });
+    
+    // Drop a copy of standings.html inside that folder as 'index.html'
+    fs.copyFileSync(path.join(__dirname, 'standings.html'), path.join(standingsDir, 'index.html'));
+    console.log("✅ Physically generated the /standings directory!");
+}
+
 console.log("✅ Successfully generated hardcoded website in the /public folder!");
