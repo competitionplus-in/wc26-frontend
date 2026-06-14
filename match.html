@@ -245,7 +245,15 @@
             border: 1px solid var(--border-glass); z-index: 2; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0; 
         }
         .event-icon svg { width: 14px; height: 14px; color: var(--text-main); }
-        .event-details { flex: 1; font-size: 1rem; font-weight: 600; color: var(--text-main); text-align: left; }
+        .event-details { 
+            flex: 1; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            color: var(--text-main); 
+            text-align: left;
+            word-wrap: break-word; /* Prevents long text from breaking the UI */
+            overflow-wrap: break-word;
+        }
 
         .icon-goal { font-size: 16px; border-color: var(--accent-green); background-color: var(--bg-card); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); padding: 0; }
         .icon-yellow { background-color: var(--bg-card); border-color: var(--border-glass); }
@@ -883,14 +891,14 @@
                 if (!response.ok) throw new Error('Data stream breakdown');
                 const data = await response.json();
 
-                currentHomeTeamName = data.setup.homeTeam.name;
-                currentAwayTeamName = data.setup.awayTeam.name;
-                currentHomeTeamCode = data.setup.homeTeam.code;
-                currentAwayTeamCode = data.setup.awayTeam.code;
+                currentHomeTeamName = data.setup?.homeTeam?.name || "Home";
+                currentAwayTeamName = data.setup?.awayTeam?.name || "Away";
+                currentHomeTeamCode = data.setup?.homeTeam?.code || "un";
+                currentAwayTeamCode = data.setup?.awayTeam?.code || "un";
 
                 // --- HEADER & VENUE ---
-                document.getElementById('match-info-text').innerText = data.setup.matchInfo;
-                document.getElementById('match-venue-text').innerText = data.setup.matchVenue;
+                document.getElementById('match-info-text').innerText = data.setup?.matchInfo || "";
+                document.getElementById('match-venue-text').innerText = data.setup?.matchVenue || "";
                 
                 document.getElementById('home-team-name').innerText = currentHomeTeamName;
                 document.getElementById('away-team-name').innerText = currentAwayTeamName;
@@ -899,12 +907,15 @@
                 document.getElementById('away-flag').src = `https://flagcdn.com/w160/${currentAwayTeamCode}.png`;
 
                 document.getElementById('home-player-team').innerText = `${currentHomeTeamName} Key Player`;
-                document.getElementById('home-player-name').innerText = data.setup.playersToWatch.home;
+                document.getElementById('home-player-name').innerText = data.setup?.playersToWatch?.home || "TBD";
                 document.getElementById('away-player-team').innerText = `${currentAwayTeamName} Key Player`;
-                document.getElementById('away-player-name').innerText = data.setup.playersToWatch.away;
+                document.getElementById('away-player-name').innerText = data.setup?.playersToWatch?.away || "TBD";
 
-                // --- PROBABILITIES ---
-                const hp = data.setup.probabilities.home, dp = data.setup.probabilities.draw, ap = data.setup.probabilities.away;
+                // --- PROBABILITIES (SAFE CHAINING) ---
+                const hp = data.setup?.probabilities?.home || 0;
+                const dp = data.setup?.probabilities?.draw || 0;
+                const ap = data.setup?.probabilities?.away || 0;
+                
                 document.getElementById('prob-text-home').innerText = `${currentHomeTeamName} ${hp}%`;
                 document.getElementById('prob-text-draw').innerText = `Draw ${dp}%`;
                 document.getElementById('prob-text-away').innerText = `${currentAwayTeamName} ${ap}%`;
@@ -920,32 +931,30 @@
                 document.getElementById('preview-home-flag').src = `https://flagcdn.com/w40/${currentHomeTeamCode}.png`;
                 document.getElementById('preview-away-flag').src = `https://flagcdn.com/w40/${currentAwayTeamCode}.png`;
                 
-                document.getElementById('match-facts-text').innerHTML = `<strong>Match Context:</strong> ${data.setup.matchFacts || 'Awaiting match context...'}`;
+                document.getElementById('match-facts-text').innerHTML = `<strong>Match Context:</strong> ${data.setup?.matchFacts || 'Awaiting match context...'}`;
 
                 document.getElementById('form-home-flag').src = `https://flagcdn.com/w40/${currentHomeTeamCode}.png`;
                 document.getElementById('form-home-name').innerText = currentHomeTeamName;
                 document.getElementById('form-away-flag').src = `https://flagcdn.com/w40/${currentAwayTeamCode}.png`;
                 document.getElementById('form-away-name').innerText = currentAwayTeamName;
 
-                const homeFormArray = data.setup.form?.home ? data.setup.form.home.split(',') : [];
-                const awayFormArray = data.setup.form?.away ? data.setup.form.away.split(',') : [];
+                const homeFormArray = data.setup?.form?.home ? data.setup.form.home.split(',') : [];
+                const awayFormArray = data.setup?.form?.away ? data.setup.form.away.split(',') : [];
                 document.getElementById('form-home-run').innerHTML = renderFormPills(homeFormArray);
                 document.getElementById('form-away-run').innerHTML = renderFormPills(awayFormArray);
 
                 // --- POLLS ---
-                if (data.setup.poll) {
-                    // Instantly render the bars and math from the server on load
+                if (data.setup?.poll) {
                     renderPollUI(data.setup.poll);
                 }
 
-                // Update team names and flags in the poll UI
                 document.getElementById('poll-name-home').innerText = currentHomeTeamName;
                 document.getElementById('poll-flag-home').src = `https://flagcdn.com/w40/${currentHomeTeamCode}.png`;
                 document.getElementById('poll-name-away').innerText = currentAwayTeamName;
                 document.getElementById('poll-flag-away').src = `https://flagcdn.com/w40/${currentAwayTeamCode}.png`;
                 
                 // --- H2H ---
-                const h2hData = data.setup.h2h ? data.setup.h2h.split('\n').filter(line => line.trim()).map(line => {
+                const h2hData = data.setup?.h2h ? data.setup.h2h.split('\n').filter(line => line.trim()).map(line => {
                     const parts = line.split(',');
                     return { 
                         year: parts[0]?.trim(), 
@@ -962,17 +971,19 @@
                 const homeScoreEl = document.getElementById('home-score');
                 const awayScoreEl = document.getElementById('away-score');
                 const dividerEl = document.getElementById('central-divider');
+                
+                const matchStatus = data.setup?.status || 'pre-match';
 
-                if(lastKnownStatus !== data.setup.status) {
-                    if(data.setup.status === 'pre-match') {
+                if(lastKnownStatus !== matchStatus) {
+                    if(matchStatus === 'pre-match') {
                         switchTab(null, 'panel-preview');
                     } else {
                         switchTab(null, 'panel-timeline');
                     }
-                    lastKnownStatus = data.setup.status;
+                    lastKnownStatus = matchStatus;
                 }
 
-                if (data.setup.status === 'pre-match') {
+                if (matchStatus === 'pre-match') {
                     badge.innerText = 'UPCOMING';
                     badge.style.color = '#64748b'; badge.style.borderColor = '#cbd5e1';
                     badge.style.backgroundColor = '#f8fafc';
@@ -981,12 +992,14 @@
                     homeScoreEl.innerText = '-';
                     awayScoreEl.innerText = '-';
                     dividerEl.innerText = 'V';
-                    if(!countdownTicker) startCountdownTimer(data.setup.countdownTarget);
+                    if(!countdownTicker && data.setup?.countdownTarget) {
+                        startCountdownTimer(data.setup.countdownTarget);
+                    }
                 } else {
                     if(countdownTicker) { clearInterval(countdownTicker); countdownTicker = null; }
                     dividerEl.innerText = '-';
 
-                    if (data.setup.status === 'post-match') {
+                    if (matchStatus === 'post-match') {
                         badge.innerText = 'FULL TIME';
                         badge.style.color = '#0f172a'; badge.style.borderColor = '#cbd5e1';
                         badge.style.backgroundColor = '#e2e8f0';
@@ -994,25 +1007,27 @@
                         clock.style.display = 'none'; 
                         clock.innerHTML = `🏁 MATCH ENDED`;
                         
-                        homeScoreEl.innerText = data.homeScore;
-                        awayScoreEl.innerText = data.awayScore;
+                        homeScoreEl.innerText = data.homeScore || 0;
+                        awayScoreEl.innerText = data.awayScore || 0;
                     } else {
                         badge.innerText = 'LIVE';
                         badge.style.color = 'var(--live-red)'; badge.style.borderColor = 'rgba(239, 68, 68, 0.25)';
                         badge.style.backgroundColor = 'rgba(239, 68, 68, 0.12)';
                         clock.style.display = 'inline-flex';
-                        clock.innerHTML = `${data.clock}<span style="animation: pulse 1.3s infinite;">'</span>`;
+                        clock.innerHTML = `${data.clock || 0}<span style="animation: pulse 1.3s infinite;">'</span>`;
                     }
                 }
 
-                if (data.setup.status !== 'pre-match') {
-                    if (prevHomeScore !== null && data.homeScore > prevHomeScore) triggerAnimation('home-score', 'score-anim-goal');
-                    if (prevAwayScore !== null && data.awayScore > prevAwayScore) triggerAnimation('away-score', 'score-anim-goal');
+                if (matchStatus !== 'pre-match') {
+                    const currentHS = data.homeScore || 0;
+                    const currentAS = data.awayScore || 0;
+                    if (prevHomeScore !== null && currentHS > prevHomeScore) triggerAnimation('home-score', 'score-anim-goal');
+                    if (prevAwayScore !== null && currentAS > prevAwayScore) triggerAnimation('away-score', 'score-anim-goal');
                     
-                    homeScoreEl.innerText = data.homeScore;
-                    awayScoreEl.innerText = data.awayScore;
-                    prevHomeScore = data.homeScore;
-                    prevAwayScore = data.awayScore;
+                    homeScoreEl.innerText = currentHS;
+                    awayScoreEl.innerText = currentAS;
+                    prevHomeScore = currentHS;
+                    prevAwayScore = currentAS;
                 }
 
                 // --- TIMELINE ENGINE ---
@@ -1062,7 +1077,7 @@
                         let teamCode = currentHomeTeamCode;
                         let layoutClass = 'team-home-event'; 
 
-                        if (e.subtext.trim().toLowerCase() === currentAwayTeamName.toLowerCase()) {
+                        if (e.subtext && e.subtext.trim().toLowerCase() === currentAwayTeamName.toLowerCase()) {
                             teamCode = currentAwayTeamCode;
                             layoutClass = 'team-away-event'; 
                         }
@@ -1088,14 +1103,14 @@
                         if (e.type === 'goal') {
                             let goalScorer = e.detail;
                             let assistText = '';
-                            if (e.detail.includes('|')) {
+                            if (e.detail && e.detail.includes('|')) {
                                 const parts = e.detail.split('|').map(p => p.trim());
                                 goalScorer = parts[0];
                                 assistText = parts[1]; 
                             }
-                            let formattedSubtext = `${flagHTML} ${e.subtext}`;
+                            let formattedSubtext = `${flagHTML} ${e.subtext || ''}`;
                             if (assistText) {
-                                formattedSubtext = `${flagHTML} ${assistText} &bull; ${e.subtext}`;
+                                formattedSubtext = `${flagHTML} ${assistText} &bull; ${e.subtext || ''}`;
                             }
                             detailHTML = `
                                 <div class="event-details">
@@ -1106,7 +1121,7 @@
                                     <span class="event-subtext" style="margin-top: 4px;">${formattedSubtext}</span>
                                 </div>
                             `;
-                        } else if (e.type === 'sub' && e.detail.includes('|')) {
+                        } else if (e.type === 'sub' && e.detail && e.detail.includes('|')) {
                             const parts = e.detail.split('|').map(p => p.trim());
                             const inPlayer = parts[0].replace(/IN\s+/i, '').trim();
                             const outPlayer = parts.length > 1 ? parts[1].replace(/OUT\s+/i, '').trim() : '';
@@ -1114,14 +1129,14 @@
                                 <div class="event-details sub-container">
                                     <div class="sub-player sub-in"><i data-lucide="arrow-up"></i> <span>${inPlayer}</span></div>
                                     ${outPlayer ? `<div class="sub-player sub-out"><i data-lucide="arrow-down"></i> <span>${outPlayer}</span></div>` : ''}
-                                    <span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext}</span>
+                                    <span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span>
                                 </div>
                             `;
                         } else {
                             detailHTML = `
                                 <div class="event-details">
                                     ${e.detail}
-                                    <span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext}</span>
+                                    <span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span>
                                 </div>
                             `;
                         }
@@ -1142,7 +1157,7 @@
                 }
                 document.getElementById('timeline-container').innerHTML = timelineHTML;
 
-                // --- STATS ENGINE ---
+                // --- STATS ENGINE (SAFE CHAINING FIX) ---
                 const statsHeaderHTML = `
                     <div class="stats-header">
                         <div class="stats-team">
@@ -1157,19 +1172,19 @@
                 `;
                 document.getElementById('stats-container').innerHTML = 
                     statsHeaderHTML +
-                    generateStatRow('Possession', data.stats.possession.home, data.stats.possession.away) +
-                    generateStatRow('Shots', data.stats.shots.home, data.stats.shots.away) +
-                    generateStatRow('Shots on Target', data.stats.shotsOnTarget.home, data.stats.shotsOnTarget.away);
+                    generateStatRow('Possession', data.stats?.possession?.home || 50, data.stats?.possession?.away || 50) +
+                    generateStatRow('Shots', data.stats?.shots?.home || 0, data.stats?.shots?.away || 0) +
+                    generateStatRow('Shots on Target', data.stats?.shotsOnTarget?.home || 0, data.stats?.shotsOnTarget?.away || 0);
 
-                // --- LINEUPS ENGINE ---
+                // --- LINEUPS ENGINE (SAFE CHAINING FIX) ---
                 document.getElementById('lineups-container').innerHTML = 
-                    generateLineupHTML(currentHomeTeamName, currentHomeTeamCode, data.lineups.home, 'home') +
-                    generateLineupHTML(currentAwayTeamName, currentAwayTeamCode, data.lineups.away, 'away');
+                    generateLineupHTML(currentHomeTeamName, currentHomeTeamCode, data.lineups?.home || '', 'home') +
+                    generateLineupHTML(currentAwayTeamName, currentAwayTeamCode, data.lineups?.away || '', 'away');
 
-                // --- STANDINGS ENGINE ---
+                // --- STANDINGS ENGINE (SAFE CHAINING FIX) ---
                 const groupTeams = [
-                    { name: currentHomeTeamName, code: currentHomeTeamCode, pl: 1, gd: data.standings.home.gd, pts: data.standings.home.pts },
-                    { name: currentAwayTeamName, code: currentAwayTeamCode, pl: 1, gd: data.standings.away.gd, pts: data.standings.away.pts },
+                    { name: currentHomeTeamName, code: currentHomeTeamCode, pl: 1, gd: data.standings?.home?.gd || 0, pts: data.standings?.home?.pts || 0 },
+                    { name: currentAwayTeamName, code: currentAwayTeamCode, pl: 1, gd: data.standings?.away?.gd || 0, pts: data.standings?.away?.pts || 0 },
                     { name: "France", code: "fr", pl: 1, gd: 0, pts: 1 }, 
                     { name: "Uruguay", code: "uy", pl: 1, gd: -1, pts: 0 }
                 ];
@@ -1197,7 +1212,7 @@
 
                 lucide.createIcons(); 
 
-                if (data.setup.status === 'post-match') {
+                if (matchStatus === 'post-match') {
                     console.log("Match ended. Terminating data stream.");
                     return; 
                 }
@@ -1205,13 +1220,14 @@
                 let nextInterval = 10000; 
                 if (document.hidden) {
                     nextInterval = 60000; 
-                } else if (data.setup.status === 'pre-match') {
+                } else if (matchStatus === 'pre-match') {
                     nextInterval = 30000; 
                 }
                 syncTimer = setTimeout(fetchEngineUpdates, nextInterval);
 
             } catch (err) {
                 console.error('Core stream breakdown:', err);
+                // Try again in 15s if it fails
                 syncTimer = setTimeout(fetchEngineUpdates, 15000);
             }
         }
