@@ -215,8 +215,15 @@
             }
         }
 
-        // Run immediately
+        // Run immediately on load
         hydrateMasterStandings();
+
+        // Silently refresh the global table every 30 seconds
+        setInterval(() => {
+            if (!document.hidden) {
+                hydrateMasterStandings();
+            }
+        }, 30000);
     </script>
 </body>
 </html>
