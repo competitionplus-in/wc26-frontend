@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Stage Standings | Pitch90</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-elevated: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-glow: #2563eb;
+            --accent-green: #10b981;
+            --border-glass: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 80px; -webkit-font-smoothing: antialiased; }
+
+        /* --- TOP NAV --- */
+        .top-bar { 
+            background-color: var(--bg-card); padding: 16px 20px; display: flex; 
+            align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-glass); 
+            position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .brand-title { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .brand-title span { color: var(--accent-glow); }
+        .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
+
+        /* --- MAIN CONTENT --- */
+        .content-container { max-width: 800px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 25px; }
+
+        .group-card {
+            background: var(--bg-card); border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border-glass); box-shadow: 0 4px 10px -5px rgba(0,0,0,0.05);
+        }
+
+        .group-header {
+            background: var(--text-main); color: #ffffff; padding: 12px 20px;
+            font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* --- TABLE LAYOUT --- */
+        .table-wrapper { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        
+        th { 
+            background: var(--bg-elevated); color: var(--text-muted); padding: 12px 10px;
+            font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+            border-bottom: 2px solid var(--border-glass); white-space: nowrap;
+        }
+        td { padding: 14px 10px; border-bottom: 1px solid rgba(0,0,0,0.05); font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
+        tr:last-child td { border-bottom: none; }
+        
+        .center-col { text-align: center; }
+        .col-pos { width: 40px; text-align: center; font-weight: 800; font-family: 'Oswald', sans-serif; }
+        .col-team { min-width: 150px; display: flex; align-items: center; gap: 12px; }
+        .col-team img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); }
+        
+        .col-pts { font-weight: 800; color: var(--accent-glow); font-size: 1.1rem; }
+        .col-gd { color: var(--text-muted); font-weight: 500; }
+
+        /* 🏆 QUALIFICATION ZONES */
+        .qualified-row td { background-color: rgba(16, 185, 129, 0.04); }
+        .qualified-row td:first-child { border-left: 4px solid var(--accent-green); color: var(--accent-green); }
+
+        .loading-state { text-align: center; padding: 50px; color: var(--text-muted); font-weight: 600; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+        /* --- BOTTOM NAV --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--bg-card); border-top: 1px solid var(--border-glass);
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 10px 0 25px 0; z-index: 100;
+        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); text-decoration: none; font-size: 0.7rem; font-weight: 600; }
+        .nav-item.active { color: var(--accent-glow); }
+        .nav-item svg { width: 24px; height: 24px; }
+
+        @media (min-width: 768px) {
+            .bottom-nav { display: none; }
+            body { padding-bottom: 20px; }
+        }
+        @media (max-width: 600px) {
+            .hide-mobile { display: none; }
+            th, td { padding: 12px 8px; font-size: 0.85rem; }
+            .col-team img { width: 24px; height: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="brand-title">PITCH<span>90</span></div>
+        <div class="page-title">Global Standings</div>
+    </header>
+
+    <main class="content-container" id="standings-container">
+        <div class="loading-state">Synchronizing Global Leaderboards...</div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main Navigation">
+        <a href="/" class="nav-item">
+            <i data-lucide="calendar-days"></i>
+            <span>Matches</span>
+        </a>
+        <a href="/standings" class="nav-item active">
+            <i data-lucide="list-ordered"></i>
+            <span>Standings</span>
+        </a>
+        <a href="/stats" class="nav-item">
+            <i data-lucide="bar-chart-2"></i>
+            <span>Stats</span>
+        </a>
+    </nav>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+
+        // ⚡ THE STANDINGS HYDRATION ENGINE
+        async function hydrateMasterStandings() {
+            const container = document.getElementById('standings-container');
+            const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/standings';
+
+            try {
+                // Fetch the live group data from your Render backend
+                const response = await fetch(BACKEND_URL);
+                if (!response.ok) throw new Error("Data missing");
+                const data = await response.json();
+
+                let htmlContent = '';
+
+                // Loop through every group provided by the backend
+                data.groups.forEach(group => {
+                    
+                    let rowsHTML = '';
+                    
+                    // Sort teams by Points, then Goal Difference, then Goals For
+                    group.teams.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+
+                    group.teams.forEach((team, index) => {
+                        const isQualified = index < 2; // Top 2 advance
+                        const rowClass = isQualified ? 'qualified-row' : '';
+                        const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
+
+                        rowsHTML += `
+                            <tr class="${rowClass}">
+                                <td class="col-pos">${index + 1}</td>
+                                <td>
+                                    <div class="col-team">
+                                        <img src="https://flagcdn.com/w40/${team.code}.png" alt="${team.name} Flag">
+                                        <span>${team.name}</span>
+                                    </div>
+                                </td>
+                                <td class="center-col" style="color: var(--text-muted);">${team.pld}</td>
+                                <td class="center-col hide-mobile">${team.w}</td>
+                                <td class="center-col hide-mobile">${team.d}</td>
+                                <td class="center-col hide-mobile">${team.l}</td>
+                                <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.gf}:${team.ga}</td>
+                                <td class="center-col col-gd">${displayGD}</td>
+                                <td class="center-col col-pts">${team.pts}</td>
+                            </tr>
+                        `;
+                    });
+
+                    // Build the table card for this group
+                    htmlContent += `
+                        <div class="group-card">
+                            <div class="group-header">${group.name}</div>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="center-col">#</th>
+                                            <th>Team</th>
+                                            <th class="center-col">PL</th>
+                                            <th class="center-col hide-mobile">W</th>
+                                            <th class="center-col hide-mobile">D</th>
+                                            <th class="center-col hide-mobile">L</th>
+                                            <th class="center-col hide-mobile">Goals</th>
+                                            <th class="center-col">GD</th>
+                                            <th class="center-col">PTS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${rowsHTML}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Inject the finished HTML
+                container.innerHTML = htmlContent;
+
+            } catch (error) {
+                // Graceful fallback if your Render API endpoint doesn't exist yet
+                container.innerHTML = `
+                    <div style="text-align:center; padding: 40px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-glass);">
+                        <i data-lucide="server-crash" style="width:48px; height:48px; color: var(--text-muted); margin-bottom: 15px;"></i>
+                        <h3>Awaiting Backend Connection</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">The Standings API endpoint is currently being configured.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+
+        // Run immediately
+        hydrateMasterStandings();
+    </script>
+</body>
+</html>
