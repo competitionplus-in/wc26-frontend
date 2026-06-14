@@ -773,11 +773,12 @@
             `;
         };
 
-        // Check if user voted on this match previously
+        // Check if this specific user already voted on this specific match
         let hasVoted = localStorage.getItem(`voted_${matchId}`) === 'true'; 
 
         // Master function to handle perfect poll math and CSS rendering
         function renderPollUI(pollData) {
+            // 1. Perfect Math: Independent rounding prevents weird 33/33/34 splits for equal votes
             const homeVotes = parseInt(pollData.home) || 0;
             const drawVotes = parseInt(pollData.draw) || 0;
             const awayVotes = parseInt(pollData.away) || 0;
@@ -785,35 +786,40 @@
 
             const homePct = total === 0 ? 0 : Math.round((homeVotes / total) * 100);
             const drawPct = total === 0 ? 0 : Math.round((drawVotes / total) * 100);
-            const awayPct = total === 0 ? 0 : (100 - homePct - drawPct);
+            const awayPct = total === 0 ? 0 : Math.round((awayVotes / total) * 100);
 
-            document.getElementById('poll-fill-home').style.width = `${homePct}%`;
-            document.getElementById('poll-fill-draw').style.width = `${drawPct}%`;
-            document.getElementById('poll-fill-away').style.width = `${awayPct}%`;
-
+            // 2. Always prepare the text (Your CSS safely keeps it hidden until they vote)
             document.getElementById('poll-pct-home').innerText = `${homePct}%`;
             document.getElementById('poll-pct-draw').innerText = `${drawPct}%`;
             document.getElementById('poll-pct-away').innerText = `${awayPct}%`;
-
             document.getElementById('poll-total-votes').innerText = `${pollData.votes || '0'} Votes`;
 
-            // If the user has already voted, lock the UI and show the percentages
+            // 3. VISIBILITY FIX: Only slide the colored bars in IF the user has actually voted
             if (hasVoted) {
+                document.getElementById('poll-fill-home').style.width = `${homePct}%`;
+                document.getElementById('poll-fill-draw').style.width = `${drawPct}%`;
+                document.getElementById('poll-fill-away').style.width = `${awayPct}%`;
+                
                 document.querySelectorAll('.poll-btn').forEach(btn => btn.classList.add('voted'));
+            } else {
+                // Keep the results completely hidden for fresh users
+                document.getElementById('poll-fill-home').style.width = `0%`;
+                document.getElementById('poll-fill-draw').style.width = `0%`;
+                document.getElementById('poll-fill-away').style.width = `0%`;
             }
         }
 
         async function submitPoll(choice) {
             if(hasVoted) return; 
             
-            // 1. Lock the UI instantly
+            // 1. Lock the UI instantly so they can't double-click
             hasVoted = true;
             localStorage.setItem(`voted_${matchId}`, 'true');
             const buttons = document.querySelectorAll('.poll-btn');
             buttons.forEach(btn => btn.classList.add('voted'));
 
             try {
-                // 2. Send vote to backend
+                // 2. Send the vote securely to your Render Backend
                 const response = await fetch('https://wc26-backend-kd7l.onrender.com/api/vote', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -823,12 +829,13 @@
                 if (!response.ok) throw new Error('Vote failed');
                 const data = await response.json();
 
-                // 3. Render the updated global results
+                // 3. Re-render the UI with the *real* live data from MongoDB
                 if (data.success && data.newPollData) {
                     renderPollUI(data.newPollData);
                 }
             } catch (error) {
                 console.error("Voting error:", error);
+                // If the internet drops, unlock the buttons so they can try again
                 hasVoted = false;
                 localStorage.removeItem(`voted_${matchId}`);
                 buttons.forEach(btn => btn.classList.remove('voted'));
