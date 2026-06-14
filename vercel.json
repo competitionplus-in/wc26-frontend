@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/match/:date/:slug",
+      "destination": "/match.html?date=:date&slug=:slug"
+    }
+  ]
+}
