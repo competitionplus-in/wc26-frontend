@@ -68,7 +68,7 @@ schedule.forEach(match => {
 matchCardsHTML += `\n</section>`;
 
 // 4. Inject the generated cards into the template
-const finalHTML = htmlTemplate.replace('', matchCardsHTML);
+const finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
 
 // --- THE VERCEL FIX ---
 
