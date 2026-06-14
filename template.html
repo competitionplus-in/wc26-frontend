@@ -31,7 +31,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Hides the H1 visually but leaves it perfectly readable for Googlebot */
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
         /* --- TOP APP BAR & CALENDAR --- */
@@ -64,7 +63,6 @@
         }
         .brand-title span { color: var(--accent-glow); }
 
-        /* SEO Friendly Horizontal Scroll (Using real anchor tags!) */
         .date-scroller {
             display: flex;
             overflow-x: auto;
@@ -165,10 +163,6 @@
         .score-main {
             font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: 1px;
         }
-        .live-text {
-            color: var(--live-red); font-size: 0.75rem; font-weight: 700;
-            animation: pulse 2s infinite; letter-spacing: 0.5px;
-        }
 
         /* --- BOTTOM NAVIGATION (MOBILE) --- */
         .bottom-nav {
@@ -222,12 +216,14 @@
             </a>
         </nav>
     </header>
-
+    
     <main class="content-container">
         
         <h1 class="sr-only">FIFA World Cup 2026 Match Schedule and Live Scores</h1>
         
-        </main>
+        [[INJECT_MATCHES_HERE]]
+
+    </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
         <a href="/" class="nav-item active">
