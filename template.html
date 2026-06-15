@@ -118,20 +118,25 @@
         }
 
         /* Premium Elevated Card */
+        /* Premium Elevated Card using CSS Grid */
         .match-card {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
             border-radius: 16px;
             padding: 20px 25px;
             margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            
+            /* GRID FIX: Forces 3 columns with the score perfectly centered */
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center; /* Guarantees vertical centering */
+            
             cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             color: inherit;
-            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05); /* Match Center shadow */
+            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
         }
         .match-card:hover {
             transform: translateY(-3px);
@@ -139,20 +144,27 @@
             border-color: #cbd5e1;
         }
 
-        /* Team Blocks & White-Ring Flags */
+        /* Team Blocks mirroring fix */
         .team-block {
             display: flex;
             align-items: center;
             gap: 15px;
-            width: 35%;
         }
-        .team-block.away { justify-content: flex-end; text-align: right; flex-direction: row-reverse; }
+        .team-block.home {
+            justify-content: flex-start;
+        }
+        .team-block.away {
+            justify-content: flex-end; 
+            flex-direction: row-reverse; /* Forces [Name] then [Flag] */
+            text-align: right; 
+        }
         
         .team-flag {
-            width: 48px; height: 48px; /* Much larger, premium flags */
+            width: 48px; height: 48px;
             border-radius: 50%; object-fit: cover;
-            border: 2px solid #ffffff; /* The clean white broadcast ring */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.12); /* Flag pop */
+            /* BORDER FIX: Subtle gray ring instead of invisible white */
+            border: 1px solid var(--border-glass); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
             flex-shrink: 0;
             background-color: var(--bg-card);
         }
