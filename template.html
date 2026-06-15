@@ -27,7 +27,7 @@
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            padding-bottom: 80px; /* Space for bottom nav */
+            padding-bottom: 80px; 
             -webkit-font-smoothing: antialiased;
         }
 
@@ -42,12 +42,39 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
+        /* 🔍 Search Bar Styles */
         .brand-header {
             padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-glass);
+            gap: 15px; 
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--bg-body);
+            border-radius: 20px;
+            padding: 8px 14px;
+            flex: 1;
+            max-width: 250px;
+            border: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .search-container:focus-within {
+            border-color: var(--accent-glow);
+        }
+        .search-input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-left: 8px;
         }
 
         .brand-title {
@@ -96,8 +123,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-
-/* 🔴 CSS Pulsing Live Dot */
+        /* 🔴 CSS Pulsing Live Dot */
         .live-dot {
             display: inline-block;
             width: 6px;
@@ -117,8 +143,7 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
         
-
-       /* --- MAIN CONTENT & MATCH CARDS --- */
+        /* --- MAIN CONTENT & MATCH CARDS --- */
         .content-container {
             max-width: 800px;
             margin: 0 auto;
@@ -144,29 +169,12 @@
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
             border-radius: 16px;
-            
-            /* 🛠️ FIX: Top 32px, Right 25px, Bottom 20px, Left 25px */
-            /* This extra 12px on top perfectly catches the floating badge! */
             padding: 32px 25px 20px 25px; 
-            
             margin-bottom: 15px;
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             gap: 20px;
             align-items: center; 
-            cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
-        }
-            
-            /* GRID FIX: minmax(0, 1fr) absolutely prevents text from breaking the mobile screen */
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-            gap: 20px;
-            align-items: center; 
-            
             cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
@@ -184,7 +192,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            width: 100%; /* Replaces the old Flexbox width */
+            width: 100%; 
         }
         .team-block.home {
             justify-content: flex-start;
@@ -208,7 +216,6 @@
             font-size: 1.3rem; 
             color: var(--text-main);
             letter-spacing: 0.5px;
-            /* Allows long team names to stack neatly on mobile */
             white-space: normal;
             word-wrap: break-word;
         }
@@ -220,10 +227,9 @@
             align-items: center;
             justify-content: center;
             width: 100%; 
-            position: relative; /* 🆕 Acts as the anchor for the floating badge */
+            position: relative; 
         }
         
-        /* 1. Perfect Center Alignment for the Score */
         .score-main {
             font-family: 'Oswald', sans-serif; 
             font-size: 2.2rem; 
@@ -231,14 +237,12 @@
             letter-spacing: -1px;
             line-height: 1;
             white-space: nowrap; 
-            /* Because the badge is absolutely positioned, this score is now the ONLY element in the flow, locking it perfectly to the horizontal center of the flags! */
         }
 
-        /* 2. Float the Badge Above the Score */
         .score-time {
             position: absolute;
-            bottom: 100%; /* Pushes the badge directly above the score */
-            margin-bottom: 12px; /* Breathing room between the line and the score */
+            bottom: 100%; 
+            margin-bottom: 12px; 
             font-family: 'Oswald', sans-serif;
             font-size: 0.75rem; 
             font-weight: 700; 
@@ -251,11 +255,10 @@
             white-space: nowrap; 
         }
 
-        /* 3. The Anchor Line (Now placed BELOW the badge) */
         .score-time::before {
             content: '';
             position: absolute;
-            bottom: -8px; /* 🆕 Floats the line exactly between the badge and the score */
+            bottom: -8px; 
             left: 50%;
             transform: translateX(-50%);
             width: 24px;
@@ -265,14 +268,13 @@
             transition: all 0.3s ease;
         }
 
-        /* 4. Dynamic Status Pills */
         .score-time.ft-pill {
             background-color: #e2e8f0; 
             color: #475569;
             border-color: transparent;
         }
         .score-time.ft-pill::before {
-            background-color: #94a3b8; /* Darker slate line for finished matches */
+            background-color: #94a3b8; 
         }
 
         .score-time.live-pill {
@@ -308,7 +310,6 @@
         }
         @media (max-width: 600px) {
             .match-card {
-                /* 🛠️ FIX: Top 28px, Right 12px, Bottom 16px, Left 12px */
                 padding: 28px 12px 16px 12px;
                 gap: 8px; 
             }
@@ -316,15 +317,15 @@
                 gap: 8px; 
             }
             .team-name { 
-                font-size: 0.95rem; /* Prevents long names from breaking the layout */
+                font-size: 0.95rem; 
                 line-height: 1.1; 
             }
             .team-flag {
-                width: 36px; /* Shrinks the flag slightly so it doesn't dominate */
+                width: 36px; 
                 height: 36px;
             }
             .score-main { 
-                font-size: 1.6rem; /* Scales down the massive score */
+                font-size: 1.6rem; 
             }
             .score-time {
                 font-size: 0.65rem;
@@ -340,7 +341,10 @@
             <div class="brand-title">
                 PITCH<span>90</span>
             </div>
-            <i data-lucide="search" style="color: var(--text-muted); cursor: pointer;" aria-label="Search Matches"></i>
+            <div class="search-container">
+                <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 18px;"></i>
+                <input type="text" id="match-search" class="search-input" placeholder="Search teams...">
+            </div>
         </div>
 
         <nav class="date-scroller" id="date-scroller" aria-label="Match Dates">
@@ -386,7 +390,66 @@
     <script>
         lucide.createIcons();
 
-        // 🏆 Auto-scroll the date ribbon to center the active "Today" pill on initial load
+        // 🔍 SEARCH & CALENDAR FILTERING ENGINE
+        const searchInput = document.getElementById('match-search');
+        const datePills = document.querySelectorAll('.date-pill');
+        
+        let currentDateFilter = new URLSearchParams(window.location.search).get('date') || '';
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const sections = document.querySelectorAll('.group-section');
+
+            sections.forEach(section => {
+                let hasVisibleCards = false;
+                const cards = section.querySelectorAll('.match-card');
+
+                cards.forEach(card => {
+                    const cardText = card.innerText.toLowerCase();
+                    const cardHref = card.getAttribute('href'); 
+                    
+                    const matchesSearch = cardText.includes(searchTerm);
+                    const matchesDate = currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`);
+
+                    if (matchesSearch && matchesDate) {
+                        card.style.display = 'grid'; 
+                        hasVisibleCards = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                section.style.display = hasVisibleCards ? 'block' : 'none';
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', applyFilters);
+        }
+
+        datePills.forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                
+                datePills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+
+                const url = new URL(pill.href, window.location.origin);
+                currentDateFilter = url.searchParams.get('date') || '';
+
+                window.history.pushState({}, '', pill.href);
+                applyFilters();
+            });
+        });
+
+        if (currentDateFilter) {
+            datePills.forEach(p => p.classList.remove('active'));
+            const activePill = Array.from(datePills).find(p => p.href.includes(currentDateFilter));
+            if (activePill) activePill.classList.add('active');
+        }
+        
+        setTimeout(applyFilters, 50);
+        
         window.addEventListener('DOMContentLoaded', () => {
             const scroller = document.getElementById('date-scroller');
             const activePill = document.querySelector('.date-pill.active');
@@ -432,7 +495,7 @@
                         else if (localDateString < fixtureDate) timeString += ' (-1)';
 
                         scoreTime.innerText = timeString;
-                        scoreTime.className = 'score-time'; // Reset to standard pill
+                        scoreTime.className = 'score-time'; 
                         scoreMain.innerText = 'v'; 
                         scoreMain.style.color = 'var(--text-main)';
 
@@ -441,11 +504,11 @@
 
                         if (data.setup.status === 'live') {
                             scoreTime.innerHTML = `<span class="live-dot"></span>${data.clock}'`;
-                            scoreTime.className = 'score-time live-pill'; // Applies red styling
+                            scoreTime.className = 'score-time live-pill'; 
                             scoreMain.style.color = 'var(--live-red)';
                         } else if (data.setup.status === 'post-match') {
                             scoreTime.innerText = 'FT';
-                            scoreTime.className = 'score-time ft-pill'; // Applies gray styling
+                            scoreTime.className = 'score-time ft-pill'; 
                             scoreMain.style.color = 'var(--text-main)';
                         }
                     }
@@ -455,12 +518,7 @@
             });
         }
 
-        
-
-        // Run hydration immediately when the user opens the page
         hydrateLiveScores();
-        
-        // Quietly check for new goals every 30 seconds in the background
         setInterval(hydrateLiveScores, 30000);
 
     </script>
