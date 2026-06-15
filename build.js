@@ -262,11 +262,66 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /standings directory with API Data & SVGs!");
         }
 
+        // 🛠️ THE NEW STATS & SVG INJECTION LOGIC
         if (fs.existsSync(path.join(__dirname, 'stats.html'))) {
             const statsDir = path.join(outputDir, 'stats');
             fs.mkdirSync(statsDir, { recursive: true });
-            fs.copyFileSync(path.join(__dirname, 'stats.html'), path.join(statsDir, 'index.html'));
-            console.log("✅ Physically generated the /stats directory!");
+
+            console.log("📈 Fetching official player stats from API-Football...");
+            let mappedStats = { topScorers: [], topAssists: [], cleanSheets: [] };
+
+            try {
+                // Fetch Top Scorers (Using 2022 for testing purposes)
+                const scorersRes = await fetch("https://v3.football.api-sports.io/players/topscorers?league=1&season=2022", {
+                    headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
+                });
+                const scorersData = await scorersRes.json();
+
+                // Fetch Top Assists
+                const assistsRes = await fetch("https://v3.football.api-sports.io/players/topassists?league=1&season=2022", {
+                    headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
+                });
+                const assistsData = await assistsRes.json();
+
+                if (scorersData.response && scorersData.response.length > 0) {
+                    mappedStats.topScorers = scorersData.response.slice(0, 5).map(item => ({
+                        name: item.player.name,
+                        teamName: item.statistics[0].team.name,
+                        value: item.statistics[0].goals.total,
+                        fallbackLogo: item.statistics[0].team.logo
+                    }));
+                }
+
+                if (assistsData.response && assistsData.response.length > 0) {
+                    mappedStats.topAssists = assistsData.response.slice(0, 5).map(item => ({
+                        name: item.player.name,
+                        teamName: item.statistics[0].team.name,
+                        value: item.statistics[0].goals.assists,
+                        fallbackLogo: item.statistics[0].team.logo
+                    }));
+                }
+
+                // API-Football doesn't have a direct "Clean Sheets" endpoint for individuals,
+                // so we mock this section for the MVP.
+                mappedStats.cleanSheets = [
+                    { name: "E. Martínez", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" },
+                    { name: "Y. Bounou", teamName: "Morocco", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/31.png" },
+                    { name: "J. Pickford", teamName: "England", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/10.png" }
+                ];
+
+            } catch (e) {
+                console.log("⚠️ Stats not live yet! Injecting Pitch90 Mock Stats...");
+            }
+
+            // Read the raw HTML
+            let statsTemplate = fs.readFileSync(path.join(__dirname, 'stats.html'), 'utf8');
+            
+            // Inject BOTH the SVG Dictionary and the Stats Data
+            statsTemplate = statsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
+            statsTemplate = statsTemplate.replace('[[INJECT_STATS_HERE]]', JSON.stringify(mappedStats));
+            
+            fs.writeFileSync(path.join(statsDir, 'index.html'), statsTemplate);
+            console.log("✅ Physically generated the /stats directory with API Data & SVGs!");
         }
 
         console.log("✅ Successfully generated API-driven website in the /public folder!");
