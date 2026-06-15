@@ -13,7 +13,7 @@ const schedule = [
         away: { name: "RSA", code: "za" }
     },
     {
-        date: "2026-06-12",
+        date: "2026-06-14",
         slug: "mexico-vs-south-africa",
         group: "Group A",
         home: { name: "MEX", code: "mx" },
