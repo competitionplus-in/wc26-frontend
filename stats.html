@@ -123,83 +123,68 @@
     <script>
         lucide.createIcons();
 
-        // ⚡ THE STATS HYDRATION ENGINE
-        async function hydrateTournamentStats() {
+        // 🧠 The Build Script will inject the data here permanently!
+        const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
+        const INJECTED_STATS = [[INJECT_STATS_HERE]];
+        
+        const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
+
+        // ⚡ THE INSTANT SSG RENDER ENGINE
+        function renderTournamentStats() {
             const container = document.getElementById('stats-main-container');
-            const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/tournament-stats';
 
-            try {
-                // Fetch the live global stats from your Render backend
-                const response = await fetch(BACKEND_URL);
-                if (!response.ok) throw new Error("Data missing");
-                const data = await response.json();
+            // Helper function to generate rows
+            const generateRows = (players) => {
+                if(!players || players.length === 0) return `<div style="padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">No data available yet.</div>`;
+                
+                return players.map((p, index) => {
+                    // 🎨 Check dictionary for crisp SVG. If not found, use API-Football PNG fallback.
+                    const finalFlagUrl = FLAG_DICTIONARY[normalizeName(p.teamName)] || p.fallbackLogo;
 
-                // Helper function to generate rows
-                const generateRows = (players) => {
-                    if(!players || players.length === 0) return `<div style="padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">No data available yet.</div>`;
-                    
-                    return players.map((p, index) => `
+                    return `
                         <div class="stat-row">
                             <div class="stat-rank">${index + 1}</div>
                             <div class="stat-player-info">
                                 <div class="stat-player-name">${p.name}</div>
                                 <div class="stat-team-info">
-                                    <img src="https://flagcdn.com/w40/${p.teamCode}.png" alt="${p.teamName}">
+                                    <img src="${finalFlagUrl}" alt="${p.teamName}">
                                     <span class="stat-team-name">${p.teamName}</span>
                                 </div>
                             </div>
                             <div class="stat-value">${p.value}</div>
                         </div>
-                    `).join('');
-                };
+                    `;
+                }).join('');
+            };
 
-                // Build the UI
-                container.innerHTML = `
-                    <div class="stat-card">
-                        <div class="stat-header"><i data-lucide="crosshair"></i> Top Scorers</div>
-                        <div class="stat-list">
-                            ${generateRows(data.topScorers)}
-                        </div>
+            // Build the UI
+            container.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-header"><i data-lucide="crosshair"></i> Top Scorers</div>
+                    <div class="stat-list">
+                        ${generateRows(INJECTED_STATS.topScorers)}
                     </div>
+                </div>
 
-                    <div class="stat-card">
-                        <div class="stat-header"><i data-lucide="footprints"></i> Most Assists</div>
-                        <div class="stat-list">
-                            ${generateRows(data.topAssists)}
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-header"><i data-lucide="footprints"></i> Most Assists</div>
+                    <div class="stat-list">
+                        ${generateRows(INJECTED_STATS.topAssists)}
                     </div>
+                </div>
 
-                    <div class="stat-card">
-                        <div class="stat-header"><i data-lucide="shield-check"></i> Clean Sheets</div>
-                        <div class="stat-list">
-                            ${generateRows(data.cleanSheets)}
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-header"><i data-lucide="shield-check"></i> Clean Sheets</div>
+                    <div class="stat-list">
+                        ${generateRows(INJECTED_STATS.cleanSheets)}
                     </div>
-                `;
-                lucide.createIcons();
-
-            } catch (error) {
-                // Graceful fallback if your Render API endpoint doesn't exist yet
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align:center; padding: 40px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-glass);">
-                        <i data-lucide="server-crash" style="width:48px; height:48px; color: var(--text-muted); margin-bottom: 15px;"></i>
-                        <h3>Awaiting Stats Backend</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">The global statistics endpoint is currently being configured.</p>
-                    </div>
-                `;
-                lucide.createIcons();
-            }
+                </div>
+            `;
+            lucide.createIcons();
         }
 
-        // Run immediately on load
-        hydrateTournamentStats();
-
-        // Silently refresh the global table every 60 seconds (stats update less frequently than live matches)
-        setInterval(() => {
-            if (!document.hidden) {
-                hydrateTournamentStats();
-            }
-        }, 60000);
+        // Render instantly on page load (No loading spinner needed!)
+        renderTournamentStats();
     </script>
 </body>
 </html>
