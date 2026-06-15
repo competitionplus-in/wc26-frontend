@@ -164,7 +164,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     </div>
                     
                     <div class="score-block">
-                        <span class="score-time" style="font-size: 0.75rem;">VS</span>
+                        <span class="score-time">UPCOMING</span>
                         <span class="score-main">v</span>
                     </div>
                     
