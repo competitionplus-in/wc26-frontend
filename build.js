@@ -201,7 +201,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         }
 
         // 🛠️ THE NEW STANDINGS & SVG INJECTION LOGIC
-        if (fs.existsSync(path.join(__dirname, 'standing.html'))) {
+        if (fs.existsSync(path.join(__dirname, 'standings.html'))) { // 👈 Fixed to plural!
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
             
@@ -219,7 +219,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     const rawGroups = standData.response[0].league.standings;
                     mappedStandings = rawGroups.map(group => {
                         return {
-                            name: group[0].group, // e.g., "Group A"
+                            name: group[0].group, 
                             teams: group.map(t => ({
                                 name: t.team.name,
                                 pld: t.all.played,
@@ -252,7 +252,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             }
 
             // Read the raw HTML
-            let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standing.html'), 'utf8');
+            let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); // 👈 Fixed to plural!
             
             // Inject BOTH the SVG Dictionary and the Standings Data
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
