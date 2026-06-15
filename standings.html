@@ -188,105 +188,84 @@
     <script>
         lucide.createIcons();
 
-        // ⚡ THE STANDINGS HYDRATION ENGINE
-        async function hydrateMasterStandings() {
+        // 🧠 The Build Script will inject the data here permanently!
+        const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
+        const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];
+        
+        const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
+
+        // ⚡ THE INSTANT SSG RENDER ENGINE
+        function renderMasterStandings() {
             const container = document.getElementById('standings-container');
-            const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/standings';
+            let htmlContent = '';
 
-            try {
-                // Fetch the live group data from your Render backend
-                const response = await fetch(BACKEND_URL);
-                if (!response.ok) throw new Error("Data missing");
-                const data = await response.json();
+            // Loop through the injected data
+            INJECTED_STANDINGS.forEach(group => {
+                let rowsHTML = '';
+                
+                // Sort teams by Points, then Goal Difference, then Goals For
+                group.teams.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
 
-                let htmlContent = '';
+                group.teams.forEach((team, index) => {
+                    const isQualified = index < 2; // Top 2 advance
+                    const rowClass = isQualified ? 'qualified-row' : '';
+                    const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
 
-                // Loop through every group provided by the backend
-                data.groups.forEach(group => {
-                    
-                    let rowsHTML = '';
-                    
-                    // Sort teams by Points, then Goal Difference, then Goals For
-                    group.teams.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+                    // 🎨 Check dictionary for crisp SVG. If not found, use API-Football PNG fallback.
+                    const finalFlagUrl = FLAG_DICTIONARY[normalizeName(team.name)] || team.fallbackLogo;
 
-                    group.teams.forEach((team, index) => {
-                        const isQualified = index < 2; // Top 2 advance
-                        const rowClass = isQualified ? 'qualified-row' : '';
-                        const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
-
-                        rowsHTML += `
-                            <tr class="${rowClass}">
-                                <td class="col-pos">${index + 1}</td>
-                                <td>
-                                    <div class="col-team">
-                                        <img src="https://flagcdn.com/w40/${team.code}.png" alt="${team.name} Flag">
-                                        <span>${team.name}</span>
-                                    </div>
-                                </td>
-                                <td class="center-col" style="color: var(--text-muted);">${team.pld}</td>
-                                <td class="center-col hide-mobile">${team.w}</td>
-                                <td class="center-col hide-mobile">${team.d}</td>
-                                <td class="center-col hide-mobile">${team.l}</td>
-                                <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.gf}:${team.ga}</td>
-                                <td class="center-col col-gd">${displayGD}</td>
-                                <td class="center-col col-pts">${team.pts}</td>
-                            </tr>
-                        `;
-                    });
-
-                    // Build the table card for this group
-                    htmlContent += `
-                        <div class="group-card">
-                            <div class="group-header">${group.name}</div>
-                            <div class="table-wrapper">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="center-col">#</th>
-                                            <th>Team</th>
-                                            <th class="center-col">PL</th>
-                                            <th class="center-col hide-mobile">W</th>
-                                            <th class="center-col hide-mobile">D</th>
-                                            <th class="center-col hide-mobile">L</th>
-                                            <th class="center-col hide-mobile">Goals</th>
-                                            <th class="center-col">GD</th>
-                                            <th class="center-col">PTS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${rowsHTML}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    rowsHTML += `
+                        <tr class="${rowClass}">
+                            <td class="col-pos">${index + 1}</td>
+                            <td>
+                                <div class="col-team">
+                                    <img src="${finalFlagUrl}" alt="${team.name} Flag">
+                                    <span>${team.name}</span>
+                                </div>
+                            </td>
+                            <td class="center-col" style="color: var(--text-muted);">${team.pld}</td>
+                            <td class="center-col hide-mobile">${team.w}</td>
+                            <td class="center-col hide-mobile">${team.d}</td>
+                            <td class="center-col hide-mobile">${team.l}</td>
+                            <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.gf}:${team.ga}</td>
+                            <td class="center-col col-gd">${displayGD}</td>
+                            <td class="center-col col-pts">${team.pts}</td>
+                        </tr>
                     `;
                 });
 
-                // Inject the finished HTML
-                container.innerHTML = htmlContent;
-
-            } catch (error) {
-                // Graceful fallback if your Render API endpoint doesn't exist yet
-                container.innerHTML = `
-                    <div style="text-align:center; padding: 40px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-glass);">
-                        <i data-lucide="server-crash" style="width:48px; height:48px; color: var(--text-muted); margin-bottom: 15px;"></i>
-                        <h3>Awaiting Backend Connection</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">The Standings API endpoint is currently being configured.</p>
+                htmlContent += `
+                    <div class="group-card">
+                        <div class="group-header">${group.name}</div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="center-col">#</th>
+                                        <th>Team</th>
+                                        <th class="center-col">PL</th>
+                                        <th class="center-col hide-mobile">W</th>
+                                        <th class="center-col hide-mobile">D</th>
+                                        <th class="center-col hide-mobile">L</th>
+                                        <th class="center-col hide-mobile">Goals</th>
+                                        <th class="center-col">GD</th>
+                                        <th class="center-col">PTS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${rowsHTML}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 `;
-                lucide.createIcons();
-            }
+            });
+
+            container.innerHTML = htmlContent;
         }
 
-        // Run immediately on load
-        hydrateMasterStandings();
-
-        // Silently refresh the global table every 30 seconds
-        setInterval(() => {
-            if (!document.hidden) {
-                hydrateMasterStandings();
-            }
-        }, 30000);
+        // Render instantly on page load (No loading spinner needed!)
+        renderMasterStandings();
     </script>
 </body>
 </html>
