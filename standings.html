@@ -33,17 +33,40 @@
         .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
 
         /* --- MAIN CONTENT --- */
-        .content-container { max-width: 800px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 25px; }
+        .content-container { max-width: 800px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 30px; }
 
+        /* Premium Elevated Card */
         .group-card {
-            background: var(--bg-card); border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border-glass); box-shadow: 0 4px 10px -5px rgba(0,0,0,0.05);
+            background: var(--bg-card); 
+            border-radius: 16px; 
+            overflow: hidden;
+            border: 1px solid var(--border-glass); 
+            box-shadow: 0 6px 12px -4px rgba(0,0,0,0.05);
         }
 
+        /* Sleek Modern Header */
         .group-header {
-            background: var(--text-main); color: #ffffff; padding: 12px 20px;
-            font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px;
+            background: #f8fafc; 
+            color: var(--text-main); 
+            padding: 16px 20px;
+            font-family: 'Oswald', sans-serif; 
+            font-size: 1.25rem; 
+            font-weight: 700;
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        /* Blue accent bar next to the group name */
+        .group-header::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background-color: var(--accent-glow);
+            border-radius: 4px;
         }
 
         /* --- TABLE LAYOUT --- */
@@ -51,28 +74,68 @@
         table { width: 100%; border-collapse: collapse; text-align: left; }
         
         th { 
-            background: var(--bg-elevated); color: var(--text-muted); padding: 12px 10px;
-            font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
-            border-bottom: 2px solid var(--border-glass); white-space: nowrap;
+            background: #ffffff; 
+            color: var(--text-muted); 
+            padding: 12px 15px;
+            font-family: 'Oswald', sans-serif; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-glass); 
+            white-space: nowrap;
+            letter-spacing: 0.5px;
         }
-        td { padding: 14px 10px; border-bottom: 1px solid rgba(0,0,0,0.05); font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
+        td { 
+            padding: 14px 15px; 
+            border-bottom: 1px solid rgba(0,0,0,0.04); 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            color: var(--text-main); 
+            transition: background-color 0.2s ease; 
+        }
         tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #f8fafc; }
         
         .center-col { text-align: center; }
-        .col-pos { width: 40px; text-align: center; font-weight: 800; font-family: 'Oswald', sans-serif; }
-        .col-team { min-width: 150px; display: flex; align-items: center; gap: 12px; }
-        .col-team img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); }
+        .col-pos { width: 40px; text-align: center; font-weight: 800; font-family: 'Oswald', sans-serif; font-size: 1rem; color: var(--text-muted); }
         
-        .col-pts { font-weight: 800; color: var(--accent-glow); font-size: 1.1rem; }
-        .col-gd { color: var(--text-muted); font-weight: 500; }
+        /* Typography and Premium Flags */
+        .col-team { min-width: 160px; display: flex; align-items: center; gap: 15px; }
+        .col-team img { 
+            width: 32px; height: 32px; 
+            border-radius: 50%; object-fit: cover; 
+            border: 1px solid var(--border-glass);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06); 
+        }
+        .col-team span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .col-pts { font-family: 'Oswald', sans-serif; font-weight: 800; color: var(--text-main); font-size: 1.25rem; }
+        .col-gd { color: var(--text-muted); font-weight: 600; }
 
         /* 🏆 QUALIFICATION ZONES */
-        .qualified-row td { background-color: rgba(16, 185, 129, 0.04); }
-        .qualified-row td:first-child { border-left: 4px solid var(--accent-green); color: var(--accent-green); }
+        .qualified-row td { background-color: #f2fdf9; } /* Very subtle mint green */
+        .qualified-row:hover td { background-color: #e6fcf5; }
+        .qualified-row td:first-child { 
+            position: relative; 
+            color: var(--accent-green); /* Makes the 1 and 2 green */
+        }
+        /* Thick green accent line on the exact edge of the row */
+        .qualified-row td:first-child::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background-color: var(--accent-green);
+        }
 
-        .loading-state { text-align: center; padding: 50px; color: var(--text-muted); font-weight: 600; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+        .loading-state { text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
+        
         /* --- BOTTOM NAV --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
