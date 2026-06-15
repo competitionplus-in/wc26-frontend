@@ -122,8 +122,22 @@
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
             border-radius: 16px;
-            padding: 20px 25px;
+            
+            /* 🛠️ FIX: Top 32px, Right 25px, Bottom 20px, Left 25px */
+            /* This extra 12px on top perfectly catches the floating badge! */
+            padding: 32px 25px 20px 25px; 
+            
             margin-bottom: 15px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            gap: 20px;
+            align-items: center; 
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
+        }
             
             /* GRID FIX: minmax(0, 1fr) absolutely prevents text from breaking the mobile screen */
             display: grid;
@@ -272,11 +286,12 @@
         }
         @media (max-width: 600px) {
             .match-card {
-                padding: 16px 12px;
-                gap: 8px; /* Tighter grid columns for small screens */
+                /* 🛠️ FIX: Top 28px, Right 12px, Bottom 16px, Left 12px */
+                padding: 28px 12px 16px 12px;
+                gap: 8px; 
             }
             .team-block {
-                gap: 8px; /* Pulls the flag and name closer together */
+                gap: 8px; 
             }
             .team-name { 
                 font-size: 0.95rem; /* Prevents long names from breaking the layout */
