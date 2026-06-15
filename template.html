@@ -96,72 +96,115 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        /* --- MAIN CONTENT & MATCH CARDS --- */
+       /* --- MAIN CONTENT & MATCH CARDS --- */
         .content-container {
-            max-width: 750px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        .group-section { margin-bottom: 25px; }
+        .group-section { margin-bottom: 30px; }
         
         .group-header {
             font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin: 0 0 10px 5px;
+            margin: 0 0 12px 5px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            letter-spacing: 1px;
         }
 
+        /* Premium Elevated Card */
         .match-card {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             color: inherit;
+            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05); /* Match Center shadow */
         }
         .match-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px -5px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1);
+            border-color: #cbd5e1;
         }
 
+        /* Team Blocks & White-Ring Flags */
         .team-block {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             width: 35%;
         }
-        .team-block.away { justify-content: flex-end; text-align: right; }
+        .team-block.away { justify-content: flex-end; text-align: right; flex-direction: row-reverse; }
         
         .team-flag {
-            width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
-            border: 1px solid rgba(0,0,0,0.1); flex-shrink: 0;
+            width: 48px; height: 48px; /* Much larger, premium flags */
+            border-radius: 50%; object-fit: cover;
+            border: 2px solid #ffffff; /* The clean white broadcast ring */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12); /* Flag pop */
+            flex-shrink: 0;
+            background-color: var(--bg-card);
         }
-        .team-name { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 1.1rem; }
+        .team-name { 
+            font-family: 'Oswald', sans-serif; 
+            font-weight: 700; 
+            font-size: 1.3rem; 
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
 
+        /* Massive Central Scoreboard */
         .score-block {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 30%;
+            gap: 8px;
         }
+        
         .score-time {
-            font-size: 0.85rem; font-weight: 600; color: var(--text-muted);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            color: var(--text-muted);
+            background: #f8fafc;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            border: 1px solid var(--border-glass);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
+        
         .score-main {
-            font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: 1px;
+            font-family: 'Oswald', sans-serif; 
+            font-size: 2.2rem; /* Massive text to match the Match Center */
+            font-weight: 800; 
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        /* Live JS Injected Classes */
+        .score-time.live-pill {
+            background-color: rgba(239, 68, 68, 0.12);
+            color: var(--live-red);
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+        .score-time.ft-pill {
+            background-color: var(--bg-elevated);
+            color: var(--text-main);
+            border-color: transparent;
         }
 
         /* --- BOTTOM NAVIGATION (MOBILE) --- */
@@ -256,75 +299,64 @@
         });
 
         // ⚡ THE HYDRATION ENGINE ⚡
-        // This quietly fetches live scores from Render and updates the hardcoded 0-0
         async function hydrateLiveScores() {
             const matchCards = document.querySelectorAll('.match-card');
             const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
 
             matchCards.forEach(async (card) => {
                 try {
-                    // 1. Read the href to figure out which match this is
                     const href = card.getAttribute('href'); 
                     const parts = href.split('/');
-                    if(parts.length < 4) return; // Skip if URL is malformed
+                    if(parts.length < 4) return;
                     
-                    const fixtureDate = parts[2]; // e.g., "2026-06-11"
+                    const fixtureDate = parts[2]; 
                     const slug = parts[3];
-                    const matchId = `${slug}-${fixtureDate}`; // Rebuild the Admin ID
+                    const matchId = `${slug}-${fixtureDate}`; 
 
-                    // 2. Fetch the live data for this specific match
                     const response = await fetch(`${BACKEND_URL}?id=${matchId}`);
                     if (!response.ok) return;
                     const data = await response.json();
 
-                    // 3. Find the text elements on the card
                     const scoreMain = card.querySelector('.score-main');
                     const scoreTime = card.querySelector('.score-time');
 
-                    // 4. THE SMART UI ROUTER
                     if (data.setup.status === 'pre-match') {
-                        
-                        // --- THE (+1) TIMEZONE CALCULATOR ---
                         const localKickoff = new Date(data.setup.countdownTarget);
-                        
-                        // Extract the local year, month, and day to build a YYYY-MM-DD string
                         const localYear = localKickoff.getFullYear();
                         const localMonth = String(localKickoff.getMonth() + 1).padStart(2, '0');
                         const localDay = String(localKickoff.getDate()).padStart(2, '0');
                         const localDateString = `${localYear}-${localMonth}-${localDay}`;
 
-                        // Format the time beautifully (e.g., "05:30 AM")
                         let timeString = localKickoff.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-                        // Compare the local date to the official URL fixture date
-                        if (localDateString > fixtureDate) {
-                            timeString += ' (+1)';
-                        } else if (localDateString < fixtureDate) {
-                            timeString += ' (-1)'; // Just in case they are behind UTC!
-                        }
+                        if (localDateString > fixtureDate) timeString += ' (+1)';
+                        else if (localDateString < fixtureDate) timeString += ' (-1)';
 
-                        // Inject the smart time into the UI
                         scoreTime.innerText = timeString;
-                        scoreTime.style.color = 'var(--accent-glow)'; // Give it a nice pop of color
-                        scoreMain.innerText = 'v'; // Replace '0 - 0' with a clean 'v' before kickoff
+                        scoreTime.className = 'score-time'; // Reset to standard pill
+                        scoreMain.innerText = 'v'; 
+                        scoreMain.style.color = 'var(--text-main)';
 
                     } else if (data.setup.status !== 'pre-match') {
-                        // --- LIVE & POST-MATCH LOGIC ---
                         scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
 
                         if (data.setup.status === 'live') {
-                            scoreTime.innerHTML = `<span class="live-text">${data.clock}'</span>`;
+                            scoreTime.innerHTML = `🔴 ${data.clock}'`;
+                            scoreTime.className = 'score-time live-pill'; // Applies red styling
                             scoreMain.style.color = 'var(--live-red)';
                         } else if (data.setup.status === 'post-match') {
                             scoreTime.innerText = 'FT';
+                            scoreTime.className = 'score-time ft-pill'; // Applies gray styling
                             scoreMain.style.color = 'var(--text-main)';
                         }
                     }
                 } catch (error) {
-                    console.warn('Hydration skipped for:', card.href);
+                    // Fail silently so UI doesn't break
                 }
             });
         }
+
+        
 
         // Run hydration immediately when the user opens the page
         hydrateLiveScores();
