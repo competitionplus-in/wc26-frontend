@@ -96,6 +96,28 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
+
+/* 🔴 CSS Pulsing Live Dot */
+        .live-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--live-red);
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 4px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+
        /* --- MAIN CONTENT & MATCH CARDS --- */
         .content-container {
             max-width: 800px;
@@ -418,7 +440,7 @@
                         scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
 
                         if (data.setup.status === 'live') {
-                            scoreTime.innerHTML = `🔴 ${data.clock}'`;
+                            scoreTime.innerHTML = `<span class="live-dot"></span>${data.clock}'`;
                             scoreTime.className = 'score-time live-pill'; // Applies red styling
                             scoreMain.style.color = 'var(--live-red)';
                         } else if (data.setup.status === 'post-match') {
