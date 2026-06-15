@@ -183,11 +183,14 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%; /* Deleted the 30% width that was breaking the grid */
+            width: 100%; 
             gap: 2px; 
         }
         
+        /* 2. Make the pill look more like a badge */
         .score-time {
+            position: relative; /* 🆕 Required for the horizontal line */
+            margin-top: 8px;    /* 🆕 Pushes the badge down slightly to make room */
             font-family: 'Oswald', sans-serif;
             font-size: 0.75rem; 
             font-weight: 700; 
@@ -200,16 +203,39 @@
             white-space: nowrap; 
         }
 
-        /* Dynamic Status Pills (RESTORED) */
+        /* 🆕 THE PREMIUM UPPER HORIZONTAL LINE */
+        .score-time::before {
+            content: '';
+            position: absolute;
+            top: -12px; /* Floats exactly above the badge */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background-color: #cbd5e1; /* Clean silver color */
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* 3. Ensure the FT pill gets the right styling */
         .score-time.ft-pill {
             background-color: #e2e8f0; 
             color: #475569;
             border-color: transparent;
         }
+        .score-time.ft-pill::before {
+            background-color: #94a3b8; /* Darker slate line for finished matches */
+        }
+
+        /* 4. Live Match Styling */
         .score-time.live-pill {
             background-color: rgba(239, 68, 68, 0.12);
             color: var(--live-red);
             border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+        .score-time.live-pill::before {
+            background-color: var(--live-red); /* 🔴 The line turns red! */
+            box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); /* Adds a subtle live glow */
         }
 
         .score-main {
