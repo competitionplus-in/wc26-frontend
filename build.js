@@ -209,7 +209,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             let mappedStandings = [];
             
             try {
-                const standRes = await fetch("https://v3.football.api-sports.io/standings?league=1&season=2026", {
+                const standRes = await fetch("https://v3.football.api-sports.io/standings?league=1&season=2022", {
                     headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
                 });
                 const standData = await standRes.json();
