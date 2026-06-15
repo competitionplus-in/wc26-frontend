@@ -1,53 +1,139 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
 console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
 // Wrap in an async IIFE to allow awaiting the API fetch in standard Node.js
 (async () => {
     try {
-        console.log("📡 Fetching official World Cup 2026 schedule from API-Football...");
-        
-        // Fetch all matches for the 2026 World Cup (League 1, Season 2026)
-        const response = await fetch("https://v3.football.api-sports.io/fixtures?league=1&season=2026", {
-            headers: { "x-apisports-key": "fc1ea35d48fc5ae55648b58d99be224d" }
-        });
+        const cacheFile = path.join(__dirname, 'cached_schedule.json');
+        let data;
 
-        if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
-        const data = await response.json();
+        // 1. Check if we already downloaded the schedule before
+        if (fs.existsSync(cacheFile)) {
+            console.log("📂 Found local cached schedule! Skipping API call.");
+            const rawCache = fs.readFileSync(cacheFile, 'utf8');
+            data = JSON.parse(rawCache);
+        } else {
+            // 2. No cache found. We must hit the API.
+            console.log("📡 Fetching official schedule from API-Football...");
+            const response = await fetch("https://v3.football.api-sports.io/fixtures?league=1&season=2026", {
+                headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
+            });
 
-        if (!data.response || data.response.length === 0) {
-            throw new Error("No matches returned from the API. Check your API key or endpoint parameters.");
+            if (!response.ok) throw new Error(`API request failed: ${response.status}`);
+            data = await response.json();
+
+            // GRACEFUL 2026 FALLBACK
+            if (!data.response || data.response.length === 0) {
+                console.log("⚠️ 2026 Schedule not released yet! Injecting Pitch90 MVP Mock Data...");
+                
+                // Injecting our custom Pitch90 matches so the build doesn't crash
+                data = {
+                    response: [
+                        {
+                            fixture: { date: "2026-06-11T15:00:00+00:00" },
+                            league: { round: "Group A" },
+                            teams: {
+                                home: { name: "Mexico", logo: "https://media.api-sports.io/football/teams/16.png" },
+                                away: { name: "South Africa", logo: "https://media.api-sports.io/football/teams/14.png" }
+                            }
+                        },
+                        {
+                            fixture: { date: "2026-06-12T15:00:00+00:00" },
+                            league: { round: "Group B" },
+                            teams: {
+                                home: { name: "Canada", logo: "https://media.api-sports.io/football/teams/5529.png" },
+                                away: { name: "Bosnia", logo: "https://media.api-sports.io/football/teams/1183.png" }
+                            }
+                        },
+                        {
+                            fixture: { date: "2026-06-12T19:00:00+00:00" },
+                            league: { round: "Group D" },
+                            teams: {
+                                home: { name: "USA", logo: "https://media.api-sports.io/football/teams/2384.png" },
+                                away: { name: "Paraguay", logo: "https://media.api-sports.io/football/teams/11.png" }
+                            }
+                        }
+                    ]
+                };
+            } else {
+                // Only save cache if it's the real API data!
+                fs.writeFileSync(cacheFile, JSON.stringify(data));
+                console.log("💾 Saved schedule to cached_schedule.json for future builds!");
+            }
         }
 
-        // Helper function to create clean URL slugs (e.g., "South Africa" -> "south-africa")
+        // --- NEW: THE SVG FLAG DICTIONARY (FULLY CACHED) ---
+        const flagsCacheFile = path.join(__dirname, 'cached_flags.json');
+        let flagMap = {};
+        
+        // Helper to match "South-Africa" (from Flags) to "South Africa" (from Fixtures)
+        const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
+
+        if (fs.existsSync(flagsCacheFile)) {
+            console.log("📂 Found local cached Flags dictionary! Skipping API call.");
+            flagMap = JSON.parse(fs.readFileSync(flagsCacheFile, 'utf8'));
+        } else {
+            console.log("🎨 Fetching high-resolution SVG Flags dictionary from API...");
+            try {
+                const flagResponse = await fetch("https://v3.football.api-sports.io/teams/countries", {
+                    headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
+                });
+                const flagData = await flagResponse.json();
+                
+                // Check if we hit the API limit
+                if (flagData.errors && Object.keys(flagData.errors).length > 0) {
+                    console.log("⚠️ API Error on flags (Limit reached?):", flagData.errors);
+                } else if (flagData.response && Array.isArray(flagData.response)) {
+                    // Build the dictionary
+                    flagData.response.forEach(country => {
+                        if (country.name && country.flag) {
+                            flagMap[normalizeName(country.name)] = country.flag;
+                        }
+                    });
+                    
+                    // Save the dictionary locally so we never have to fetch it again!
+                    fs.writeFileSync(flagsCacheFile, JSON.stringify(flagMap));
+                    console.log(`💾 Saved ${Object.keys(flagMap).length} SVG flags to cached_flags.json!`);
+                }
+            } catch (e) {
+                console.log("⚠️ Could not load SVG flags. Falling back to PNG crests.");
+            }
+        }
+
         const createSlug = (name) => name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-        // 1. Dynamically Map the API Data into the Pitch90 Schedule format
+        // 1. Dynamically Map the API Data
         const schedule = data.response.map(match => {
-            const dateStr = match.fixture.date.substring(0, 10); // Extracts "YYYY-MM-DD"
+            const dateStr = match.fixture.date.substring(0, 10);
             const homeName = match.teams.home.name;
             const awayName = match.teams.away.name;
             const matchSlug = `${createSlug(homeName)}-vs-${createSlug(awayName)}`;
 
+            // The Engine: Look up the normalized name. If it exists, use SVG. Otherwise, PNG.
+            const finalHomeLogo = flagMap[normalizeName(homeName)] || match.teams.home.logo;
+            const finalAwayLogo = flagMap[normalizeName(awayName)] || match.teams.away.logo;
+
             return {
                 date: dateStr,
                 slug: matchSlug,
-                group: match.league.round, // E.g., "Group A" or "Round of 16"
+                group: match.league.round,
                 home: {
-                    name: homeName.substring(0, 3).toUpperCase(), // Extracts first 3 letters for abbreviation (e.g., "MEX")
+                    name: homeName.substring(0, 3).toUpperCase(),
                     fullName: homeName,
-                    logo: match.teams.home.logo // Uses official API-Football PNGs
+                    logo: finalHomeLogo
                 },
                 away: {
                     name: awayName.substring(0, 3).toUpperCase(),
                     fullName: awayName,
-                    logo: match.teams.away.logo
+                    logo: finalAwayLogo
                 }
             };
         });
 
-        console.log(`✅ Successfully mapped ${schedule.length} matches from the API!`);
+        console.log(`✅ Successfully mapped ${schedule.length} matches with Hybrid Graphics!`);
 
         // 2. Read the template file
         const templatePath = path.join(__dirname, 'template.html');
@@ -58,7 +144,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         let currentGroup = '';
 
         schedule.forEach(match => {
-            // Create a new section header whenever the group/round changes
             if (match.group !== currentGroup) {
                 const groupId = createSlug(match.group);
                 matchCardsHTML += `\n<section class="group-section" aria-labelledby="header-${groupId}">`;
@@ -101,7 +186,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
         // --- 7. THE TRUE SSG FIX ---
-        // Physically build the directories for every single match
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
             schedule.forEach(match => {
                 const matchDir = path.join(outputDir, 'match', match.date, match.slug);
@@ -111,7 +195,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated dynamic match directories!");
         }
 
-        // --- 8. SSG FIX FOR STANDINGS PAGE ---
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) {
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
@@ -119,7 +202,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /standings directory!");
         }
 
-        // --- 9. SSG FIX FOR STATS PAGE ---
         if (fs.existsSync(path.join(__dirname, 'stats.html'))) {
             const statsDir = path.join(outputDir, 'stats');
             fs.mkdirSync(statsDir, { recursive: true });
@@ -131,6 +213,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
     } catch (error) {
         console.error("❌ Build Failed:", error.message);
-        process.exit(1); // Fails the Vercel build process safely if the API is down
+        process.exit(1); 
     }
 })();
