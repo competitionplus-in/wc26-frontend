@@ -184,13 +184,25 @@
             align-items: center;
             justify-content: center;
             width: 100%; 
-            gap: 2px; 
+            position: relative; /* 🆕 Acts as the anchor for the floating badge */
         }
         
-        /* 2. Make the pill look more like a badge */
+        /* 1. Perfect Center Alignment for the Score */
+        .score-main {
+            font-family: 'Oswald', sans-serif; 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            letter-spacing: -1px;
+            line-height: 1;
+            white-space: nowrap; 
+            /* Because the badge is absolutely positioned, this score is now the ONLY element in the flow, locking it perfectly to the horizontal center of the flags! */
+        }
+
+        /* 2. Float the Badge Above the Score */
         .score-time {
-            position: relative; /* 🆕 Required for the horizontal line */
-            margin-top: 8px;    /* 🆕 Pushes the badge down slightly to make room */
+            position: absolute;
+            bottom: 100%; /* Pushes the badge directly above the score */
+            margin-bottom: 12px; /* Breathing room between the line and the score */
             font-family: 'Oswald', sans-serif;
             font-size: 0.75rem; 
             font-weight: 700; 
@@ -203,21 +215,21 @@
             white-space: nowrap; 
         }
 
-        /* 🆕 THE PREMIUM UPPER HORIZONTAL LINE */
+        /* 3. The Anchor Line (Now placed BELOW the badge) */
         .score-time::before {
             content: '';
             position: absolute;
-            top: -12px; /* Floats exactly above the badge */
+            bottom: -8px; /* 🆕 Floats the line exactly between the badge and the score */
             left: 50%;
             transform: translateX(-50%);
             width: 24px;
             height: 3px;
-            background-color: #cbd5e1; /* Clean silver color */
+            background-color: #cbd5e1; 
             border-radius: 4px;
             transition: all 0.3s ease;
         }
 
-        /* 3. Ensure the FT pill gets the right styling */
+        /* 4. Dynamic Status Pills */
         .score-time.ft-pill {
             background-color: #e2e8f0; 
             color: #475569;
@@ -227,25 +239,16 @@
             background-color: #94a3b8; /* Darker slate line for finished matches */
         }
 
-        /* 4. Live Match Styling */
         .score-time.live-pill {
             background-color: rgba(239, 68, 68, 0.12);
             color: var(--live-red);
             border: 1px solid rgba(239, 68, 68, 0.25);
         }
         .score-time.live-pill::before {
-            background-color: var(--live-red); /* 🔴 The line turns red! */
-            box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); /* Adds a subtle live glow */
+            background-color: var(--live-red); 
+            box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); 
         }
-
-        .score-main {
-            font-family: 'Oswald', sans-serif; 
-            font-size: 2.2rem; 
-            font-weight: 800; 
-            letter-spacing: -1px;
-            line-height: 1;
-            white-space: nowrap; 
-        }
+        
         /* --- BOTTOM NAVIGATION (MOBILE) --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
