@@ -14,6 +14,13 @@ const schedule = [
     },
     {
         date: "2026-06-12",
+        slug: "mexico-vs-south-africa",
+        group: "Group A",
+        home: { name: "MEX", code: "mx" },
+        away: { name: "RSA", code: "za" }
+    },
+    {
+        date: "2026-06-12",
         slug: "canada-vs-bosnia",
         group: "Group B",
         home: { name: "CAN", code: "ca" },
