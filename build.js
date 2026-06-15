@@ -1,6 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config();
+// Load dotenv only if we are on our local machine
+try {
+    require('dotenv').config();
+} catch (e) {
+    console.log("☁️ Running on Vercel, skipping local .env file...");
+}
 
 console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
