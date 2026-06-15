@@ -200,11 +200,66 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated dynamic match directories!");
         }
 
-        if (fs.existsSync(path.join(__dirname, 'standings.html'))) {
+        // 🛠️ THE NEW STANDINGS & SVG INJECTION LOGIC
+        if (fs.existsSync(path.join(__dirname, 'standing.html'))) {
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
-            fs.copyFileSync(path.join(__dirname, 'standings.html'), path.join(standingsDir, 'index.html'));
-            console.log("✅ Physically generated the /standings directory!");
+            
+            console.log("📊 Fetching official standings from API-Football...");
+            let mappedStandings = [];
+            
+            try {
+                const standRes = await fetch("https://v3.football.api-sports.io/standings?league=1&season=2026", {
+                    headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
+                });
+                const standData = await standRes.json();
+                
+                // Map API-Football's data structure
+                if (standData.response && standData.response.length > 0) {
+                    const rawGroups = standData.response[0].league.standings;
+                    mappedStandings = rawGroups.map(group => {
+                        return {
+                            name: group[0].group, // e.g., "Group A"
+                            teams: group.map(t => ({
+                                name: t.team.name,
+                                pld: t.all.played,
+                                w: t.all.win,
+                                d: t.all.draw,
+                                l: t.all.lose,
+                                gf: t.all.goals.for,
+                                ga: t.all.goals.against,
+                                gd: t.goalsDiff,
+                                pts: t.points,
+                                fallbackLogo: t.team.logo
+                            }))
+                        };
+                    });
+                } else {
+                    throw new Error("No 2026 Standings Available Yet");
+                }
+            } catch (e) {
+                console.log("⚠️ Standings not live yet! Injecting Pitch90 Mock Standings...");
+                // MVP Fallback Data
+                mappedStandings = [
+                    {
+                        name: "Group A",
+                        teams: [
+                            { name: "Mexico", pld: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: 2, pts: 3, fallbackLogo: "" },
+                            { name: "South Africa", pld: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: -2, pts: 0, fallbackLogo: "" }
+                        ]
+                    }
+                ];
+            }
+
+            // Read the raw HTML
+            let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standing.html'), 'utf8');
+            
+            // Inject BOTH the SVG Dictionary and the Standings Data
+            standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
+            standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
+            
+            fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
+            console.log("✅ Physically generated the /standings directory with API Data & SVGs!");
         }
 
         if (fs.existsSync(path.join(__dirname, 'stats.html'))) {
