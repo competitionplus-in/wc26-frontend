@@ -156,11 +156,11 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 currentGroup = match.group;
             }
 
-            matchCardsHTML += `
+           matchCardsHTML += `
                 <a href="/match/${match.date}/${match.slug}" class="match-card" aria-label="${match.home.fullName} vs ${match.away.fullName}">
-                    <div class="team-block">
+                    <div class="team-block home">
                         <img src="${match.home.logo}" class="team-flag" alt="${match.home.fullName} Logo">
-                        <span class="team-name">${match.home.name}</span>
+                        <span class="team-name">${match.home.fullName}</span>
                     </div>
                     
                     <div class="score-block">
@@ -169,7 +169,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     </div>
                     
                     <div class="team-block away">
-                        <span class="team-name">${match.away.name}</span>
+                        <span class="team-name">${match.away.fullName}</span>
                         <img src="${match.away.logo}" class="team-flag" alt="${match.away.fullName} Logo">
                     </div>
                 </a>
