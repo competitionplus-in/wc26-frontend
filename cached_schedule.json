@@ -1,0 +1,1876 @@
+{
+  "response": [
+    {
+      "fixture": {
+        "date": "2026-06-11T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group A"
+      },
+      "teams": {
+        "home": {
+          "name": "Mexico",
+          "logo": ""
+        },
+        "away": {
+          "name": "South Africa",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-11T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group A"
+      },
+      "teams": {
+        "home": {
+          "name": "Korea Republic",
+          "logo": ""
+        },
+        "away": {
+          "name": "Czechia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group A"
+      },
+      "teams": {
+        "home": {
+          "name": "Mexico",
+          "logo": ""
+        },
+        "away": {
+          "name": "Korea Republic",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group A"
+      },
+      "teams": {
+        "home": {
+          "name": "Czechia",
+          "logo": ""
+        },
+        "away": {
+          "name": "South Africa",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-24T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group A"
+      },
+      "teams": {
+        "home": {
+          "name": "Czechia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Mexico",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-24T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group A"
+      },
+      "teams": {
+        "home": {
+          "name": "South Africa",
+          "logo": ""
+        },
+        "away": {
+          "name": "Korea Republic",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-12T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group B"
+      },
+      "teams": {
+        "home": {
+          "name": "Canada",
+          "logo": ""
+        },
+        "away": {
+          "name": "Bosnia and Herzegovina",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-12T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group B"
+      },
+      "teams": {
+        "home": {
+          "name": "Qatar",
+          "logo": ""
+        },
+        "away": {
+          "name": "Switzerland",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-20T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group B"
+      },
+      "teams": {
+        "home": {
+          "name": "Canada",
+          "logo": ""
+        },
+        "away": {
+          "name": "Qatar",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-20T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group B"
+      },
+      "teams": {
+        "home": {
+          "name": "Switzerland",
+          "logo": ""
+        },
+        "away": {
+          "name": "Bosnia and Herzegovina",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-25T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group B"
+      },
+      "teams": {
+        "home": {
+          "name": "Switzerland",
+          "logo": ""
+        },
+        "away": {
+          "name": "Canada",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-25T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group B"
+      },
+      "teams": {
+        "home": {
+          "name": "Bosnia and Herzegovina",
+          "logo": ""
+        },
+        "away": {
+          "name": "Qatar",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-13T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group C"
+      },
+      "teams": {
+        "home": {
+          "name": "Brazil",
+          "logo": ""
+        },
+        "away": {
+          "name": "Morocco",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-13T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group C"
+      },
+      "teams": {
+        "home": {
+          "name": "Haiti",
+          "logo": ""
+        },
+        "away": {
+          "name": "Scotland",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-21T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group C"
+      },
+      "teams": {
+        "home": {
+          "name": "Brazil",
+          "logo": ""
+        },
+        "away": {
+          "name": "Haiti",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-21T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group C"
+      },
+      "teams": {
+        "home": {
+          "name": "Scotland",
+          "logo": ""
+        },
+        "away": {
+          "name": "Morocco",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-26T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group C"
+      },
+      "teams": {
+        "home": {
+          "name": "Scotland",
+          "logo": ""
+        },
+        "away": {
+          "name": "Brazil",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-26T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group C"
+      },
+      "teams": {
+        "home": {
+          "name": "Morocco",
+          "logo": ""
+        },
+        "away": {
+          "name": "Haiti",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-14T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group D"
+      },
+      "teams": {
+        "home": {
+          "name": "USA",
+          "logo": ""
+        },
+        "away": {
+          "name": "Paraguay",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-14T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group D"
+      },
+      "teams": {
+        "home": {
+          "name": "Australia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Türkiye",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-22T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group D"
+      },
+      "teams": {
+        "home": {
+          "name": "USA",
+          "logo": ""
+        },
+        "away": {
+          "name": "Australia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-22T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group D"
+      },
+      "teams": {
+        "home": {
+          "name": "Türkiye",
+          "logo": ""
+        },
+        "away": {
+          "name": "Paraguay",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-27T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group D"
+      },
+      "teams": {
+        "home": {
+          "name": "Türkiye",
+          "logo": ""
+        },
+        "away": {
+          "name": "USA",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-27T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group D"
+      },
+      "teams": {
+        "home": {
+          "name": "Paraguay",
+          "logo": ""
+        },
+        "away": {
+          "name": "Australia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-15T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group E"
+      },
+      "teams": {
+        "home": {
+          "name": "Germany",
+          "logo": ""
+        },
+        "away": {
+          "name": "Curaçao",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-15T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group E"
+      },
+      "teams": {
+        "home": {
+          "name": "Ivory Coast",
+          "logo": ""
+        },
+        "away": {
+          "name": "Ecuador",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-23T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group E"
+      },
+      "teams": {
+        "home": {
+          "name": "Germany",
+          "logo": ""
+        },
+        "away": {
+          "name": "Ivory Coast",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-23T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group E"
+      },
+      "teams": {
+        "home": {
+          "name": "Ecuador",
+          "logo": ""
+        },
+        "away": {
+          "name": "Curaçao",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-24T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group E"
+      },
+      "teams": {
+        "home": {
+          "name": "Ecuador",
+          "logo": ""
+        },
+        "away": {
+          "name": "Germany",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-24T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group E"
+      },
+      "teams": {
+        "home": {
+          "name": "Curaçao",
+          "logo": ""
+        },
+        "away": {
+          "name": "Ivory Coast",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-16T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group F"
+      },
+      "teams": {
+        "home": {
+          "name": "Netherlands",
+          "logo": ""
+        },
+        "away": {
+          "name": "Japan",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-16T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group F"
+      },
+      "teams": {
+        "home": {
+          "name": "Sweden",
+          "logo": ""
+        },
+        "away": {
+          "name": "Tunisia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group F"
+      },
+      "teams": {
+        "home": {
+          "name": "Netherlands",
+          "logo": ""
+        },
+        "away": {
+          "name": "Sweden",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group F"
+      },
+      "teams": {
+        "home": {
+          "name": "Tunisia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Japan",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-25T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group F"
+      },
+      "teams": {
+        "home": {
+          "name": "Tunisia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Netherlands",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-25T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group F"
+      },
+      "teams": {
+        "home": {
+          "name": "Japan",
+          "logo": ""
+        },
+        "away": {
+          "name": "Sweden",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-17T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group G"
+      },
+      "teams": {
+        "home": {
+          "name": "Belgium",
+          "logo": ""
+        },
+        "away": {
+          "name": "Egypt",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-17T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group G"
+      },
+      "teams": {
+        "home": {
+          "name": "IR Iran",
+          "logo": ""
+        },
+        "away": {
+          "name": "New Zealand",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-20T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group G"
+      },
+      "teams": {
+        "home": {
+          "name": "Belgium",
+          "logo": ""
+        },
+        "away": {
+          "name": "IR Iran",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-20T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group G"
+      },
+      "teams": {
+        "home": {
+          "name": "New Zealand",
+          "logo": ""
+        },
+        "away": {
+          "name": "Egypt",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-26T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group G"
+      },
+      "teams": {
+        "home": {
+          "name": "New Zealand",
+          "logo": ""
+        },
+        "away": {
+          "name": "Belgium",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-26T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group G"
+      },
+      "teams": {
+        "home": {
+          "name": "Egypt",
+          "logo": ""
+        },
+        "away": {
+          "name": "IR Iran",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-18T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group H"
+      },
+      "teams": {
+        "home": {
+          "name": "Spain",
+          "logo": ""
+        },
+        "away": {
+          "name": "Cabo Verde",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-18T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group H"
+      },
+      "teams": {
+        "home": {
+          "name": "Saudi Arabia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Uruguay",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-21T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group H"
+      },
+      "teams": {
+        "home": {
+          "name": "Spain",
+          "logo": ""
+        },
+        "away": {
+          "name": "Saudi Arabia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-21T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group H"
+      },
+      "teams": {
+        "home": {
+          "name": "Uruguay",
+          "logo": ""
+        },
+        "away": {
+          "name": "Cabo Verde",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-27T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group H"
+      },
+      "teams": {
+        "home": {
+          "name": "Uruguay",
+          "logo": ""
+        },
+        "away": {
+          "name": "Spain",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-27T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group H"
+      },
+      "teams": {
+        "home": {
+          "name": "Cabo Verde",
+          "logo": ""
+        },
+        "away": {
+          "name": "Saudi Arabia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-11T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group I"
+      },
+      "teams": {
+        "home": {
+          "name": "France",
+          "logo": ""
+        },
+        "away": {
+          "name": "Senegal",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-11T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group I"
+      },
+      "teams": {
+        "home": {
+          "name": "Iraq",
+          "logo": ""
+        },
+        "away": {
+          "name": "Norway",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-22T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group I"
+      },
+      "teams": {
+        "home": {
+          "name": "France",
+          "logo": ""
+        },
+        "away": {
+          "name": "Iraq",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-22T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group I"
+      },
+      "teams": {
+        "home": {
+          "name": "Norway",
+          "logo": ""
+        },
+        "away": {
+          "name": "Senegal",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-24T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group I"
+      },
+      "teams": {
+        "home": {
+          "name": "Norway",
+          "logo": ""
+        },
+        "away": {
+          "name": "France",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-24T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group I"
+      },
+      "teams": {
+        "home": {
+          "name": "Senegal",
+          "logo": ""
+        },
+        "away": {
+          "name": "Iraq",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-12T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group J"
+      },
+      "teams": {
+        "home": {
+          "name": "Argentina",
+          "logo": ""
+        },
+        "away": {
+          "name": "Algeria",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-12T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group J"
+      },
+      "teams": {
+        "home": {
+          "name": "Austria",
+          "logo": ""
+        },
+        "away": {
+          "name": "Jordan",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-23T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group J"
+      },
+      "teams": {
+        "home": {
+          "name": "Argentina",
+          "logo": ""
+        },
+        "away": {
+          "name": "Austria",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-23T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group J"
+      },
+      "teams": {
+        "home": {
+          "name": "Jordan",
+          "logo": ""
+        },
+        "away": {
+          "name": "Algeria",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-25T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group J"
+      },
+      "teams": {
+        "home": {
+          "name": "Jordan",
+          "logo": ""
+        },
+        "away": {
+          "name": "Argentina",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-25T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group J"
+      },
+      "teams": {
+        "home": {
+          "name": "Algeria",
+          "logo": ""
+        },
+        "away": {
+          "name": "Austria",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-13T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group K"
+      },
+      "teams": {
+        "home": {
+          "name": "Portugal",
+          "logo": ""
+        },
+        "away": {
+          "name": "Congo DR",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-13T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group K"
+      },
+      "teams": {
+        "home": {
+          "name": "Uzbekistan",
+          "logo": ""
+        },
+        "away": {
+          "name": "Colombia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group K"
+      },
+      "teams": {
+        "home": {
+          "name": "Portugal",
+          "logo": ""
+        },
+        "away": {
+          "name": "Uzbekistan",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group K"
+      },
+      "teams": {
+        "home": {
+          "name": "Colombia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Congo DR",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-26T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group K"
+      },
+      "teams": {
+        "home": {
+          "name": "Colombia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Portugal",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-26T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group K"
+      },
+      "teams": {
+        "home": {
+          "name": "Congo DR",
+          "logo": ""
+        },
+        "away": {
+          "name": "Uzbekistan",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-14T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group L"
+      },
+      "teams": {
+        "home": {
+          "name": "England",
+          "logo": ""
+        },
+        "away": {
+          "name": "Croatia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-14T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group L"
+      },
+      "teams": {
+        "home": {
+          "name": "Ghana",
+          "logo": ""
+        },
+        "away": {
+          "name": "Panama",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-20T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group L"
+      },
+      "teams": {
+        "home": {
+          "name": "England",
+          "logo": ""
+        },
+        "away": {
+          "name": "Ghana",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-20T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group L"
+      },
+      "teams": {
+        "home": {
+          "name": "Panama",
+          "logo": ""
+        },
+        "away": {
+          "name": "Croatia",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-27T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group L"
+      },
+      "teams": {
+        "home": {
+          "name": "Panama",
+          "logo": ""
+        },
+        "away": {
+          "name": "England",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-27T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Group L"
+      },
+      "teams": {
+        "home": {
+          "name": "Croatia",
+          "logo": ""
+        },
+        "away": {
+          "name": "Ghana",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-28T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-29T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-30T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-01T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-02T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-03T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-28T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-29T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-30T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-01T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-02T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-03T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-28T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-29T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-06-30T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-01T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 32"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-04T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-05T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-06T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-07T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-04T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-05T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-06T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-07T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Round of 16"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-09T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Quarter-Finals"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-10T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Quarter-Finals"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-11T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Quarter-Finals"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-09T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Quarter-Finals"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-14T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Semi-Finals"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-15T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Semi-Finals"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-18T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Third-Place Match"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    },
+    {
+      "fixture": {
+        "date": "2026-07-19T15:00:00+00:00Z"
+      },
+      "league": {
+        "round": "Final"
+      },
+      "teams": {
+        "home": {
+          "name": "TBD",
+          "logo": ""
+        },
+        "away": {
+          "name": "TBD",
+          "logo": ""
+        }
+      }
+    }
+  ]
+}
