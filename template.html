@@ -371,18 +371,7 @@
         </div>
 
         <nav class="date-scroller" id="date-scroller" aria-label="Match Dates">
-            <a href="/?date=2026-06-11" class="date-pill">
-                <span class="day">Thu</span><span class="date">11 Jun</span>
-            </a>
-            <a href="/" class="date-pill active" aria-current="page">
-                <span class="day">Today</span><span class="date">12 Jun</span>
-            </a>
-            <a href="/?date=2026-06-13" class="date-pill">
-                <span class="day">Sat</span><span class="date">13 Jun</span>
-            </a>
-            <a href="/?date=2026-06-14" class="date-pill">
-                <span class="day">Sun</span><span class="date">14 Jun</span>
-            </a>
+            [[INJECT_CALENDAR_HERE]]
         </nav>
     </header>
     
@@ -455,8 +444,31 @@
         const datePills = document.querySelectorAll('.date-pill');
         
         // Default to the first day of the tournament if no date is selected
-let currentDateFilter = new URLSearchParams(window.location.search).get('date') || '2026-06-11';
+// 📅 AUTO-DETECT "TODAY" BASED ON USER'S LOCAL DEVICE
+        function getSmartDefaultDate() {
+            const todayObj = new Date();
+            
+            // Format the user's actual date as YYYY-MM-DD
+            const localYear = todayObj.getFullYear();
+            const localMonth = String(todayObj.getMonth() + 1).padStart(2, '0');
+            const localDay = String(todayObj.getDate()).padStart(2, '0');
+            const localTodayStr = `${localYear}-${localMonth}-${localDay}`;
 
+            const tournamentStart = '2026-06-11';
+            const tournamentEnd = '2026-07-19';
+
+            if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
+                return localTodayStr; // During the World Cup: Show their actual today
+            } else if (localTodayStr > tournamentEnd) {
+                return tournamentEnd; // Tournament is over: Show the Final
+            } else {
+                return tournamentStart; // Hasn't started yet: Show Opening Day
+            }
+        }
+
+        // Apply URL parameter, or fallback to the smart detection
+        let currentDateFilter = new URLSearchParams(window.location.search).get('date') || getSmartDefaultDate();
+        
         function applyFilters() {
             const searchTerm = searchInput.value.toLowerCase();
             const sections = document.querySelectorAll('.group-section');
