@@ -124,6 +124,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             return {
                 date: dateStr,
                 slug: matchSlug,
+                utcDate: match.fixture.date,
                 group: match.league.round,
                 home: {
                     name: homeName.substring(0, 3).toUpperCase(),
@@ -171,6 +172,12 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     <div class="team-block away">
                         <span class="team-name">${match.away.fullName}</span>
                         <img src="${match.away.logo}" class="team-flag" alt="${match.away.fullName} Logo">
+                    </div>
+
+                    <!-- 🌐 NEW: Localized Time Bar (Spans full width) -->
+                    <div class="local-time-bar" data-kickoff="${match.utcDate}">
+                        <i data-lucide="calendar-clock"></i>
+                        <span class="local-date-text">Calculating your local time...</span>
                     </div>
                 </a>
             `;
