@@ -179,6 +179,10 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         schedule.forEach(match => {
             if (match.group !== currentGroup) {
+                // 🛠️ FIX: Close the previous section before starting a new one!
+                if (currentGroup !== '') {
+                    matchCardsHTML += `\n</section>`; 
+                }
                 const groupId = createSlug(match.group);
                 matchCardsHTML += `\n<section class="group-section" aria-labelledby="header-${groupId}">`;
                 matchCardsHTML += `\n<h2 id="header-${groupId}" class="group-header">${match.group}</h2>\n`;
