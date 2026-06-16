@@ -173,13 +173,13 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         const templatePath = path.join(__dirname, 'template.html');
         let htmlTemplate = fs.readFileSync(templatePath, 'utf8');
 
-        // 3. Generate the Dynamic SEO Match Cards
+        // 3. Generate the Dynamic SEO Match Cards & Crawl Wall
         let matchCardsHTML = '';
+        let seoLinksHTML = ''; // 🚀 NEW: The invisible links for Googlebot
         let currentGroup = '';
 
         schedule.forEach(match => {
             if (match.group !== currentGroup) {
-                // 🛠️ FIX: Close the previous section before starting a new one!
                 if (currentGroup !== '') {
                     matchCardsHTML += `\n</section>`; 
                 }
@@ -189,7 +189,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 currentGroup = match.group;
             }
 
-           matchCardsHTML += `
+            matchCardsHTML += `
                 <a href="/match/${match.date}/${match.slug}" class="match-card" aria-label="${match.home.fullName} vs ${match.away.fullName}">
                     <div class="team-block home">
                         <img src="${match.home.logo}" class="team-flag" alt="${match.home.fullName} Logo" decoding="async">
@@ -212,6 +212,9 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     </div>
                 </a>
             `;
+
+            // 🚀 NEW: Add the keyword-rich text link for SEO
+            seoLinksHTML += `<a href="/match/${match.date}/${match.slug}">${match.home.fullName} vs ${match.away.fullName} World Cup 2026</a>\n`;
         });
 
         matchCardsHTML += `\n</section>`;
@@ -225,6 +228,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         // 5. Inject EVERYTHING into the main schedule template
         let finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
         finalHTML = finalHTML.replace('[[INJECT_CALENDAR_HERE]]', calendarHTML);
+        finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML); // 👈 ADD THIS LINE
 
         // 6. Write the brand new index.html into the 'public' folder
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
