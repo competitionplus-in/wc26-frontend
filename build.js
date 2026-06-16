@@ -192,7 +192,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
            matchCardsHTML += `
                 <a href="/match/${match.date}/${match.slug}" class="match-card" aria-label="${match.home.fullName} vs ${match.away.fullName}">
                     <div class="team-block home">
-                        <img src="${match.home.logo}" class="team-flag" alt="${match.home.fullName} Logo">
+                        <img src="${match.home.logo}" class="team-flag" alt="${match.home.fullName} Logo" loading="lazy" decoding="async">
                         <span class="team-name">${match.home.fullName}</span>
                     </div>
                     
@@ -203,10 +203,9 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     
                     <div class="team-block away">
                         <span class="team-name">${match.away.fullName}</span>
-                        <img src="${match.away.logo}" class="team-flag" alt="${match.away.fullName} Logo">
+                        <img src="${match.away.logo}" class="team-flag" alt="${match.away.fullName} Logo" loading="lazy" decoding="async">
                     </div>
 
-                    <!-- 🌐 NEW: Localized Time Bar (Spans full width) -->
                     <div class="local-time-bar" data-kickoff="${match.utcDate}">
                         <i data-lucide="calendar-clock"></i>
                         <span class="local-date-text">Calculating your local time...</span>
