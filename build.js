@@ -160,13 +160,32 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
+        // --- 7. THE TRUE SSG FIX (INJECTING MATCH DATA) ---
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
+            // 1. Read the template into memory ONCE
+            const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
+
             schedule.forEach(match => {
                 const matchDir = path.join(outputDir, 'match', match.date, match.slug);
                 fs.mkdirSync(matchDir, { recursive: true });
-                fs.copyFileSync(path.join(__dirname, 'match.html'), path.join(matchDir, 'index.html'));
+
+                // 2. Clone the template string
+                let matchHTML = matchTemplate;
+
+                // 3. Inject the specific match data globally (using regex /g to replace every instance)
+                matchHTML = matchHTML.replace(/\[\[HOME_NAME\]\]/g, match.home.fullName);
+                matchHTML = matchHTML.replace(/\[\[AWAY_NAME\]\]/g, match.away.fullName);
+                matchHTML = matchHTML.replace(/\[\[HOME_LOGO\]\]/g, match.home.logo);
+                matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
+                matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
+
+                // 4. Temporarily clear the Standings placeholder until we link the cache
+                matchHTML = matchHTML.replace('[[INJECT_MATCH_STANDINGS_HERE]]', '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>');
+
+                // 5. Write the fully populated HTML file to the public folder
+                fs.writeFileSync(path.join(matchDir, 'index.html'), matchHTML);
             });
-            console.log("✅ Physically generated dynamic match directories!");
+            console.log("✅ Physically generated dynamic match directories WITH injected SEO data!");
         }
 
         // 🛠️ THE NEW STANDINGS & SVG INJECTION LOGIC
