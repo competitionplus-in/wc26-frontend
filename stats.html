@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournament Player Stats & Rankings | Pitch90</title>
     
-    <meta name="description" content="View the top goal scorers, most assists, and clean sheets for the 2026 tournament. Live player statistics and leaderboard updates.">
-    <meta name="keywords" content="top scorers, golden boot, football stats, player rankings, world cup 2026 stats">
+    <meta name="description" content="View the top goal scorers, most assists, clean sheets, and disciplinary records for the 2026 tournament. Live player statistics and leaderboard updates.">
+    <meta name="keywords" content="top scorers, golden boot, football stats, player rankings, world cup 2026 stats, red cards, yellow cards">
     <meta name="robots" content="index, follow">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -19,8 +19,10 @@
             --text-muted: #64748b;
             --accent-glow: #2563eb;
             --accent-green: #10b981;
+            --live-red: #ef4444;
             --border-glass: #cbd5e1;
             --gold: #eab308;
+            --yellow-card: #eab308; /* Added for disciplinary cards */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -38,7 +40,8 @@
         .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
 
         /* --- MAIN CONTENT --- */
-        .content-container { max-width: 900px; margin: 0 auto; padding: 20px; display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        /* Changed max-width to allow the 5 cards to flow nicely */
+        .content-container { max-width: 1100px; margin: 0 auto; padding: 20px; display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 
         .stat-card {
             background: var(--bg-card); border-radius: 12px; overflow: hidden;
@@ -54,6 +57,9 @@
         }
         
         .stat-header svg { width: 18px; height: 18px; color: var(--accent-glow); }
+        /* Custom coloring for disciplinary headers */
+        .header-yellow svg { color: var(--yellow-card); }
+        .header-red svg { color: var(--live-red); }
 
         .stat-list { display: flex; flex-direction: column; padding: 5px 20px 15px; }
         
@@ -72,9 +78,6 @@
         .stat-team-name { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
 
         .stat-value { font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent-glow); flex-shrink: 0;}
-
-        .loading-state { text-align: center; padding: 50px; color: var(--text-muted); font-weight: 600; animation: pulse 1.5s infinite; grid-column: 1 / -1; }
-        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
         /* --- BOTTOM NAV --- */
         .bottom-nav {
@@ -101,8 +104,7 @@
     </header>
 
     <main class="content-container" id="stats-main-container">
-        <div class="loading-state">Compiling Player Statistics...</div>
-    </main>
+        </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
         <a href="/" class="nav-item">
@@ -138,7 +140,6 @@
                 if(!players || players.length === 0) return `<div style="padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">No data available yet.</div>`;
                 
                 return players.map((p, index) => {
-                    // 🎨 Check dictionary for crisp SVG. If not found, use API-Football PNG fallback.
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(p.teamName)] || p.fallbackLogo;
 
                     return `
@@ -147,7 +148,7 @@
                             <div class="stat-player-info">
                                 <div class="stat-player-name">${p.name}</div>
                                 <div class="stat-team-info">
-                                    <img src="${finalFlagUrl}" alt="${p.teamName}">
+                                    <img src="${finalFlagUrl}" alt="${p.teamName}" loading="lazy">
                                     <span class="stat-team-name">${p.teamName}</span>
                                 </div>
                             </div>
@@ -179,11 +180,24 @@
                         ${generateRows(INJECTED_STATS.cleanSheets)}
                     </div>
                 </div>
+
+                <div class="stat-card">
+                    <div class="stat-header header-yellow"><i data-lucide="square"></i> Yellow Cards</div>
+                    <div class="stat-list">
+                        ${generateRows(INJECTED_STATS.yellowCards)}
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header header-red"><i data-lucide="square"></i> Red Cards</div>
+                    <div class="stat-list">
+                        ${generateRows(INJECTED_STATS.redCards)}
+                    </div>
+                </div>
             `;
             lucide.createIcons();
         }
 
-        // Render instantly on page load (No loading spinner needed!)
         renderTournamentStats();
     </script>
 </body>
