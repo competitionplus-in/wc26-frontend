@@ -106,15 +106,25 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-width: 65px;
+            min-width: 70px; /* Slightly wider to comfortably fit the text */
             padding: 8px 12px;
             border-radius: 12px;
             text-decoration: none;
             color: var(--text-muted);
             transition: all 0.2s ease;
         }
-        .date-pill .day { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 2px;}
-        .date-pill .date { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; }
+        .date-pill .day { 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            margin-bottom: 2px;
+        }
+        .date-pill .date { 
+            font-family: 'Oswald', sans-serif; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            white-space: nowrap; /* 🛠️ FIX: Forces '27 Jun' onto one line */
+        }
         
         .date-pill:hover { background-color: rgba(0,0,0,0.05); }
         .date-pill.active {
@@ -555,20 +565,10 @@
                     const scoreTime = card.querySelector('.score-time');
 
                     if (data.setup.status === 'pre-match') {
-                        const localKickoff = new Date(data.setup.countdownTarget);
-                        const localYear = localKickoff.getFullYear();
-                        const localMonth = String(localKickoff.getMonth() + 1).padStart(2, '0');
-                        const localDay = String(localKickoff.getDate()).padStart(2, '0');
-                        const localDateString = `${localYear}-${localMonth}-${localDay}`;
-
-                        let timeString = localKickoff.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                        if (localDateString > fixtureDate) timeString += ' (+1)';
-                        else if (localDateString < fixtureDate) timeString += ' (-1)';
-
-                        scoreTime.innerText = timeString;
+                        // 🛠️ FIX: Simply show UPCOMING, as local time is now in the bottom bar
+                        scoreTime.innerText = 'UPCOMING';
                         scoreTime.className = 'score-time'; 
-                        scoreMain.innerText = 'v'; 
+                        scoreMain.innerText = 'V'; 
                         scoreMain.style.color = 'var(--text-main)';
 
                     } else if (data.setup.status !== 'pre-match') {
@@ -579,7 +579,7 @@
                             scoreTime.className = 'score-time live-pill'; 
                             scoreMain.style.color = 'var(--live-red)';
                         } else if (data.setup.status === 'post-match') {
-                            scoreTime.innerText = 'FT';
+                            scoreTime.innerText = 'FULL TIME';
                             scoreTime.className = 'score-time ft-pill'; 
                             scoreMain.style.color = 'var(--text-main)';
                         }
