@@ -181,6 +181,25 @@
             color: inherit;
             box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
         }
+
+/*   /* 🌐 Local Time Bar */
+        .local-time-bar {
+            grid-column: 1 / -1; /* Forces it to span across all 3 grid columns */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding-top: 15px;
+            margin-top: -5px;
+            border-top: 1px dashed rgba(0,0,0,0.08); /* Subtle separator line */
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .local-time-bar svg { width: 15px; height: 15px; color: var(--accent-glow); }
+        
         .match-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1);
@@ -389,6 +408,34 @@
    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
+
+
+// 🌐 LOCAL TIME CONVERTER
+        function localizeMatchTimes() {
+            const timeBars = document.querySelectorAll('.local-time-bar');
+            
+            timeBars.forEach(bar => {
+                const kickoffStr = bar.getAttribute('data-kickoff');
+                if (!kickoffStr) return;
+
+                // Create a date object from the raw UTC string
+                const localDateObj = new Date(kickoffStr);
+
+                // Let the user's device dictate the format
+                const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
+                const timeOpts = { hour: 'numeric', minute: '2-digit' };
+                
+                const localDate = localDateObj.toLocaleDateString(undefined, dateOpts);
+                const localTime = localDateObj.toLocaleTimeString(undefined, timeOpts);
+
+                // Inject the final string
+                bar.querySelector('.local-date-text').innerText = `${localDate} | ${localTime}`;
+            });
+        }
+
+        // Run instantly on load
+        localizeMatchTimes();
+        
 
         // 🔍 SEARCH & CALENDAR FILTERING ENGINE
         const searchInput = document.getElementById('match-search');
