@@ -150,6 +150,25 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         console.log(`✅ Successfully mapped ${schedule.length} matches with Hybrid Graphics!`);
 
+
+// --- 🌐 NEW: GENERATE THE FULL CALENDAR RIBBON ---
+        let calendarHTML = '';
+        const tourneyStart = new Date('2026-06-11T00:00:00Z');
+        const tourneyEnd = new Date('2026-07-19T00:00:00Z');
+        
+        for (let d = new Date(tourneyStart); d <= tourneyEnd; d.setDate(d.getDate() + 1)) {
+            const isoDate = d.toISOString().split('T')[0]; // e.g., 2026-06-11
+            const dayName = d.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+            const dayNum = d.getUTCDate();
+            const monthName = d.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+            
+            calendarHTML += `
+            <a href="/?date=${isoDate}" class="date-pill" data-date="${isoDate}">
+                <span class="day">${dayName}</span><span class="date">${dayNum} ${monthName}</span>
+            </a>`;
+        }
+        
+
         // 2. Read the template file
         const templatePath = path.join(__dirname, 'template.html');
         let htmlTemplate = fs.readFileSync(templatePath, 'utf8');
@@ -194,8 +213,9 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         matchCardsHTML += `\n</section>`;
 
-        // 4. Inject the generated cards into the template
-        const finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
+        // 4. Inject the generated cards and calendar into the template
+        let finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
+        finalHTML = finalHTML.replace('[[INJECT_CALENDAR_HERE]]', calendarHTML); // 👈 NEW INJECTION        
 
         // 5. Create the "public" folder
         const outputDir = path.join(__dirname, 'public');
