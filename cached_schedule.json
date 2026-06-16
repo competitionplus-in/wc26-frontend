@@ -2,7 +2,7 @@
   "response": [
     {
       "fixture": {
-        "date": "2026-undefined-11T13:00:00-6:00"
+        "date": "2026-06-11T13:00:00-6:00"
       },
       "league": {
         "round": "Group A"
@@ -20,7 +20,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-11T20:00:00-6:00"
+        "date": "2026-06-11T20:00:00-6:00"
       },
       "league": {
         "round": "Group A"
@@ -38,7 +38,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-18T12:00:00-4:00"
+        "date": "2026-06-18T12:00:00-4:00"
       },
       "league": {
         "round": "Group A"
@@ -56,7 +56,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-18T19:00:00-6:00"
+        "date": "2026-06-18T19:00:00-6:00"
       },
       "league": {
         "round": "Group A"
@@ -74,7 +74,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-24T19:00:00-6:00"
+        "date": "2026-06-24T19:00:00-6:00"
       },
       "league": {
         "round": "Group A"
@@ -92,7 +92,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-24T19:00:00-6:00"
+        "date": "2026-06-24T19:00:00-6:00"
       },
       "league": {
         "round": "Group A"
@@ -110,7 +110,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-12T15:00:00-4:00"
+        "date": "2026-06-12T15:00:00-4:00"
       },
       "league": {
         "round": "Group B"
@@ -128,7 +128,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-13T12:00:00-7:00"
+        "date": "2026-06-13T12:00:00-7:00"
       },
       "league": {
         "round": "Group B"
@@ -146,7 +146,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-18T12:00:00-7:00"
+        "date": "2026-06-18T12:00:00-7:00"
       },
       "league": {
         "round": "Group B"
@@ -164,7 +164,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-18T15:00:00-7:00"
+        "date": "2026-06-18T15:00:00-7:00"
       },
       "league": {
         "round": "Group B"
@@ -182,7 +182,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-24T12:00:00-7:00"
+        "date": "2026-06-24T12:00:00-7:00"
       },
       "league": {
         "round": "Group B"
@@ -200,7 +200,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-24T12:00:00-7:00"
+        "date": "2026-06-24T12:00:00-7:00"
       },
       "league": {
         "round": "Group B"
@@ -218,7 +218,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-13T18:00:00-4:00"
+        "date": "2026-06-13T18:00:00-4:00"
       },
       "league": {
         "round": "Group C"
@@ -236,7 +236,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-13T21:00:00-4:00"
+        "date": "2026-06-13T21:00:00-4:00"
       },
       "league": {
         "round": "Group C"
@@ -254,7 +254,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-19T18:00:00-4:00"
+        "date": "2026-06-19T18:00:00-4:00"
       },
       "league": {
         "round": "Group C"
@@ -272,7 +272,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-19T20:30:00-4:00"
+        "date": "2026-06-19T20:30:00-4:00"
       },
       "league": {
         "round": "Group C"
@@ -290,7 +290,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-24T18:00:00-4:00"
+        "date": "2026-06-24T18:00:00-4:00"
       },
       "league": {
         "round": "Group C"
@@ -308,7 +308,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-24T18:00:00-4:00"
+        "date": "2026-06-24T18:00:00-4:00"
       },
       "league": {
         "round": "Group C"
@@ -326,7 +326,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-12T18:00:00-7:00"
+        "date": "2026-06-12T18:00:00-7:00"
       },
       "league": {
         "round": "Group D"
@@ -344,7 +344,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-13T21:00:00-7:00"
+        "date": "2026-06-13T21:00:00-7:00"
       },
       "league": {
         "round": "Group D"
@@ -362,7 +362,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-19T12:00:00-7:00"
+        "date": "2026-06-19T12:00:00-7:00"
       },
       "league": {
         "round": "Group D"
@@ -380,7 +380,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-19T20:00:00-7:00"
+        "date": "2026-06-19T20:00:00-7:00"
       },
       "league": {
         "round": "Group D"
@@ -398,7 +398,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-25T19:00:00-7:00"
+        "date": "2026-06-25T19:00:00-7:00"
       },
       "league": {
         "round": "Group D"
@@ -416,7 +416,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-25T19:00:00-7:00"
+        "date": "2026-06-25T19:00:00-7:00"
       },
       "league": {
         "round": "Group D"
@@ -434,7 +434,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-14T12:00:00-5:00"
+        "date": "2026-06-14T12:00:00-5:00"
       },
       "league": {
         "round": "Group E"
@@ -452,7 +452,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-14T19:00:00-4:00"
+        "date": "2026-06-14T19:00:00-4:00"
       },
       "league": {
         "round": "Group E"
@@ -470,7 +470,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-20T16:00:00-4:00"
+        "date": "2026-06-20T16:00:00-4:00"
       },
       "league": {
         "round": "Group E"
@@ -488,7 +488,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-20T19:00:00-5:00"
+        "date": "2026-06-20T19:00:00-5:00"
       },
       "league": {
         "round": "Group E"
@@ -506,7 +506,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-25T16:00:00-4:00"
+        "date": "2026-06-25T16:00:00-4:00"
       },
       "league": {
         "round": "Group E"
@@ -524,7 +524,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-25T16:00:00-4:00"
+        "date": "2026-06-25T16:00:00-4:00"
       },
       "league": {
         "round": "Group E"
@@ -542,7 +542,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-14T15:00:00-5:00"
+        "date": "2026-06-14T15:00:00-5:00"
       },
       "league": {
         "round": "Group F"
@@ -560,7 +560,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-14T20:00:00-6:00"
+        "date": "2026-06-14T20:00:00-6:00"
       },
       "league": {
         "round": "Group F"
@@ -578,7 +578,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-20T12:00:00-5:00"
+        "date": "2026-06-20T12:00:00-5:00"
       },
       "league": {
         "round": "Group F"
@@ -596,7 +596,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-20T22:00:00-6:00"
+        "date": "2026-06-20T22:00:00-6:00"
       },
       "league": {
         "round": "Group F"
@@ -614,7 +614,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-25T18:00:00-5:00"
+        "date": "2026-06-25T18:00:00-5:00"
       },
       "league": {
         "round": "Group F"
@@ -632,7 +632,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-25T18:00:00-5:00"
+        "date": "2026-06-25T18:00:00-5:00"
       },
       "league": {
         "round": "Group F"
@@ -650,7 +650,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-15T12:00:00-7:00"
+        "date": "2026-06-15T12:00:00-7:00"
       },
       "league": {
         "round": "Group G"
@@ -668,7 +668,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-15T18:00:00-7:00"
+        "date": "2026-06-15T18:00:00-7:00"
       },
       "league": {
         "round": "Group G"
@@ -686,7 +686,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-21T12:00:00-7:00"
+        "date": "2026-06-21T12:00:00-7:00"
       },
       "league": {
         "round": "Group G"
@@ -704,7 +704,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-21T18:00:00-7:00"
+        "date": "2026-06-21T18:00:00-7:00"
       },
       "league": {
         "round": "Group G"
@@ -722,7 +722,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-26T20:00:00-7:00"
+        "date": "2026-06-26T20:00:00-7:00"
       },
       "league": {
         "round": "Group G"
@@ -740,7 +740,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-26T20:00:00-7:00"
+        "date": "2026-06-26T20:00:00-7:00"
       },
       "league": {
         "round": "Group G"
@@ -758,7 +758,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-15T12:00:00-4:00"
+        "date": "2026-06-15T12:00:00-4:00"
       },
       "league": {
         "round": "Group H"
@@ -776,7 +776,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-15T18:00:00-4:00"
+        "date": "2026-06-15T18:00:00-4:00"
       },
       "league": {
         "round": "Group H"
@@ -794,7 +794,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-21T12:00:00-4:00"
+        "date": "2026-06-21T12:00:00-4:00"
       },
       "league": {
         "round": "Group H"
@@ -812,7 +812,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-21T18:00:00-4:00"
+        "date": "2026-06-21T18:00:00-4:00"
       },
       "league": {
         "round": "Group H"
@@ -830,7 +830,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-26T19:00:00-5:00"
+        "date": "2026-06-26T19:00:00-5:00"
       },
       "league": {
         "round": "Group H"
@@ -848,7 +848,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-26T18:00:00-6:00"
+        "date": "2026-06-26T18:00:00-6:00"
       },
       "league": {
         "round": "Group H"
@@ -866,7 +866,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-16T15:00:00-4:00"
+        "date": "2026-06-16T15:00:00-4:00"
       },
       "league": {
         "round": "Group I"
@@ -884,7 +884,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-16T18:00:00-4:00"
+        "date": "2026-06-16T18:00:00-4:00"
       },
       "league": {
         "round": "Group I"
@@ -902,7 +902,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-22T17:00:00-4:00"
+        "date": "2026-06-22T17:00:00-4:00"
       },
       "league": {
         "round": "Group I"
@@ -920,7 +920,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-22T20:00:00-4:00"
+        "date": "2026-06-22T20:00:00-4:00"
       },
       "league": {
         "round": "Group I"
@@ -938,7 +938,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-26T15:00:00-4:00"
+        "date": "2026-06-26T15:00:00-4:00"
       },
       "league": {
         "round": "Group I"
@@ -956,7 +956,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-26T15:00:00-4:00"
+        "date": "2026-06-26T15:00:00-4:00"
       },
       "league": {
         "round": "Group I"
@@ -974,7 +974,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-16T20:00:00-5:00"
+        "date": "2026-06-16T20:00:00-5:00"
       },
       "league": {
         "round": "Group J"
@@ -992,7 +992,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-16T21:00:00-7:00"
+        "date": "2026-06-16T21:00:00-7:00"
       },
       "league": {
         "round": "Group J"
@@ -1010,7 +1010,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-22T12:00:00-5:00"
+        "date": "2026-06-22T12:00:00-5:00"
       },
       "league": {
         "round": "Group J"
@@ -1028,7 +1028,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-22T20:00:00-7:00"
+        "date": "2026-06-22T20:00:00-7:00"
       },
       "league": {
         "round": "Group J"
@@ -1046,7 +1046,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-27T21:00:00-5:00"
+        "date": "2026-06-27T21:00:00-5:00"
       },
       "league": {
         "round": "Group J"
@@ -1064,7 +1064,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-27T21:00:00-5:00"
+        "date": "2026-06-27T21:00:00-5:00"
       },
       "league": {
         "round": "Group J"
@@ -1082,7 +1082,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-17T12:00:00-5:00"
+        "date": "2026-06-17T12:00:00-5:00"
       },
       "league": {
         "round": "Group K"
@@ -1100,7 +1100,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-17T20:00:00-6:00"
+        "date": "2026-06-17T20:00:00-6:00"
       },
       "league": {
         "round": "Group K"
@@ -1118,7 +1118,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-23T12:00:00-5:00"
+        "date": "2026-06-23T12:00:00-5:00"
       },
       "league": {
         "round": "Group K"
@@ -1136,7 +1136,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-23T20:00:00-6:00"
+        "date": "2026-06-23T20:00:00-6:00"
       },
       "league": {
         "round": "Group K"
@@ -1154,7 +1154,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-27T19:30:00-4:00"
+        "date": "2026-06-27T19:30:00-4:00"
       },
       "league": {
         "round": "Group K"
@@ -1172,7 +1172,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-27T19:30:00-4:00"
+        "date": "2026-06-27T19:30:00-4:00"
       },
       "league": {
         "round": "Group K"
@@ -1190,7 +1190,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-17T15:00:00-5:00"
+        "date": "2026-06-17T15:00:00-5:00"
       },
       "league": {
         "round": "Group L"
@@ -1208,7 +1208,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-17T19:00:00-4:00"
+        "date": "2026-06-17T19:00:00-4:00"
       },
       "league": {
         "round": "Group L"
@@ -1226,7 +1226,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-23T16:00:00-4:00"
+        "date": "2026-06-23T16:00:00-4:00"
       },
       "league": {
         "round": "Group L"
@@ -1244,7 +1244,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-23T19:00:00-4:00"
+        "date": "2026-06-23T19:00:00-4:00"
       },
       "league": {
         "round": "Group L"
@@ -1262,7 +1262,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-27T17:00:00-4:00"
+        "date": "2026-06-27T17:00:00-4:00"
       },
       "league": {
         "round": "Group L"
@@ -1280,7 +1280,7 @@
     },
     {
       "fixture": {
-        "date": "2026-undefined-27T17:00:00-4:00"
+        "date": "2026-06-27T17:00:00-4:00"
       },
       "league": {
         "round": "Group L"
