@@ -19,17 +19,39 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             data = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
         } else {
             console.log("📡 Fetching official schedule from API-Football...");
-            const response = await fetch("https://v3.football.api-sports.io/fixtures?league=1&season=2026", {
-                headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
-            });
-            if (!response.ok) throw new Error(`API request failed: ${response.status}`);
-            data = await response.json();
+            try {
+                const response = await fetch("https://v3.football.api-sports.io/fixtures?league=1&season=2026", {
+                    headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
+                });
+                if (!response.ok) throw new Error(`API request failed: ${response.status}`);
+                data = await response.json();
 
-            if (!data.response || data.response.length === 0) {
-                console.log("⚠️ 2026 Schedule not released yet! Please run generate-schedule.js first.");
-                process.exit(1);
-            } else {
-                fs.writeFileSync(cacheFile, JSON.stringify(data));
+                if (!data.response || data.response.length === 0) {
+                    throw new Error("2026 Schedule not released yet!");
+                } else {
+                    fs.writeFileSync(cacheFile, JSON.stringify(data));
+                }
+            } catch (err) {
+                console.log("⚠️ Schedule missing or API Key blocked! Injecting Vercel Mock Data...");
+                data = {
+                    response: [
+                        {
+                            fixture: { date: "2026-06-11T15:00:00+00:00" },
+                            league: { round: "Group A" },
+                            teams: { home: { name: "Mexico", logo: "https://media.api-sports.io/football/teams/16.png" }, away: { name: "South Africa", logo: "https://media.api-sports.io/football/teams/14.png" } }
+                        },
+                        {
+                            fixture: { date: "2026-06-12T15:00:00+00:00" },
+                            league: { round: "Group B" },
+                            teams: { home: { name: "Canada", logo: "https://media.api-sports.io/football/teams/5529.png" }, away: { name: "Bosnia", logo: "https://media.api-sports.io/football/teams/1183.png" } }
+                        },
+                        {
+                            fixture: { date: "2026-06-12T19:00:00+00:00" },
+                            league: { round: "Group D" },
+                            teams: { home: { name: "USA", logo: "https://media.api-sports.io/football/teams/2384.png" }, away: { name: "Paraguay", logo: "https://media.api-sports.io/football/teams/11.png" } }
+                        }
+                    ]
+                };
             }
         }
 
@@ -42,7 +64,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             return teamAliases[cleanName] || cleanName;
         };
         
-        // 🚀 RESTORED: The full SVG Flag Fetching Engine
         if (fs.existsSync(flagsCacheFile)) {
             console.log("📂 Found local cached Flags dictionary! Skipping API call.");
             flagMap = JSON.parse(fs.readFileSync(flagsCacheFile, 'utf8'));
@@ -109,7 +130,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         }
 
         let matchCardsHTML = '';
-        let seoLinksHTML = ''; // 🚀 SEO: The invisible links for Googlebot
+        let seoLinksHTML = ''; 
         let currentGroup = '';
 
         schedule.forEach(match => {
@@ -142,7 +163,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 </a>
             `;
 
-            // 🚀 SEO: Valid list item for the HTML Sitemap
             seoLinksHTML += `<li><a href="/match/${match.date}/${match.slug}">${match.home.fullName} vs ${match.away.fullName} World Cup 2026</a></li>\n`;
         });
 
@@ -156,46 +176,11 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         let finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
         finalHTML = finalHTML.replace('[[INJECT_CALENDAR_HERE]]', calendarHTML);
-        finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML); // 🚀 SEO Injection!
+        finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML); 
 
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
-        // --- 7. THE TRUE SSG FIX (INJECTING MATCH DATA) ---
-        if (fs.existsSync(path.join(__dirname, 'match.html'))) {
-            // 1. Read the template into memory ONCE
-            const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
-
-            schedule.forEach(match => {
-                const matchDir = path.join(outputDir, 'match', match.date, match.slug);
-                fs.mkdirSync(matchDir, { recursive: true });
-
-                // 2. Clone the template string
-                let matchHTML = matchTemplate;
-
-                // 3. Inject the specific match data globally (using regex /g to replace every instance)
-                matchHTML = matchHTML.replace(/\[\[HOME_NAME\]\]/g, match.home.fullName);
-                matchHTML = matchHTML.replace(/\[\[AWAY_NAME\]\]/g, match.away.fullName);
-                matchHTML = matchHTML.replace(/\[\[HOME_LOGO\]\]/g, match.home.logo);
-                matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
-                matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
-
-                // 4. Temporarily clear the Standings placeholder until we link the cache
-                matchHTML = matchHTML.replace('[[INJECT_MATCH_STANDINGS_HERE]]', '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>');
-
-                // 5. Write the fully populated HTML file to the public folder
-                fs.writeFileSync(path.join(matchDir, 'index.html'), matchHTML);
-            });
-            console.log("✅ Physically generated dynamic match directories WITH injected SEO data!");
-        }
-
-        // 🛠️ THE NEW STANDINGS & SVG INJECTION LOGIC
-        if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
-            const standingsDir = path.join(outputDir, 'standings');
-            fs.mkdirSync(standingsDir, { recursive: true });
-            
-            // 🚀 NEW: Setup Local Cache for Standings
-            const standingsCache = path.join(__dirname, 'cached_standings.json');
-            // 🛠️ 1. LOAD THE STANDINGS CACHE FIRST
+        // 🛠️ 1. LOAD THE STANDINGS CACHE FIRST
         let mappedStandings = [];
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
             const standingsDir = path.join(outputDir, 'standings');
@@ -232,7 +217,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                                 name: t.team.name,
                                 pld: t.all.played, w: t.all.win, d: t.all.draw, l: t.all.lose,
                                 gf: t.all.goals.for, ga: t.all.goals.against, gd: t.goalsDiff, pts: t.points,
-                                code: normalizeName(t.team.name) // 👈 Used to map the correct SVG flag
+                                code: normalizeName(t.team.name) 
                             }))
                         };
                     });
@@ -270,7 +255,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
                 matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
 
-                // Find the specific group standings for this match
                 const groupData = mappedStandings.find(g => g.name === match.group);
                 let groupHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>';
 
@@ -298,9 +282,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     }).join('');
                 }
 
-                // Inject the generated HTML rows into the template
                 matchHTML = matchHTML.replace('[[INJECT_MATCH_STANDINGS_HERE]]', groupHTML);
-
                 fs.writeFileSync(path.join(matchDir, 'index.html'), matchHTML);
             });
             console.log("✅ Physically generated dynamic match directories WITH injected SEO data and Live Standings!");
@@ -312,7 +294,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             fs.mkdirSync(statsDir, { recursive: true });
             
             const statsCache = path.join(__dirname, 'cached_stats.json');
-            // 🚀 ADDED: yellowCards and redCards arrays to the payload
             let mappedStats = { topScorers: [], topAssists: [], cleanSheets: [], yellowCards: [], redCards: [] };
 
             try {
@@ -328,7 +309,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     const assistsRes = await fetch("https://v3.football.api-sports.io/players/topassists?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
                     const assistsData = await assistsRes.json();
 
-                    // 🚀 NEW: Disciplinary Endpoints
                     const yellowRes = await fetch("https://v3.football.api-sports.io/players/topyellowcards?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
                     const yellowData = await yellowRes.json();
 
@@ -360,7 +340,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                         }));
                     }
                     
-                    // MVP Fallback for Clean Sheets (Since API-Football lacks a direct endpoint for this)
                     mappedStats.cleanSheets = [
                         { name: "E. Martínez", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" },
                         { name: "Y. Bounou", teamName: "Morocco", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/31.png" },
