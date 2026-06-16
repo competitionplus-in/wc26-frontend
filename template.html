@@ -440,7 +440,14 @@
             const tournamentStart = '2026-06-11';
             const tournamentEnd = '2026-07-19';
 
-            return tournamentStart; // Forced Opening Day Fallback for Testing
+            // 🚀 FIX: Smart Date Logic Restored!
+            if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
+                return localTodayStr; // Show real "Today" during the tournament
+            } else if (localTodayStr > tournamentEnd) {
+                return tournamentEnd; // Show the Final if tournament is over
+            } else {
+                return tournamentStart; // Show Opening Day before it begins
+            }
         }
 
         let currentDateFilter = new URLSearchParams(window.location.search).get('date') || getSmartDefaultDate();
@@ -569,8 +576,7 @@
             });
         }
 
-        // Check visible elements immediately, then poll every 30 seconds
-        setTimeout(hydrateLiveScores, 150);
+        // 🚀 PERFORMANCE FIX: applyFilters() handles the initial hydration. Just run the polling here.
         setInterval(hydrateLiveScores, 30000);
 
     </script>
