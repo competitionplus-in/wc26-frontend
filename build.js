@@ -76,22 +76,16 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         // 🛠️ ALIAS MAP: Connects short schedule names to official API dictionary names
         const teamAliases = {
-            "south africa": "south africa", // Make sure this exactly matches what's in cached_flags.json
-            "south korea": "korea republic",
             "czechia": "czech republic",
-            "bosnia": "bosnia and herzegovina",
-            "turkiye": "turkey",
-            "curacao": "curaçao",
-            "ivory coast": "cote d'ivoire",
-            "iran": "ir iran",
-            "cabo verde": "cape verde",
-            "congo dr": "dr congo",
-            "usa": "usa"
+            "turkiye": "turkey"
         };
         
-        // Helper to match "South-Africa" (from Flags) to "South Africa" (from Fixtures)
-        const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
-
+        // Helper to match names securely
+        const normalizeName = (name) => {
+            let cleanName = name.toLowerCase().replace(/-/g, ' ').trim();
+            return teamAliases[cleanName] || cleanName;
+        };
+        
         if (fs.existsSync(flagsCacheFile)) {
             console.log("📂 Found local cached Flags dictionary! Skipping API call.");
             flagMap = JSON.parse(fs.readFileSync(flagsCacheFile, 'utf8'));
