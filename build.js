@@ -213,15 +213,15 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         matchCardsHTML += `\n</section>`;
 
-        // 4. Inject the generated cards and calendar into the template
-        let finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
-        finalHTML = finalHTML.replace('[[INJECT_CALENDAR_HERE]]', calendarHTML); // 👈 NEW INJECTION        
-
-        // 5. Create the "public" folder
+        // 4. Create the "public" folder
         const outputDir = path.join(__dirname, 'public');
         if (!fs.existsSync(outputDir)){
             fs.mkdirSync(outputDir, { recursive: true });
         }
+
+        // 5. Inject EVERYTHING into the main schedule template
+        let finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
+        finalHTML = finalHTML.replace('[[INJECT_CALENDAR_HERE]]', calendarHTML);
 
         // 6. Write the brand new index.html into the 'public' folder
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
