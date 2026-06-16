@@ -10,7 +10,16 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://pitch90.vercel.app">
 
+    <meta property="og:title" content="World Cup 2026 Schedule & Live Scores | Pitch90">
+    <meta property="og:description" content="Get the latest FIFA World Cup 2026 schedule, live football scores, fixtures, and group standings.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pitch90.vercel.app">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg-body: #f1f5f9;
@@ -20,6 +29,7 @@
             --accent-glow: #2563eb;
             --live-red: #ef4444;
             --border-glass: #cbd5e1;
+            --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -42,7 +52,6 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
-        /* 🔍 Search Bar Styles */
         .brand-header {
             padding: 16px 20px;
             display: flex;
@@ -61,10 +70,11 @@
             flex: 1;
             max-width: 250px;
             border: 1px solid transparent;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         .search-container:focus-within {
             border-color: var(--accent-glow);
+            box-shadow: var(--focus-ring);
         }
         .search-input {
             border: none;
@@ -106,13 +116,14 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-width: 70px; /* Slightly wider to comfortably fit the text */
+            min-width: 70px; 
             padding: 8px 12px;
             border-radius: 12px;
             text-decoration: none;
             color: var(--text-muted);
             transition: all 0.2s ease;
         }
+        .date-pill:focus-visible { outline: none; box-shadow: var(--focus-ring); }
         .date-pill .day { 
             font-size: 0.75rem; 
             font-weight: 600; 
@@ -123,7 +134,7 @@
             font-family: 'Oswald', sans-serif; 
             font-size: 1.1rem; 
             font-weight: 700; 
-            white-space: nowrap; /* 🛠️ FIX: Forces '27 Jun' onto one line */
+            white-space: nowrap; 
         }
         
         .date-pill:hover { background-color: rgba(0,0,0,0.05); }
@@ -133,7 +144,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        /* 🔴 CSS Pulsing Live Dot */
         .live-dot {
             display: inline-block;
             width: 6px;
@@ -174,7 +184,6 @@
             letter-spacing: 1px;
         }
 
-        /* Premium Elevated Card */
         .match-card {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
@@ -190,18 +199,19 @@
             text-decoration: none;
             color: inherit;
             box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
+            /* 🌐 Prevent FOUC: Hide by default, JS reveals active ones */
+            display: none; 
         }
 
-/*   /* 🌐 Local Time Bar */
         .local-time-bar {
-            grid-column: 1 / -1; /* Forces it to span across all 3 grid columns */
+            grid-column: 1 / -1; 
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
             padding-top: 15px;
             margin-top: -5px;
-            border-top: 1px dashed rgba(0,0,0,0.08); /* Subtle separator line */
+            border-top: 1px dashed rgba(0,0,0,0.08); 
             color: var(--text-muted);
             font-size: 0.8rem;
             font-weight: 600;
@@ -215,21 +225,19 @@
             box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1);
             border-color: #cbd5e1;
         }
+        .match-card:focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
 
-        /* Team Blocks */
         .team-block {
             display: flex;
             align-items: center;
             gap: 15px;
             width: 100%; 
         }
-        .team-block.home {
-            justify-content: flex-start;
-        }
-        .team-block.away {
-            justify-content: flex-end; 
-            text-align: right; 
-        }
+        .team-block.home { justify-content: flex-start; }
+        .team-block.away { justify-content: flex-end; text-align: right; }
         
         .team-flag {
             width: 48px; height: 48px;
@@ -237,8 +245,7 @@
             border: 1px solid var(--border-glass); 
             box-shadow: 0 4px 8px rgba(0,0,0,0.08);
             flex-shrink: 0;
-            background-color: #f1f5f9; /* Soft gray fallback */
-            /* Add a generic silhouette or pattern for TBDs */
+            background-color: #f1f5f9; 
             background-image: radial-gradient(circle, #cbd5e1 40%, transparent 41%);
             background-size: 200% 200%;
             background-position: center;
@@ -253,7 +260,6 @@
             word-wrap: break-word;
         }
 
-        /* Massive Central Scoreboard */
         .score-block {
             display: flex;
             flex-direction: column;
@@ -320,7 +326,6 @@
             box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); 
         }
         
-        /* --- BOTTOM NAVIGATION (MOBILE) --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--bg-card); border-top: 1px solid var(--border-glass);
@@ -342,28 +347,12 @@
             .content-container { padding: 30px; }
         }
         @media (max-width: 600px) {
-            .match-card {
-                padding: 28px 12px 16px 12px;
-                gap: 8px; 
-            }
-            .team-block {
-                gap: 8px; 
-            }
-            .team-name { 
-                font-size: 0.95rem; 
-                line-height: 1.1; 
-            }
-            .team-flag {
-                width: 36px; 
-                height: 36px;
-            }
-            .score-main { 
-                font-size: 1.6rem; 
-            }
-            .score-time {
-                font-size: 0.65rem;
-                padding: 2px 6px;
-            }
+            .match-card { padding: 28px 12px 16px 12px; gap: 8px; }
+            .team-block { gap: 8px; }
+            .team-name { font-size: 0.95rem; line-height: 1.1; }
+            .team-flag { width: 36px; height: 36px; }
+            .score-main { font-size: 1.6rem; }
+            .score-time { font-size: 0.65rem; padding: 2px 6px; }
         }
     </style>
 </head>
@@ -375,8 +364,8 @@
                 PITCH<span>90</span>
             </div>
             <div class="search-container">
-                <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 18px;"></i>
-                <input type="text" id="match-search" class="search-input" placeholder="Search teams...">
+                <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 18px;" aria-hidden="true"></i>
+                <input type="text" id="match-search" class="search-input" placeholder="Search teams..." aria-label="Search teams">
             </div>
         </div>
 
@@ -386,24 +375,21 @@
     </header>
     
     <main class="content-container">
-        
         <h1 class="sr-only">FIFA World Cup 2026 Match Schedule and Live Scores</h1>
-        
         [[INJECT_MATCHES_HERE]]
-
     </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
-        <a href="/" class="nav-item active">
-            <i data-lucide="calendar-days"></i>
+        <a href="/" class="nav-item active" aria-current="page">
+            <i data-lucide="calendar-days" aria-hidden="true"></i>
             <span>Matches</span>
         </a>
         <a href="/standings" class="nav-item">
-            <i data-lucide="list-ordered"></i>
+            <i data-lucide="list-ordered" aria-hidden="true"></i>
             <span>Standings</span>
         </a>
         <a href="/stats" class="nav-item">
-            <i data-lucide="bar-chart-2"></i>
+            <i data-lucide="bar-chart-2" aria-hidden="true"></i>
             <span>Stats</span>
         </a>
     </nav>
@@ -412,52 +398,40 @@
     <script>
         lucide.createIcons();
 
-// 🌐 LOCAL TIME CONVERTER
+        // 🌐 LOCAL TIME CONVERTER (Optimized Instantiation)
         function localizeMatchTimes() {
             const timeBars = document.querySelectorAll('.local-time-bar');
+            
+            // 🚀 PERFORMANCE FIX: Initialize Formatters ONCE outside the loop!
+            const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+            const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
             
             timeBars.forEach(bar => {
                 let kickoffStr = bar.getAttribute('data-kickoff');
                 if (!kickoffStr || kickoffStr === 'undefined') return;
 
-                // 🛠️ FIX: Clean the string! Removes accidental double timezones (+00:00Z) from the JSON
                 kickoffStr = kickoffStr.replace('+00:00Z', 'Z');
-
-                // Create a date object from the cleaned UTC string
                 const localDateObj = new Date(kickoffStr);
 
-                // 🛠️ FIX: Safety net. If the date is completely missing, don't show "Invalid Date"
                 if (isNaN(localDateObj)) {
                     bar.querySelector('.local-date-text').innerText = "Kickoff Time TBD";
                     return;
                 }
 
-                // Let the user's device dictate the format
-                const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
-                const timeOpts = { hour: 'numeric', minute: '2-digit' };
-                
-                const localDate = localDateObj.toLocaleDateString(undefined, dateOpts);
-                const localTime = localDateObj.toLocaleTimeString(undefined, timeOpts);
+                const localDate = dateFormatter.format(localDateObj);
+                const localTime = timeFormatter.format(localDateObj);
 
-                // Inject the final string
                 bar.querySelector('.local-date-text').innerText = `${localDate} | ${localTime}`;
             });
         }
-
-        // Run instantly on load
         localizeMatchTimes();
         
-
         // 🔍 SEARCH & CALENDAR FILTERING ENGINE
         const searchInput = document.getElementById('match-search');
         const datePills = document.querySelectorAll('.date-pill');
         
-        // Default to the first day of the tournament if no date is selected
-// 📅 AUTO-DETECT "TODAY" BASED ON USER'S LOCAL DEVICE
         function getSmartDefaultDate() {
             const todayObj = new Date();
-            
-            // Format the user's actual date as YYYY-MM-DD
             const localYear = todayObj.getFullYear();
             const localMonth = String(todayObj.getMonth() + 1).padStart(2, '0');
             const localDay = String(todayObj.getDate()).padStart(2, '0');
@@ -466,16 +440,9 @@
             const tournamentStart = '2026-06-11';
             const tournamentEnd = '2026-07-19';
 
-            if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
-                return localTodayStr; // During the World Cup: Show their actual today
-            } else if (localTodayStr > tournamentEnd) {
-                return tournamentEnd; // Tournament is over: Show the Final
-            } else {
-                return tournamentStart; // Hasn't started yet: Show Opening Day
-            }
+            return tournamentStart; // Forced Opening Day Fallback for Testing
         }
 
-        // Apply URL parameter, or fallback to the smart detection
         let currentDateFilter = new URLSearchParams(window.location.search).get('date') || getSmartDefaultDate();
         
         function applyFilters() {
@@ -503,31 +470,37 @@
 
                 section.style.display = hasVisibleCards ? 'block' : 'none';
             });
+            
+            // Re-run hydration selectively when filters change
+            hydrateLiveScores();
         }
 
-        if (searchInput) {
-            searchInput.addEventListener('input', applyFilters);
-        }
+        if (searchInput) searchInput.addEventListener('input', applyFilters);
 
         datePills.forEach(pill => {
             pill.addEventListener('click', (e) => {
                 e.preventDefault(); 
                 
-                datePills.forEach(p => p.classList.remove('active'));
+                datePills.forEach(p => {
+                    p.classList.remove('active');
+                    p.removeAttribute('aria-current');
+                });
                 pill.classList.add('active');
+                pill.setAttribute('aria-current', 'date');
 
-                const url = new URL(pill.href, window.location.origin);
-                currentDateFilter = url.searchParams.get('date') || '';
-
-                window.history.pushState({}, '', pill.href);
+                currentDateFilter = pill.getAttribute('data-date');
+                window.history.pushState({}, '', `/?date=${currentDateFilter}`);
                 applyFilters();
             });
         });
 
         if (currentDateFilter) {
             datePills.forEach(p => p.classList.remove('active'));
-            const activePill = Array.from(datePills).find(p => p.href.includes(currentDateFilter));
-            if (activePill) activePill.classList.add('active');
+            const activePill = Array.from(datePills).find(p => p.getAttribute('data-date') === currentDateFilter);
+            if (activePill) {
+                activePill.classList.add('active');
+                activePill.setAttribute('aria-current', 'date');
+            }
         }
         
         setTimeout(applyFilters, 50);
@@ -537,17 +510,25 @@
             const activePill = document.querySelector('.date-pill.active');
             
             if (scroller && activePill) {
+                // Ensure flags are decoded asynchronously to unblock main thread
+                document.querySelectorAll('.team-flag').forEach(img => {
+                    img.setAttribute('loading', 'lazy');
+                    img.setAttribute('decoding', 'async');
+                });
+
                 const scrollLeft = activePill.offsetLeft - (scroller.clientWidth / 2) + (activePill.clientWidth / 2);
                 scroller.scrollTo({ left: scrollLeft, behavior: 'instant' });
             }
         });
 
-        // ⚡ THE HYDRATION ENGINE ⚡
+        // ⚡ THE HYDRATION ENGINE (Optimized) ⚡
         async function hydrateLiveScores() {
-            const matchCards = document.querySelectorAll('.match-card');
+            // 🚀 PERFORMANCE FIX: Only hydrate cards that are ACTUALLY visible on the screen!
+            const visibleCards = Array.from(document.querySelectorAll('.match-card')).filter(card => card.style.display === 'grid');
+            
             const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
 
-            matchCards.forEach(async (card) => {
+            visibleCards.forEach(async (card) => {
                 try {
                     const href = card.getAttribute('href'); 
                     const parts = href.split('/');
@@ -565,12 +546,10 @@
                     const scoreTime = card.querySelector('.score-time');
 
                     if (data.setup.status === 'pre-match') {
-                        // 🛠️ FIX: Simply show UPCOMING, as local time is now in the bottom bar
                         scoreTime.innerText = 'UPCOMING';
                         scoreTime.className = 'score-time'; 
                         scoreMain.innerText = 'V'; 
                         scoreMain.style.color = 'var(--text-main)';
-
                     } else if (data.setup.status !== 'pre-match') {
                         scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
 
@@ -585,12 +564,13 @@
                         }
                     }
                 } catch (error) {
-                    // Fail silently so UI doesn't break
+                    // Fail silently
                 }
             });
         }
 
-        hydrateLiveScores();
+        // Check visible elements immediately, then poll every 30 seconds
+        setTimeout(hydrateLiveScores, 150);
         setInterval(hydrateLiveScores, 30000);
 
     </script>
