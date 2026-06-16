@@ -73,6 +73,21 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         // --- NEW: THE SVG FLAG DICTIONARY (FULLY CACHED) ---
         const flagsCacheFile = path.join(__dirname, 'cached_flags.json');
         let flagMap = {};
+
+        // 🛠️ ALIAS MAP: Connects short schedule names to official API dictionary names
+        const teamAliases = {
+            "south africa": "south africa", // Make sure this exactly matches what's in cached_flags.json
+            "south korea": "korea republic",
+            "czechia": "czech republic",
+            "bosnia": "bosnia and herzegovina",
+            "turkiye": "turkey",
+            "curacao": "curaçao",
+            "ivory coast": "cote d'ivoire",
+            "iran": "ir iran",
+            "cabo verde": "cape verde",
+            "congo dr": "dr congo",
+            "usa": "usa"
+        };
         
         // Helper to match "South-Africa" (from Flags) to "South Africa" (from Fixtures)
         const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
