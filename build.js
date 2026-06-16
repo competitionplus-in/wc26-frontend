@@ -195,7 +195,13 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             
             // 🚀 NEW: Setup Local Cache for Standings
             const standingsCache = path.join(__dirname, 'cached_standings.json');
-            let mappedStandings = [];
+            // 🛠️ 1. LOAD THE STANDINGS CACHE FIRST
+        let mappedStandings = [];
+        if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
+            const standingsDir = path.join(outputDir, 'standings');
+            fs.mkdirSync(standingsDir, { recursive: true });
+            
+            const standingsCache = path.join(__dirname, 'cached_standings.json');
             
             try {
                 let standData;
@@ -212,7 +218,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     if (standData.errors && Object.keys(standData.errors).length > 0) {
                         console.log("⚠️ API Error on Standings (Limit reached?):", standData.errors);
                     } else if (standData.response && standData.response.length > 0) {
-                        // Save to cache so we never hit the API limit again!
                         fs.writeFileSync(standingsCache, JSON.stringify(standData));
                         console.log("💾 Saved standings to cached_standings.json for future builds!");
                     }
@@ -227,7 +232,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                                 name: t.team.name,
                                 pld: t.all.played, w: t.all.win, d: t.all.draw, l: t.all.lose,
                                 gf: t.all.goals.for, ga: t.all.goals.against, gd: t.goalsDiff, pts: t.points,
-                                fallbackLogo: t.team.logo
+                                code: normalizeName(t.team.name) // 👈 Used to map the correct SVG flag
                             }))
                         };
                     });
@@ -237,8 +242,8 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             } catch (e) {
                 console.log("⚠️ Injecting Pitch90 Mock Standings (API Limit hit)...");
                 mappedStandings = [{ name: "Group A", teams: [ 
-                    { name: "Mexico", pld: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: 2, pts: 3, fallbackLogo: "" },
-                    { name: "South Africa", pld: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: -2, pts: 0, fallbackLogo: "" }
+                    { name: "Mexico", code: "mexico", pld: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: 2, pts: 3 },
+                    { name: "South Africa", code: "south africa", pld: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: -2, pts: 0 }
                 ]}];
             }
 
@@ -249,7 +254,59 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /standings directory.");
         }
 
-        // 🛠️ THE NEW STATS & SVG INJECTION LOGIC
+        // 🚀 2. NOW GENERATE MATCH.HTML WITH THE LOADED STANDINGS
+        if (fs.existsSync(path.join(__dirname, 'match.html'))) {
+            const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
+
+            schedule.forEach(match => {
+                const matchDir = path.join(outputDir, 'match', match.date, match.slug);
+                fs.mkdirSync(matchDir, { recursive: true });
+
+                let matchHTML = matchTemplate;
+
+                matchHTML = matchHTML.replace(/\[\[HOME_NAME\]\]/g, match.home.fullName);
+                matchHTML = matchHTML.replace(/\[\[AWAY_NAME\]\]/g, match.away.fullName);
+                matchHTML = matchHTML.replace(/\[\[HOME_LOGO\]\]/g, match.home.logo);
+                matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
+                matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
+
+                // Find the specific group standings for this match
+                const groupData = mappedStandings.find(g => g.name === match.group);
+                let groupHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>';
+
+                if (groupData) {
+                    groupHTML = groupData.teams.map((team, index) => {
+                        const isQualified = index < 2; 
+                        const rowClass = isQualified ? 'row-qualified' : '';
+                        const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
+                        const flagSrc = flagMap[team.code] || team.fallbackLogo || '';
+                        
+                        return `
+                            <tr class="${rowClass}">
+                                <td class="col-pos">${index + 1}</td>
+                                <td>
+                                    <div class="team-cell">
+                                        <img src="${flagSrc}" alt="${team.name}" decoding="async">
+                                        <span>${team.name}</span>
+                                    </div>
+                                </td>
+                                <td class="table-center" style="color: var(--text-muted); font-weight: 500;">${team.pld}</td>
+                                <td class="table-center col-gd">${displayGD}</td>
+                                <td class="table-center col-pts">${team.pts}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+
+                // Inject the generated HTML rows into the template
+                matchHTML = matchHTML.replace('[[INJECT_MATCH_STANDINGS_HERE]]', groupHTML);
+
+                fs.writeFileSync(path.join(matchDir, 'index.html'), matchHTML);
+            });
+            console.log("✅ Physically generated dynamic match directories WITH injected SEO data and Live Standings!");
+        }
+
+        // 🛠️ 3. THE NEW STATS & SVG INJECTION LOGIC
         if (fs.existsSync(path.join(__dirname, 'stats.html'))) {
             const statsDir = path.join(outputDir, 'stats');
             fs.mkdirSync(statsDir, { recursive: true });
