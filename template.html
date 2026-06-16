@@ -16,6 +16,7 @@
     <meta property="og:url" content="https://pitch90.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
 
+    <link rel="preconnect" href="https://media.api-sports.io" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +44,6 @@
 
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
-        /* --- TOP APP BAR & CALENDAR --- */
         .top-bar {
             background-color: var(--bg-card);
             position: sticky;
@@ -163,13 +163,7 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
         
-        /* --- MAIN CONTENT & MATCH CARDS --- */
-        .content-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
+        .content-container { max-width: 800px; margin: 0 auto; padding: 20px; }
         .group-section { margin-bottom: 30px; }
         
         .group-header {
@@ -199,7 +193,6 @@
             text-decoration: none;
             color: inherit;
             box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
-            /* 🌐 Prevent FOUC: Hide by default, JS reveals active ones */
             display: none; 
         }
 
@@ -225,17 +218,9 @@
             box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1);
             border-color: #cbd5e1;
         }
-        .match-card:focus-visible {
-            outline: none;
-            box-shadow: var(--focus-ring);
-        }
+        .match-card:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 
-        .team-block {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 100%; 
-        }
+        .team-block { display: flex; align-items: center; gap: 15px; width: 100%; }
         .team-block.home { justify-content: flex-start; }
         .team-block.away { justify-content: flex-end; text-align: right; }
         
@@ -261,77 +246,46 @@
         }
 
         .score-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%; 
-            position: relative; 
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; width: 100%; position: relative; 
         }
         
         .score-main {
             font-family: 'Oswald', sans-serif; 
-            font-size: 2.2rem; 
-            font-weight: 800; 
-            letter-spacing: -1px;
-            line-height: 1;
-            white-space: nowrap; 
+            font-size: 2.2rem; font-weight: 800; 
+            letter-spacing: -1px; line-height: 1; white-space: nowrap; 
         }
 
         .score-time {
-            position: absolute;
-            bottom: 100%; 
-            margin-bottom: 12px; 
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.75rem; 
-            font-weight: 700; 
-            color: var(--text-muted);
-            background: #f1f5f9; 
-            padding: 2px 10px; 
-            border-radius: 6px; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            white-space: nowrap; 
+            position: absolute; bottom: 100%; margin-bottom: 12px; 
+            font-family: 'Oswald', sans-serif; font-size: 0.75rem; 
+            font-weight: 700; color: var(--text-muted);
+            background: #f1f5f9; padding: 2px 10px; border-radius: 6px; 
+            letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; 
         }
 
         .score-time::before {
-            content: '';
-            position: absolute;
-            bottom: -8px; 
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 3px;
-            background-color: #cbd5e1; 
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            content: ''; position: absolute; bottom: -8px; left: 50%;
+            transform: translateX(-50%); width: 24px; height: 3px;
+            background-color: #cbd5e1; border-radius: 4px; transition: all 0.3s ease;
         }
 
-        .score-time.ft-pill {
-            background-color: #e2e8f0; 
-            color: #475569;
-            border-color: transparent;
-        }
-        .score-time.ft-pill::before {
-            background-color: #94a3b8; 
-        }
+        .score-time.ft-pill { background-color: #e2e8f0; color: #475569; border-color: transparent; }
+        .score-time.ft-pill::before { background-color: #94a3b8; }
 
         .score-time.live-pill {
-            background-color: rgba(239, 68, 68, 0.12);
-            color: var(--live-red);
+            background-color: rgba(239, 68, 68, 0.12); color: var(--live-red);
             border: 1px solid rgba(239, 68, 68, 0.25);
         }
         .score-time.live-pill::before {
-            background-color: var(--live-red); 
-            box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); 
+            background-color: var(--live-red); box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); 
         }
         
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--bg-card); border-top: 1px solid var(--border-glass);
             display: flex; justify-content: space-around; align-items: center;
-            padding: 10px 0 25px 0;
-            z-index: 100;
+            padding: 10px 0 25px 0; z-index: 100;
         }
 
         .nav-item {
@@ -394,191 +348,183 @@
         </a>
     </nav>
 
-   <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    
     <script>
-        lucide.createIcons();
-
-        // 🌐 LOCAL TIME CONVERTER (Optimized Instantiation)
-        function localizeMatchTimes() {
-            const timeBars = document.querySelectorAll('.local-time-bar');
-            
-            // 🚀 PERFORMANCE FIX: Initialize Formatters ONCE outside the loop!
-            const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-            const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
-            
-            timeBars.forEach(bar => {
-                let kickoffStr = bar.getAttribute('data-kickoff');
-                if (!kickoffStr || kickoffStr === 'undefined') return;
-
-                kickoffStr = kickoffStr.replace('+00:00Z', 'Z');
-                const localDateObj = new Date(kickoffStr);
-
-                if (isNaN(localDateObj)) {
-                    bar.querySelector('.local-date-text').innerText = "Kickoff Time TBD";
-                    return;
-                }
-
-                const localDate = dateFormatter.format(localDateObj);
-                const localTime = timeFormatter.format(localDateObj);
-
-                bar.querySelector('.local-date-text').innerText = `${localDate} | ${localTime}`;
-            });
-        }
-        localizeMatchTimes();
-        
-        // 🔍 SEARCH & CALENDAR FILTERING ENGINE
-        const searchInput = document.getElementById('match-search');
-        const datePills = document.querySelectorAll('.date-pill');
-        
-        function getSmartDefaultDate() {
-            const todayObj = new Date();
-            const localYear = todayObj.getFullYear();
-            const localMonth = String(todayObj.getMonth() + 1).padStart(2, '0');
-            const localDay = String(todayObj.getDate()).padStart(2, '0');
-            const localTodayStr = `${localYear}-${localMonth}-${localDay}`;
-
-            const tournamentStart = '2026-06-11';
-            const tournamentEnd = '2026-07-19';
-
-            // 🚀 FIX: Smart Date Logic Restored!
-            if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
-                return localTodayStr; // Show real "Today" during the tournament
-            } else if (localTodayStr > tournamentEnd) {
-                return tournamentEnd; // Show the Final if tournament is over
+        // Ensure scripts don't block the first paint
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
             } else {
-                return tournamentStart; // Show Opening Day before it begins
+                // Fallback if script is still deferred
+                window.addEventListener('load', () => lucide.createIcons());
             }
-        }
 
-        let currentDateFilter = new URLSearchParams(window.location.search).get('date') || getSmartDefaultDate();
-        
-        function applyFilters() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const sections = document.querySelectorAll('.group-section');
-
-            sections.forEach(section => {
-                let hasVisibleCards = false;
-                const cards = section.querySelectorAll('.match-card');
-
-                cards.forEach(card => {
-                    const cardText = card.innerText.toLowerCase();
-                    const cardHref = card.getAttribute('href'); 
-                    
-                    const matchesSearch = cardText.includes(searchTerm);
-                    const matchesDate = currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`);
-
-                    if (matchesSearch && matchesDate) {
-                        card.style.display = 'grid'; 
-                        hasVisibleCards = true;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                section.style.display = hasVisibleCards ? 'block' : 'none';
-            });
-            
-            // Re-run hydration selectively when filters change
-            hydrateLiveScores();
-        }
-
-        if (searchInput) searchInput.addEventListener('input', applyFilters);
-
-        datePills.forEach(pill => {
-            pill.addEventListener('click', (e) => {
-                e.preventDefault(); 
+            // 🌐 LOCAL TIME CONVERTER
+            function localizeMatchTimes() {
+                const timeBars = document.querySelectorAll('.local-time-bar');
+                const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+                const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
                 
-                datePills.forEach(p => {
-                    p.classList.remove('active');
-                    p.removeAttribute('aria-current');
-                });
-                pill.classList.add('active');
-                pill.setAttribute('aria-current', 'date');
+                timeBars.forEach(bar => {
+                    let kickoffStr = bar.getAttribute('data-kickoff');
+                    if (!kickoffStr || kickoffStr === 'undefined') return;
 
-                currentDateFilter = pill.getAttribute('data-date');
-                window.history.pushState({}, '', `/?date=${currentDateFilter}`);
+                    kickoffStr = kickoffStr.replace('+00:00Z', 'Z');
+                    const localDateObj = new Date(kickoffStr);
+
+                    if (isNaN(localDateObj)) {
+                        bar.querySelector('.local-date-text').innerText = "Kickoff Time TBD";
+                        return;
+                    }
+
+                    bar.querySelector('.local-date-text').innerText = `${dateFormatter.format(localDateObj)} | ${timeFormatter.format(localDateObj)}`;
+                });
+            }
+
+            // 📅 SMART DATE LOGIC RESTORED
+            function getSmartDefaultDate() {
+                const todayObj = new Date();
+                const localYear = todayObj.getFullYear();
+                const localMonth = String(todayObj.getMonth() + 1).padStart(2, '0');
+                const localDay = String(todayObj.getDate()).padStart(2, '0');
+                const localTodayStr = `${localYear}-${localMonth}-${localDay}`;
+
+                const tournamentStart = '2026-06-11';
+                const tournamentEnd = '2026-07-19';
+
+                // Real Date Logic active!
+                if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
+                    return localTodayStr; 
+                } else if (localTodayStr > tournamentEnd) {
+                    return tournamentEnd; 
+                } else {
+                    return tournamentStart; 
+                }
+            }
+
+            let currentDateFilter = new URLSearchParams(window.location.search).get('date') || getSmartDefaultDate();
+            
+            const searchInput = document.getElementById('match-search');
+            const datePills = document.querySelectorAll('.date-pill');
+
+            function applyFilters() {
+                const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+                const sections = document.querySelectorAll('.group-section');
+
+                sections.forEach(section => {
+                    let hasVisibleCards = false;
+                    const cards = section.querySelectorAll('.match-card');
+
+                    cards.forEach(card => {
+                        const cardText = card.innerText.toLowerCase();
+                        const cardHref = card.getAttribute('href'); 
+                        
+                        const matchesSearch = cardText.includes(searchTerm);
+                        const matchesDate = currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`);
+
+                        if (matchesSearch && matchesDate) {
+                            card.style.display = 'grid'; 
+                            hasVisibleCards = true;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    section.style.display = hasVisibleCards ? 'block' : 'none';
+                });
+                
+                // Hydrate visible scores
+                hydrateLiveScores();
+            }
+
+            if (searchInput) searchInput.addEventListener('input', applyFilters);
+
+            datePills.forEach(pill => {
+                pill.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    
+                    datePills.forEach(p => {
+                        p.classList.remove('active');
+                        p.removeAttribute('aria-current');
+                    });
+                    pill.classList.add('active');
+                    pill.setAttribute('aria-current', 'date');
+
+                    currentDateFilter = pill.getAttribute('data-date');
+                    window.history.pushState({}, '', `/?date=${currentDateFilter}`);
+                    applyFilters();
+                });
+            });
+
+            // Initialize UI
+            if (currentDateFilter) {
+                datePills.forEach(p => p.classList.remove('active'));
+                const activePill = Array.from(datePills).find(p => p.getAttribute('data-date') === currentDateFilter);
+                if (activePill) {
+                    activePill.classList.add('active');
+                    activePill.setAttribute('aria-current', 'date');
+                    
+                    // Auto-scroll calendar
+                    const scroller = document.getElementById('date-scroller');
+                    if (scroller) {
+                        const scrollLeft = activePill.offsetLeft - (scroller.clientWidth / 2) + (activePill.clientWidth / 2);
+                        scroller.scrollTo({ left: scrollLeft, behavior: 'instant' });
+                    }
+                }
+            }
+
+            // 🚀 PERFORMANCE FIX: Yield to main thread before doing heavy DOM work
+            requestAnimationFrame(() => {
+                localizeMatchTimes();
                 applyFilters();
             });
-        });
 
-        if (currentDateFilter) {
-            datePills.forEach(p => p.classList.remove('active'));
-            const activePill = Array.from(datePills).find(p => p.getAttribute('data-date') === currentDateFilter);
-            if (activePill) {
-                activePill.classList.add('active');
-                activePill.setAttribute('aria-current', 'date');
-            }
-        }
-        
-        setTimeout(applyFilters, 50);
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            const scroller = document.getElementById('date-scroller');
-            const activePill = document.querySelector('.date-pill.active');
-            
-            if (scroller && activePill) {
-                // Ensure flags are decoded asynchronously to unblock main thread
-                document.querySelectorAll('.team-flag').forEach(img => {
-                    img.setAttribute('loading', 'lazy');
-                    img.setAttribute('decoding', 'async');
-                });
+            // ⚡ THE HYDRATION ENGINE ⚡
+            async function hydrateLiveScores() {
+                const visibleCards = Array.from(document.querySelectorAll('.match-card')).filter(card => card.style.display === 'grid');
+                const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
 
-                const scrollLeft = activePill.offsetLeft - (scroller.clientWidth / 2) + (activePill.clientWidth / 2);
-                scroller.scrollTo({ left: scrollLeft, behavior: 'instant' });
-            }
-        });
+                visibleCards.forEach(async (card) => {
+                    try {
+                        const href = card.getAttribute('href'); 
+                        const parts = href.split('/');
+                        if(parts.length < 4) return;
+                        
+                        const fixtureDate = parts[2]; 
+                        const slug = parts[3];
+                        const matchId = `${slug}-${fixtureDate}`; 
 
-        // ⚡ THE HYDRATION ENGINE (Optimized) ⚡
-        async function hydrateLiveScores() {
-            // 🚀 PERFORMANCE FIX: Only hydrate cards that are ACTUALLY visible on the screen!
-            const visibleCards = Array.from(document.querySelectorAll('.match-card')).filter(card => card.style.display === 'grid');
-            
-            const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
+                        const response = await fetch(`${BACKEND_URL}?id=${matchId}`);
+                        if (!response.ok) return;
+                        const data = await response.json();
 
-            visibleCards.forEach(async (card) => {
-                try {
-                    const href = card.getAttribute('href'); 
-                    const parts = href.split('/');
-                    if(parts.length < 4) return;
-                    
-                    const fixtureDate = parts[2]; 
-                    const slug = parts[3];
-                    const matchId = `${slug}-${fixtureDate}`; 
+                        const scoreMain = card.querySelector('.score-main');
+                        const scoreTime = card.querySelector('.score-time');
 
-                    const response = await fetch(`${BACKEND_URL}?id=${matchId}`);
-                    if (!response.ok) return;
-                    const data = await response.json();
-
-                    const scoreMain = card.querySelector('.score-main');
-                    const scoreTime = card.querySelector('.score-time');
-
-                    if (data.setup.status === 'pre-match') {
-                        scoreTime.innerText = 'UPCOMING';
-                        scoreTime.className = 'score-time'; 
-                        scoreMain.innerText = 'V'; 
-                        scoreMain.style.color = 'var(--text-main)';
-                    } else if (data.setup.status !== 'pre-match') {
-                        scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
-
-                        if (data.setup.status === 'live') {
-                            scoreTime.innerHTML = `<span class="live-dot"></span>${data.clock}'`;
-                            scoreTime.className = 'score-time live-pill'; 
-                            scoreMain.style.color = 'var(--live-red)';
-                        } else if (data.setup.status === 'post-match') {
-                            scoreTime.innerText = 'FULL TIME';
-                            scoreTime.className = 'score-time ft-pill'; 
+                        if (data.setup.status === 'pre-match') {
+                            scoreTime.innerText = 'UPCOMING';
+                            scoreTime.className = 'score-time'; 
+                            scoreMain.innerText = 'V'; 
                             scoreMain.style.color = 'var(--text-main)';
+                        } else if (data.setup.status !== 'pre-match') {
+                            scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
+
+                            if (data.setup.status === 'live') {
+                                scoreTime.innerHTML = `<span class="live-dot"></span>${data.clock}'`;
+                                scoreTime.className = 'score-time live-pill'; 
+                                scoreMain.style.color = 'var(--live-red)';
+                            } else if (data.setup.status === 'post-match') {
+                                scoreTime.innerText = 'FULL TIME';
+                                scoreTime.className = 'score-time ft-pill'; 
+                                scoreMain.style.color = 'var(--text-main)';
+                            }
                         }
-                    }
-                } catch (error) {
-                    // Fail silently
-                }
-            });
-        }
+                    } catch (error) {}
+                });
+            }
 
-        // 🚀 PERFORMANCE FIX: applyFilters() handles the initial hydration. Just run the polling here.
-        setInterval(hydrateLiveScores, 30000);
-
+            setInterval(hydrateLiveScores, 30000);
+        });
     </script>
 </body>
 </html>
