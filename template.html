@@ -227,7 +227,11 @@
             border: 1px solid var(--border-glass); 
             box-shadow: 0 4px 8px rgba(0,0,0,0.08);
             flex-shrink: 0;
-            background-color: var(--bg-card);
+            background-color: #f1f5f9; /* Soft gray fallback */
+            /* Add a generic silhouette or pattern for TBDs */
+            background-image: radial-gradient(circle, #cbd5e1 40%, transparent 41%);
+            background-size: 200% 200%;
+            background-position: center;
         }
         .team-name { 
             font-family: 'Oswald', sans-serif; 
@@ -410,16 +414,25 @@
         lucide.createIcons();
 
 
-// 🌐 LOCAL TIME CONVERTER
+// 🌐 // 🌐 LOCAL TIME CONVERTER
         function localizeMatchTimes() {
             const timeBars = document.querySelectorAll('.local-time-bar');
             
             timeBars.forEach(bar => {
-                const kickoffStr = bar.getAttribute('data-kickoff');
-                if (!kickoffStr) return;
+                let kickoffStr = bar.getAttribute('data-kickoff');
+                if (!kickoffStr || kickoffStr === 'undefined') return;
 
-                // Create a date object from the raw UTC string
+                // 🛠️ FIX: Clean the string! Removes accidental double timezones (+00:00Z) from the JSON
+                kickoffStr = kickoffStr.replace('+00:00Z', 'Z');
+
+                // Create a date object from the cleaned UTC string
                 const localDateObj = new Date(kickoffStr);
+
+                // 🛠️ FIX: Safety net. If the date is completely missing, don't show "Invalid Date"
+                if (isNaN(localDateObj)) {
+                    bar.querySelector('.local-date-text').innerText = "Kickoff Time TBD";
+                    return;
+                }
 
                 // Let the user's device dictate the format
                 const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
@@ -441,7 +454,8 @@
         const searchInput = document.getElementById('match-search');
         const datePills = document.querySelectorAll('.date-pill');
         
-        let currentDateFilter = new URLSearchParams(window.location.search).get('date') || '';
+        // Default to the first day of the tournament if no date is selected
+let currentDateFilter = new URLSearchParams(window.location.search).get('date') || '2026-06-11';
 
         function applyFilters() {
             const searchTerm = searchInput.value.toLowerCase();
