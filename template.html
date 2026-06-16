@@ -42,6 +42,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* 🚀 SEO: Visually hides content but keeps it fully readable by Googlebot and Screen Readers */
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
         .top-bar {
@@ -125,16 +126,10 @@
         }
         .date-pill:focus-visible { outline: none; box-shadow: var(--focus-ring); }
         .date-pill .day { 
-            font-size: 0.75rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            margin-bottom: 2px;
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 2px;
         }
         .date-pill .date { 
-            font-family: 'Oswald', sans-serif; 
-            font-size: 1.1rem; 
-            font-weight: 700; 
-            white-space: nowrap; 
+            font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; white-space: nowrap; 
         }
         
         .date-pill:hover { background-color: rgba(0,0,0,0.05); }
@@ -146,15 +141,9 @@
 
         .live-dot {
             display: inline-block;
-            width: 6px;
-            height: 6px;
-            background-color: var(--live-red);
-            border-radius: 50%;
-            margin-right: 5px;
-            vertical-align: middle;
-            position: relative;
-            top: -1px;
-            animation: pulse-dot 2s infinite;
+            width: 6px; height: 6px; background-color: var(--live-red);
+            border-radius: 50%; margin-right: 5px; vertical-align: middle;
+            position: relative; top: -1px; animation: pulse-dot 2s infinite;
         }
 
         @keyframes pulse-dot {
@@ -167,56 +156,30 @@
         .group-section { margin-bottom: 30px; }
         
         .group-header {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin: 0 0 12px 5px;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
+            font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700;
+            color: var(--text-muted); text-transform: uppercase;
+            margin: 0 0 12px 5px; display: flex; align-items: center; letter-spacing: 1px;
         }
 
         .match-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-            padding: 32px 25px 20px 25px; 
-            margin-bottom: 15px;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-            gap: 20px;
-            align-items: center; 
-            cursor: pointer;
+            background: var(--bg-card); border: 1px solid var(--border-glass);
+            border-radius: 16px; padding: 32px 25px 20px 25px; margin-bottom: 15px;
+            display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            gap: 20px; align-items: center; cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
-            display: none; 
+            text-decoration: none; color: inherit; box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
         }
 
         .local-time-bar {
-            grid-column: 1 / -1; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            padding-top: 15px;
-            margin-top: -5px;
-            border-top: 1px dashed rgba(0,0,0,0.08); 
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            grid-column: 1 / -1; display: flex; justify-content: center; align-items: center;
+            gap: 8px; padding-top: 15px; margin-top: -5px; border-top: 1px dashed rgba(0,0,0,0.08); 
+            color: var(--text-muted); font-size: 0.8rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .local-time-bar svg { width: 15px; height: 15px; color: var(--accent-glow); }
         
         .match-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1);
-            border-color: #cbd5e1;
+            transform: translateY(-3px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1); border-color: #cbd5e1;
         }
         .match-card:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 
@@ -225,24 +188,15 @@
         .team-block.away { justify-content: flex-end; text-align: right; }
         
         .team-flag {
-            width: 48px; height: 48px;
-            border-radius: 50%; object-fit: cover;
-            border: 1px solid var(--border-glass); 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-            flex-shrink: 0;
-            background-color: #f1f5f9; 
+            width: 48px; height: 48px; border-radius: 50%; object-fit: cover;
+            border: 1px solid var(--border-glass); box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            flex-shrink: 0; background-color: #f1f5f9; 
             background-image: radial-gradient(circle, #cbd5e1 40%, transparent 41%);
-            background-size: 200% 200%;
-            background-position: center;
+            background-size: 200% 200%; background-position: center;
         }
         .team-name { 
-            font-family: 'Oswald', sans-serif; 
-            font-weight: 700; 
-            font-size: 1.3rem; 
-            color: var(--text-main);
-            letter-spacing: 0.5px;
-            white-space: normal;
-            word-wrap: break-word;
+            font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1.3rem; 
+            color: var(--text-main); letter-spacing: 0.5px; white-space: normal; word-wrap: break-word;
         }
 
         .score-block {
@@ -251,17 +205,16 @@
         }
         
         .score-main {
-            font-family: 'Oswald', sans-serif; 
-            font-size: 2.2rem; font-weight: 800; 
+            font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 800; 
             letter-spacing: -1px; line-height: 1; white-space: nowrap; 
         }
 
         .score-time {
             position: absolute; bottom: 100%; margin-bottom: 12px; 
             font-family: 'Oswald', sans-serif; font-size: 0.75rem; 
-            font-weight: 700; color: var(--text-muted);
-            background: #f1f5f9; padding: 2px 10px; border-radius: 6px; 
-            letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; 
+            font-weight: 700; color: var(--text-muted); background: #f1f5f9; 
+            padding: 2px 10px; border-radius: 6px; letter-spacing: 1px; 
+            text-transform: uppercase; white-space: nowrap; 
         }
 
         .score-time::before {
@@ -330,7 +283,19 @@
     
     <main class="content-container">
         <h1 class="sr-only">FIFA World Cup 2026 Match Schedule and Live Scores</h1>
-        [[INJECT_MATCHES_HERE]]
+        
+        <div id="active-matches-container"></div>
+
+        <template id="match-vault">
+            [[INJECT_MATCHES_HERE]]
+        </template>
+
+        <div class="sr-only">
+            <h2>Complete 2026 Match Schedule</h2>
+            <ul>
+                [[INJECT_SEO_LINKS_HERE]]
+            </ul>
+        </div>
     </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
@@ -351,16 +316,13 @@
     <script src="https://unpkg.com/lucide@latest" defer></script>
     
     <script>
-        // Ensure scripts don't block the first paint
         document.addEventListener("DOMContentLoaded", () => {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             } else {
-                // Fallback if script is still deferred
                 window.addEventListener('load', () => lucide.createIcons());
             }
 
-            // 🌐 LOCAL TIME CONVERTER
             function localizeMatchTimes() {
                 const timeBars = document.querySelectorAll('.local-time-bar');
                 const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
@@ -382,7 +344,6 @@
                 });
             }
 
-            // 📅 SMART DATE LOGIC RESTORED
             function getSmartDefaultDate() {
                 const todayObj = new Date();
                 const localYear = todayObj.getFullYear();
@@ -393,7 +354,6 @@
                 const tournamentStart = '2026-06-11';
                 const tournamentEnd = '2026-07-19';
 
-                // Real Date Logic active!
                 if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
                     return localTodayStr; 
                 } else if (localTodayStr > tournamentEnd) {
@@ -407,10 +367,15 @@
             
             const searchInput = document.getElementById('match-search');
             const datePills = document.querySelectorAll('.date-pill');
+            const vault = document.getElementById('match-vault').content;
+            const container = document.getElementById('active-matches-container');
 
             function applyFilters() {
                 const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-                const sections = document.querySelectorAll('.group-section');
+                
+                container.innerHTML = '';
+                const activeView = vault.cloneNode(true);
+                const sections = activeView.querySelectorAll('.group-section');
 
                 sections.forEach(section => {
                     let hasVisibleCards = false;
@@ -424,17 +389,21 @@
                         const matchesDate = currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`);
 
                         if (matchesSearch && matchesDate) {
-                            card.style.display = 'grid'; 
                             hasVisibleCards = true;
                         } else {
-                            card.style.display = 'none';
+                            card.remove(); 
                         }
                     });
-                    section.style.display = hasVisibleCards ? 'block' : 'none';
+
+                    if (!hasVisibleCards) section.remove();
                 });
                 
-                // Hydrate visible scores
+                container.appendChild(activeView);
+                
+                localizeMatchTimes();
                 hydrateLiveScores();
+                
+                if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
             if (searchInput) searchInput.addEventListener('input', applyFilters);
@@ -456,7 +425,6 @@
                 });
             });
 
-            // Initialize UI
             if (currentDateFilter) {
                 datePills.forEach(p => p.classList.remove('active'));
                 const activePill = Array.from(datePills).find(p => p.getAttribute('data-date') === currentDateFilter);
@@ -464,7 +432,6 @@
                     activePill.classList.add('active');
                     activePill.setAttribute('aria-current', 'date');
                     
-                    // Auto-scroll calendar
                     const scroller = document.getElementById('date-scroller');
                     if (scroller) {
                         const scrollLeft = activePill.offsetLeft - (scroller.clientWidth / 2) + (activePill.clientWidth / 2);
@@ -473,15 +440,12 @@
                 }
             }
 
-            // 🚀 PERFORMANCE FIX: Yield to main thread before doing heavy DOM work
             requestAnimationFrame(() => {
-                localizeMatchTimes();
                 applyFilters();
             });
 
-            // ⚡ THE HYDRATION ENGINE ⚡
             async function hydrateLiveScores() {
-                const visibleCards = Array.from(document.querySelectorAll('.match-card')).filter(card => card.style.display === 'grid');
+                const visibleCards = Array.from(document.querySelectorAll('.match-card'));
                 const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
 
                 visibleCards.forEach(async (card) => {
