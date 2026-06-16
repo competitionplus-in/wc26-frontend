@@ -10,11 +10,11 @@
       "teams": {
         "home": {
           "name": "Mexico",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "South Africa",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -27,12 +27,12 @@
       },
       "teams": {
         "home": {
-          "name": "Korea Republic",
-          "logo": ""
+          "name": "South Korea",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Czechia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -46,11 +46,11 @@
       "teams": {
         "home": {
           "name": "Mexico",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Korea Republic",
-          "logo": ""
+          "name": "South Korea",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -64,11 +64,11 @@
       "teams": {
         "home": {
           "name": "Czechia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "South Africa",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -82,11 +82,11 @@
       "teams": {
         "home": {
           "name": "Czechia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Mexico",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -100,11 +100,11 @@
       "teams": {
         "home": {
           "name": "South Africa",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Korea Republic",
-          "logo": ""
+          "name": "South Korea",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -118,11 +118,11 @@
       "teams": {
         "home": {
           "name": "Canada",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Bosnia and Herzegovina",
-          "logo": ""
+          "name": "Bosnia",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -136,11 +136,11 @@
       "teams": {
         "home": {
           "name": "Qatar",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Switzerland",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -154,11 +154,11 @@
       "teams": {
         "home": {
           "name": "Canada",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Qatar",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -172,11 +172,11 @@
       "teams": {
         "home": {
           "name": "Switzerland",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Bosnia and Herzegovina",
-          "logo": ""
+          "name": "Bosnia",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -190,11 +190,11 @@
       "teams": {
         "home": {
           "name": "Switzerland",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Canada",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -207,12 +207,12 @@
       },
       "teams": {
         "home": {
-          "name": "Bosnia and Herzegovina",
-          "logo": ""
+          "name": "Bosnia",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Qatar",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -226,11 +226,11 @@
       "teams": {
         "home": {
           "name": "Brazil",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Morocco",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -244,11 +244,11 @@
       "teams": {
         "home": {
           "name": "Haiti",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Scotland",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -262,11 +262,11 @@
       "teams": {
         "home": {
           "name": "Brazil",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Haiti",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -280,11 +280,11 @@
       "teams": {
         "home": {
           "name": "Scotland",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Morocco",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -298,11 +298,11 @@
       "teams": {
         "home": {
           "name": "Scotland",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Brazil",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -316,11 +316,11 @@
       "teams": {
         "home": {
           "name": "Morocco",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Haiti",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -334,11 +334,11 @@
       "teams": {
         "home": {
           "name": "USA",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Paraguay",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -352,11 +352,11 @@
       "teams": {
         "home": {
           "name": "Australia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Türkiye",
-          "logo": ""
+          "name": "Turkiye",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -370,11 +370,11 @@
       "teams": {
         "home": {
           "name": "USA",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Australia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -387,12 +387,12 @@
       },
       "teams": {
         "home": {
-          "name": "Türkiye",
-          "logo": ""
+          "name": "Turkiye",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Paraguay",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -405,12 +405,12 @@
       },
       "teams": {
         "home": {
-          "name": "Türkiye",
-          "logo": ""
+          "name": "Turkiye",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "USA",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -424,11 +424,11 @@
       "teams": {
         "home": {
           "name": "Paraguay",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Australia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -442,11 +442,11 @@
       "teams": {
         "home": {
           "name": "Germany",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Curaçao",
-          "logo": ""
+          "name": "Curacao",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -460,11 +460,11 @@
       "teams": {
         "home": {
           "name": "Ivory Coast",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Ecuador",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -478,11 +478,11 @@
       "teams": {
         "home": {
           "name": "Germany",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Ivory Coast",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -496,11 +496,11 @@
       "teams": {
         "home": {
           "name": "Ecuador",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "Curaçao",
-          "logo": ""
+          "name": "Curacao",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -514,11 +514,11 @@
       "teams": {
         "home": {
           "name": "Ecuador",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Germany",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -531,12 +531,12 @@
       },
       "teams": {
         "home": {
-          "name": "Curaçao",
-          "logo": ""
+          "name": "Curacao",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Ivory Coast",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -550,11 +550,11 @@
       "teams": {
         "home": {
           "name": "Netherlands",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Japan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -568,11 +568,11 @@
       "teams": {
         "home": {
           "name": "Sweden",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Tunisia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -586,11 +586,11 @@
       "teams": {
         "home": {
           "name": "Netherlands",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Sweden",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -604,11 +604,11 @@
       "teams": {
         "home": {
           "name": "Tunisia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Japan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -622,11 +622,11 @@
       "teams": {
         "home": {
           "name": "Tunisia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Netherlands",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -640,11 +640,11 @@
       "teams": {
         "home": {
           "name": "Japan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Sweden",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -658,11 +658,11 @@
       "teams": {
         "home": {
           "name": "Belgium",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Egypt",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -675,12 +675,12 @@
       },
       "teams": {
         "home": {
-          "name": "IR Iran",
-          "logo": ""
+          "name": "Iran",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "New Zealand",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -694,11 +694,11 @@
       "teams": {
         "home": {
           "name": "Belgium",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "IR Iran",
-          "logo": ""
+          "name": "Iran",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -712,11 +712,11 @@
       "teams": {
         "home": {
           "name": "New Zealand",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Egypt",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -730,11 +730,11 @@
       "teams": {
         "home": {
           "name": "New Zealand",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Belgium",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -748,11 +748,11 @@
       "teams": {
         "home": {
           "name": "Egypt",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
-          "name": "IR Iran",
-          "logo": ""
+          "name": "Iran",
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -766,11 +766,11 @@
       "teams": {
         "home": {
           "name": "Spain",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Cabo Verde",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -784,11 +784,11 @@
       "teams": {
         "home": {
           "name": "Saudi Arabia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Uruguay",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -802,11 +802,11 @@
       "teams": {
         "home": {
           "name": "Spain",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Saudi Arabia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -820,11 +820,11 @@
       "teams": {
         "home": {
           "name": "Uruguay",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Cabo Verde",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -838,11 +838,11 @@
       "teams": {
         "home": {
           "name": "Uruguay",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Spain",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -856,11 +856,11 @@
       "teams": {
         "home": {
           "name": "Cabo Verde",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Saudi Arabia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -874,11 +874,11 @@
       "teams": {
         "home": {
           "name": "France",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Senegal",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -892,11 +892,11 @@
       "teams": {
         "home": {
           "name": "Iraq",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Norway",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -910,11 +910,11 @@
       "teams": {
         "home": {
           "name": "France",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Iraq",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -928,11 +928,11 @@
       "teams": {
         "home": {
           "name": "Norway",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Senegal",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -946,11 +946,11 @@
       "teams": {
         "home": {
           "name": "Norway",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "France",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -964,11 +964,11 @@
       "teams": {
         "home": {
           "name": "Senegal",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Iraq",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -982,11 +982,11 @@
       "teams": {
         "home": {
           "name": "Argentina",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Algeria",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1000,11 +1000,11 @@
       "teams": {
         "home": {
           "name": "Austria",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Jordan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1018,11 +1018,11 @@
       "teams": {
         "home": {
           "name": "Argentina",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Austria",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1036,11 +1036,11 @@
       "teams": {
         "home": {
           "name": "Jordan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Algeria",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1054,11 +1054,11 @@
       "teams": {
         "home": {
           "name": "Jordan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Argentina",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1072,11 +1072,11 @@
       "teams": {
         "home": {
           "name": "Algeria",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Austria",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1090,11 +1090,11 @@
       "teams": {
         "home": {
           "name": "Portugal",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Congo DR",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1108,11 +1108,11 @@
       "teams": {
         "home": {
           "name": "Uzbekistan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Colombia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1126,11 +1126,11 @@
       "teams": {
         "home": {
           "name": "Portugal",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Uzbekistan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1144,11 +1144,11 @@
       "teams": {
         "home": {
           "name": "Colombia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Congo DR",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1162,11 +1162,11 @@
       "teams": {
         "home": {
           "name": "Colombia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Portugal",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1180,11 +1180,11 @@
       "teams": {
         "home": {
           "name": "Congo DR",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Uzbekistan",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1198,11 +1198,11 @@
       "teams": {
         "home": {
           "name": "England",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Croatia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1216,11 +1216,11 @@
       "teams": {
         "home": {
           "name": "Ghana",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Panama",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1234,11 +1234,11 @@
       "teams": {
         "home": {
           "name": "England",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Ghana",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1252,11 +1252,11 @@
       "teams": {
         "home": {
           "name": "Panama",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Croatia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1270,11 +1270,11 @@
       "teams": {
         "home": {
           "name": "Panama",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "England",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1288,11 +1288,11 @@
       "teams": {
         "home": {
           "name": "Croatia",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "Ghana",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1306,11 +1306,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1324,11 +1324,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1342,11 +1342,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1360,11 +1360,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1378,11 +1378,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1396,11 +1396,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1414,11 +1414,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1432,11 +1432,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1450,11 +1450,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1468,11 +1468,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1486,11 +1486,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1504,11 +1504,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1522,11 +1522,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1540,11 +1540,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1558,11 +1558,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1576,11 +1576,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1594,11 +1594,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1612,11 +1612,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1630,11 +1630,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1648,11 +1648,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1666,11 +1666,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1684,11 +1684,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1702,11 +1702,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1720,11 +1720,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1738,11 +1738,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1756,11 +1756,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1774,11 +1774,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1792,11 +1792,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1810,11 +1810,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1828,11 +1828,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1846,11 +1846,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     },
@@ -1864,11 +1864,11 @@
       "teams": {
         "home": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         },
         "away": {
           "name": "TBD",
-          "logo": ""
+          "logo": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'></svg>"
         }
       }
     }
