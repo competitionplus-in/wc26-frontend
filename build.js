@@ -311,9 +311,9 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             const statsDir = path.join(outputDir, 'stats');
             fs.mkdirSync(statsDir, { recursive: true });
             
-            // 🚀 NEW: Setup Local Cache for Stats
             const statsCache = path.join(__dirname, 'cached_stats.json');
-            let mappedStats = { topScorers: [], topAssists: [], cleanSheets: [] };
+            // 🚀 ADDED: yellowCards and redCards arrays to the payload
+            let mappedStats = { topScorers: [], topAssists: [], cleanSheets: [], yellowCards: [], redCards: [] };
 
             try {
                 if (fs.existsSync(statsCache)) {
@@ -321,33 +321,46 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     mappedStats = JSON.parse(fs.readFileSync(statsCache, 'utf8'));
                 } else {
                     console.log("📈 Fetching official player stats from API-Football...");
-                    const scorersRes = await fetch("https://v3.football.api-sports.io/players/topscorers?league=1&season=2022", {
-                        headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
-                    });
+                    
+                    const scorersRes = await fetch("https://v3.football.api-sports.io/players/topscorers?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
                     const scorersData = await scorersRes.json();
 
-                    const assistsRes = await fetch("https://v3.football.api-sports.io/players/topassists?league=1&season=2022", {
-                        headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
-                    });
+                    const assistsRes = await fetch("https://v3.football.api-sports.io/players/topassists?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
                     const assistsData = await assistsRes.json();
+
+                    // 🚀 NEW: Disciplinary Endpoints
+                    const yellowRes = await fetch("https://v3.football.api-sports.io/players/topyellowcards?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
+                    const yellowData = await yellowRes.json();
+
+                    const redRes = await fetch("https://v3.football.api-sports.io/players/topredcards?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
+                    const redData = await redRes.json();
 
                     if (scorersData.response && scorersData.response.length > 0) {
                         mappedStats.topScorers = scorersData.response.slice(0, 5).map(item => ({
-                            name: item.player.name,
-                            teamName: item.statistics[0].team.name,
-                            value: item.statistics[0].goals.total,
-                            fallbackLogo: item.statistics[0].team.logo
+                            name: item.player.name, teamName: item.statistics[0].team.name,
+                            value: item.statistics[0].goals.total, fallbackLogo: item.statistics[0].team.logo
                         }));
                     }
                     if (assistsData.response && assistsData.response.length > 0) {
                         mappedStats.topAssists = assistsData.response.slice(0, 5).map(item => ({
-                            name: item.player.name,
-                            teamName: item.statistics[0].team.name,
-                            value: item.statistics[0].goals.assists,
-                            fallbackLogo: item.statistics[0].team.logo
+                            name: item.player.name, teamName: item.statistics[0].team.name,
+                            value: item.statistics[0].goals.assists, fallbackLogo: item.statistics[0].team.logo
+                        }));
+                    }
+                    if (yellowData.response && yellowData.response.length > 0) {
+                        mappedStats.yellowCards = yellowData.response.slice(0, 5).map(item => ({
+                            name: item.player.name, teamName: item.statistics[0].team.name,
+                            value: item.statistics[0].cards.yellow, fallbackLogo: item.statistics[0].team.logo
+                        }));
+                    }
+                    if (redData.response && redData.response.length > 0) {
+                        mappedStats.redCards = redData.response.slice(0, 5).map(item => ({
+                            name: item.player.name, teamName: item.statistics[0].team.name,
+                            value: item.statistics[0].cards.red, fallbackLogo: item.statistics[0].team.logo
                         }));
                     }
                     
+                    // MVP Fallback for Clean Sheets (Since API-Football lacks a direct endpoint for this)
                     mappedStats.cleanSheets = [
                         { name: "E. Martínez", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" },
                         { name: "Y. Bounou", teamName: "Morocco", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/31.png" },
@@ -355,7 +368,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     ];
 
                     if (mappedStats.topScorers.length > 0) {
-                        // Save to cache!
                         fs.writeFileSync(statsCache, JSON.stringify(mappedStats));
                         console.log("💾 Saved stats to cached_stats.json for future builds!");
                     } else {
@@ -364,6 +376,13 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 }
             } catch (e) {
                 console.log("⚠️ Injecting Pitch90 Mock Stats (API Limit hit)...");
+                mappedStats = {
+                    topScorers: [{ name: "K. Mbappé", teamName: "France", value: 8, fallbackLogo: "https://media.api-sports.io/football/teams/773.png" }],
+                    topAssists: [{ name: "L. Messi", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
+                    cleanSheets: [{ name: "E. Martínez", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
+                    yellowCards: [{ name: "M. Acuña", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
+                    redCards: [{ name: "D. Dumfries", teamName: "Netherlands", value: 1, fallbackLogo: "https://media.api-sports.io/football/teams/1118.png" }]
+                };
             }
 
             let statsTemplate = fs.readFileSync(path.join(__dirname, 'stats.html'), 'utf8');
