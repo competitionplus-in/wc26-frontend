@@ -457,6 +457,7 @@
         function getSmartDefaultDate() {
             const todayObj = new Date();
             
+            // Format the user's actual date as YYYY-MM-DD
             const localYear = todayObj.getFullYear();
             const localMonth = String(todayObj.getMonth() + 1).padStart(2, '0');
             const localDay = String(todayObj.getDate()).padStart(2, '0');
@@ -465,10 +466,6 @@
             const tournamentStart = '2026-06-11';
             const tournamentEnd = '2026-07-19';
 
-            // FOR NOW: While testing and deploying your local seed data, 
-            // force it to open on June 11 so your homepage is always full of cards!
-            return tournamentStart; 
-        }
             if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
                 return localTodayStr; // During the World Cup: Show their actual today
             } else if (localTodayStr > tournamentEnd) {
