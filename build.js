@@ -383,6 +383,53 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /stats directory.");
         }
 
+// 🚀 4. GENERATE SEO SITEMAP & ROBOTS.TXT
+        console.log("🗺️ Generating SEO Sitemap...");
+        
+        // I noticed your Vercel URL from the screenshot. Update this if you buy a custom domain!
+        const SITE_URL = "https://pitch90.vercel.app"; 
+        const today = new Date().toISOString().split('T')[0];
+
+        let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        sitemapXML += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+        // Add Core Pages (Home, Standings, Stats)
+        const staticPages = [
+            { path: '', priority: '1.0', freq: 'hourly' },
+            { path: '/standings', priority: '0.9', freq: 'daily' },
+            { path: '/stats', priority: '0.9', freq: 'daily' }
+        ];
+
+        staticPages.forEach(page => {
+            sitemapXML += `  <url>\n`;
+            sitemapXML += `    <loc>${SITE_URL}${page.path}</loc>\n`;
+            sitemapXML += `    <lastmod>${today}</lastmod>\n`;
+            sitemapXML += `    <changefreq>${page.freq}</changefreq>\n`;
+            sitemapXML += `    <priority>${page.priority}</priority>\n`;
+            sitemapXML += `  </url>\n`;
+        });
+
+        // Add All 104+ Dynamic Match Pages
+        schedule.forEach(match => {
+            sitemapXML += `  <url>\n`;
+            sitemapXML += `    <loc>${SITE_URL}/match/${match.date}/${match.slug}</loc>\n`;
+            sitemapXML += `    <lastmod>${today}</lastmod>\n`;
+            sitemapXML += `    <changefreq>always</changefreq>\n`;
+            sitemapXML += `    <priority>0.8</priority>\n`;
+            sitemapXML += `  </url>\n`;
+        });
+
+        sitemapXML += `</urlset>`;
+
+        // Save sitemap.xml
+        fs.writeFileSync(path.join(outputDir, 'sitemap.xml'), sitemapXML);
+        
+        // Save robots.txt (Tells Google where to find the sitemap)
+        const robotsTxt = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml`;
+        fs.writeFileSync(path.join(outputDir, 'robots.txt'), robotsTxt);
+        
+        console.log(`✅ Generated sitemap.xml and robots.txt with ${schedule.length + staticPages.length} pages!`);
+        
         console.log("✅ Successfully generated API-driven website in the /public folder!");
 
     } catch (error) {
