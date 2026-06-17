@@ -16,7 +16,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* (Keep your exact same CSS styling from before here) */
         :root {
             --bg-body: #f1f5f9; --bg-card: #ffffff; --bg-elevated: #e2e8f0;
             --text-main: #0f172a; --text-muted: #64748b; --accent-glow: #2563eb;
@@ -117,6 +116,7 @@
         .player-identity { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
         .player-identity img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); }
         .player-val { font-size: 1.1rem; font-weight: 800; color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1; margin-top: 2px; }
+        
         /* --- TIMELINE PANEL --- */
         .event-list { display: flex; flex-direction: column; gap: 15px; position: relative; width: 100%; } 
         .event-list::before { content: ''; position: absolute; top: 30px; bottom: 30px; left: 91px; width: 2px; background-color: var(--border-glass); z-index: 1; }
@@ -145,18 +145,19 @@
         .sub-out svg { color: var(--live-red); width: 16px; height: 16px; stroke-width: 3px; }
         .event-slide-in { animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes slideInUp { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+        
         .event.phase-breaker { width: 100%; margin: 20px 0; justify-content: center; }
         .event.phase-breaker .event-wrapper { background: transparent; border: none; box-shadow: none; width: 100%; padding: 0; justify-content: center; }
         .phase-text { display: block; text-align: center; width: 100%; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; z-index: 2; line-height: 1.5; background: var(--bg-body); padding: 12px 15px; border-radius: 8px; border: 1px dashed var(--border-glass); }
-        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); }
+        .phase-text svg { display: inline-block; vertical-align: middle; margin-top: -3px; margin-right: 6px; }
         
-        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); }
         .event + .event { margin-top: -5px; }
         .event-time .tick { font-size: 0.8rem; opacity: 0.5; font-weight: 500; margin-left: 1px; }
         .event.neutral-news .event-wrapper { background-color: #f8fafc; border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 4px solid var(--accent-glow); }
         .event.neutral-news .event-icon { background-color: var(--bg-body); border-color: var(--text-muted); }
         .commentary-box { font-size: 0.95rem; color: var(--text-main); line-height: 1.4; padding: 10px 15px; }
         .commentary-box strong { color: var(--accent-glow); font-weight: 800; display: block; margin-bottom: 4px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        
         /* --- STATS PANEL --- */
         #stats-container { width: 100%; padding-top: 10px; }
         .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-glass); }
@@ -177,6 +178,7 @@
         .bar-home { background: var(--team-home); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; border-radius: 4px 0 0 4px; }
         .bar-container.away { justify-content: flex-start; }
         .bar-away { background: var(--team-away); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; border-radius: 0 4px 4px 0; }
+        
         /* --- LINEUPS PANEL --- */
         .lineups-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .lineup-col { background: #f8fafc; border: 1px solid var(--border-glass); border-radius: 12px; overflow: hidden; }
@@ -194,6 +196,7 @@
         .player-shirt.num { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--text-main); background: var(--bg-elevated); border-color: var(--border-glass); }
         .player-shirt svg { width: 14px; height: 14px; }
         .bench-divider { background-color: var(--bg-elevated); color: var(--text-muted) !important; font-family: 'Oswald', sans-serif; font-size: 0.85rem !important; text-transform: uppercase; letter-spacing: 1px; padding: 6px 15px !important; margin: 10px -15px 0 -15px; font-weight: 700 !important; border-top: 1px solid var(--border-glass); border-bottom: 1px solid rgba(0,0,0,0.06) !important; justify-content: center !important; }
+        
         /* --- STANDINGS PANEL --- */
         .standings-card { position: relative; background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; overflow: hidden; width: 100%; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); }
         .standings-header { background: var(--bg-elevated); padding: 14px 20px; font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-glass); }
@@ -211,6 +214,7 @@
         .row-qualified td { background-color: rgba(16, 185, 129, 0.04); } 
         .row-qualified .col-pos { color: var(--accent-green); }
         footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; margin-bottom: 30px; font-weight: 500; }
+        
         /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 600px) {
             .header { flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px 15px; gap: 8px; }
@@ -740,7 +744,10 @@
                         detailHTML = `<div class="event-details">${e.detail}<span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span></div>`;
                     }
 
-                    const formattedTime = e.time.replace(/'/g, "<span class=\"tick\">'</span>");
+                    // 🛡️ FIX: Removes internal redundant quote (90'+6' -> 90+6') AND catches curly/smart quotes
+                    let cleanTime = String(e.time).replace(/['’`´‘]\s*\+/g, '+'); 
+                    const formattedTime = cleanTime.replace(/['’`´‘]/g, "<span class=\"tick\">'</span>");
+                    
                     timelineHTML += `<div class="event ${animClass} ${rowHighlightClass} ${layoutClass}"><div class="event-wrapper"><div class="event-time">${formattedTime}</div><div class="event-icon ${mod}">${iconHTML}</div>${detailHTML}</div></div>`;                });
                 prevEventsLength = data.events.length;
             } else {
