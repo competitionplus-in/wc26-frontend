@@ -454,7 +454,7 @@
         const STATIC_AWAY_LOGO = "[[AWAY_LOGO]]";
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.392.0/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.392.0/umd/lucide.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
 
     <script>
@@ -761,8 +761,16 @@
 
             document.getElementById('lineups-container').innerHTML = generateLineupHTML(currentHomeTeamName, currentHomeTeamLogo, data.lineups?.home || '', 'home') + generateLineupHTML(currentAwayTeamName, currentAwayTeamLogo, data.lineups?.away || '', 'away');
 
-            if (typeof lucide !== 'undefined') lucide.createIcons(); 
-        }
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                window.addEventListener('load', () => {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                });
+            }
 
         // --- 5. THE WEBSOCKET CONNECTION ---
         async function fetchInitialData() {
