@@ -1,9 +1,15 @@
 {
   "cleanUrls": true,
-  "rewrites": [
-    { 
-      "source": "/match/(.*)", 
-      "destination": "/match.html" 
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ]
 }
