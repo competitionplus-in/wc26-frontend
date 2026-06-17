@@ -119,12 +119,12 @@
         .player-val { font-size: 1.1rem; font-weight: 800; color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1; margin-top: 2px; }
         /* --- TIMELINE PANEL --- */
         .event-list { display: flex; flex-direction: column; gap: 15px; position: relative; width: 100%; } 
-        .event-list::before { content: ''; position: absolute; top: 30px; bottom: 30px; left: 79px; width: 2px; background-color: var(--border-glass); z-index: 1; }
+        .event-list::before { content: ''; position: absolute; top: 30px; bottom: 30px; left: 91px; width: 2px; background-color: var(--border-glass); z-index: 1; }
         .event { display: flex; align-items: center; position: relative; padding: 5px 0; width: 100%; justify-content: flex-start; }
         .event-wrapper { display: flex; align-items: center; gap: 16px; width: 100%; }
         .event.highlight-goal .event-wrapper { background-color: rgba(16, 185, 129, 0.08); border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 5px solid var(--accent-green); }
         .event.highlight-red .event-wrapper { background-color: rgba(239, 68, 68, 0.08); border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 5px solid var(--live-red); }
-        .event-time { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); width: 48px; text-align: right; flex-shrink: 0; }
+        .event-time { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); width: 60px; text-align: right; flex-shrink: 0; white-space: nowrap; }
         .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-card); border: 1px solid var(--border-glass); z-index: 2; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0; }
         .event-icon svg { width: 14px; height: 14px; color: var(--text-main); }
         .event-details { flex: 1; font-size: 1rem; font-weight: 600; color: var(--text-main); text-align: left; word-wrap: break-word; overflow-wrap: break-word; }
@@ -147,8 +147,9 @@
         @keyframes slideInUp { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
         .event.phase-breaker { width: 100%; margin: 20px 0; justify-content: center; }
         .event.phase-breaker .event-wrapper { background: transparent; border: none; box-shadow: none; width: 100%; padding: 0; justify-content: center; }
-        .phase-text { display: flex; align-items: center; justify-content: center; text-align: center; width: 100%; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; z-index: 2; line-height: 1.4; background: var(--bg-body); padding: 10px 15px; border-radius: 8px; border: 1px dashed var(--border-glass); }
-        
+        .phase-text { display: block; text-align: center; width: 100%; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; z-index: 2; line-height: 1.5; background: var(--bg-body); padding: 12px 15px; border-radius: 8px; border: 1px dashed var(--border-glass); }
+        .phase-text svg { display: inline-block; vertical-align: middle; margin-top: -3px; margin-right: 6px; }
+        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); }
         .event + .event { margin-top: -5px; }
         .event-time .tick { font-size: 0.8rem; opacity: 0.5; font-weight: 500; margin-left: 1px; }
         .event.neutral-news .event-wrapper { background-color: #f8fafc; border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 4px solid var(--accent-glow); }
@@ -227,13 +228,13 @@
             .players-split { grid-template-columns: 1fr; gap: 12px; }
             .panel-content { padding: 20px 10px; }
             .prob-labels { font-size: 0.75rem; }
-            .event-time { font-size: 1.05rem; width: 42px; }
+            .event-time { font-size: 1.05rem; width: 55px; white-space: nowrap; }
             .event-details { font-size: 0.95rem; }
             .sub-out { font-size: 0.85rem; }
             .event.highlight-goal, .event.highlight-red { padding: 8px 10px 8px 0; }
             .h2h-team span { display: none; } 
             .h2h-scoreline { gap: 10px; }
-            .event-list::before { left: 73px; } 
+            .event-list::before { left: 86px; } 
         } 
     </style>
 </head>
@@ -738,7 +739,7 @@
                         detailHTML = `<div class="event-details">${e.detail}<span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span></div>`;
                     }
 
-                    const formattedTime = e.time.replace("'", "<span class=\"tick\">'</span>");
+                    const formattedTime = e.time.replace(/'/g, "<span class=\"tick\">'</span>");
                     timelineHTML += `<div class="event ${animClass} ${rowHighlightClass} ${layoutClass}"><div class="event-wrapper"><div class="event-time">${formattedTime}</div><div class="event-icon ${mod}">${iconHTML}</div>${detailHTML}</div></div>`;                });
                 prevEventsLength = data.events.length;
             } else {
