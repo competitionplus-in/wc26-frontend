@@ -152,7 +152,7 @@
         .phase-text svg { display: inline-block; vertical-align: middle; margin-top: -3px; margin-right: 6px; }
         
         .event + .event { margin-top: -5px; }
-        .event-time .tick { font-size: 0.8rem; opacity: 0.5; font-weight: 500; margin-left: 1px; }
+
         .event.neutral-news .event-wrapper { background-color: #f8fafc; border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 4px solid var(--accent-glow); }
         .event.neutral-news .event-icon { background-color: var(--bg-body); border-color: var(--text-muted); }
         .commentary-box { font-size: 0.95rem; color: var(--text-main); line-height: 1.4; padding: 10px 15px; }
@@ -744,9 +744,10 @@
                         detailHTML = `<div class="event-details">${e.detail}<span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span></div>`;
                     }
 
-                    // 🛡️ FIX: Removes internal redundant quote (90'+6' -> 90+6') AND catches curly/smart quotes
+
+                    // 🛡️ FIX: Removes internal redundant quote (90'+6' -> 90+6') AND standardizes all quotes to a classic straight tick
                     let cleanTime = String(e.time).replace(/['’`´‘]\s*\+/g, '+'); 
-                    const formattedTime = cleanTime.replace(/['’`´‘]/g, "<span class=\"tick\">'</span>");
+                    const formattedTime = cleanTime.replace(/['’`´‘]/g, "'");
                     
                     timelineHTML += `<div class="event ${animClass} ${rowHighlightClass} ${layoutClass}"><div class="event-wrapper"><div class="event-time">${formattedTime}</div><div class="event-icon ${mod}">${iconHTML}</div>${detailHTML}</div></div>`;                });
                 prevEventsLength = data.events.length;
