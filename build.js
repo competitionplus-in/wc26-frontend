@@ -118,7 +118,12 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             const dateStr = match.fixture.date.substring(0, 10);
             const homeName = match.teams.home.name;
             const awayName = match.teams.away.name;
-            const matchSlug = `${createSlug(homeName)}-vs-${createSlug(awayName)}`;
+            
+            // 🛡️ FIX: Generate unique slugs for Knockout matches that don't have teams yet
+            let matchSlug = `${createSlug(homeName)}-vs-${createSlug(awayName)}`;
+            if (homeName.toUpperCase() === "TBD" || awayName.toUpperCase() === "TBD" || homeName === awayName) {
+                matchSlug += `-${match.fixture.id || Math.floor(Math.random() * 10000)}`;
+            }
 
             const finalHomeLogo = flagMap[normalizeName(homeName)] || match.teams.home.logo;
             const finalAwayLogo = flagMap[normalizeName(awayName)] || match.teams.away.logo;
