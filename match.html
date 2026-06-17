@@ -148,7 +148,8 @@
         .event.phase-breaker { width: 100%; margin: 20px 0; justify-content: center; }
         .event.phase-breaker .event-wrapper { background: transparent; border: none; box-shadow: none; width: 100%; padding: 0; justify-content: center; }
         .phase-text { display: flex; align-items: center; width: 100%; gap: 15px; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; z-index: 2; }
-        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); }
+        
+        .event + .event { margin-top: -5px; }
         .event.neutral-news .event-wrapper { background-color: #f8fafc; border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 4px solid var(--accent-glow); }
         .event.neutral-news .event-icon { background-color: var(--bg-body); border-color: var(--text-muted); }
         .commentary-box { font-size: 0.95rem; color: var(--text-main); line-height: 1.4; padding: 10px 15px; }
@@ -728,8 +729,7 @@
                         let goalScorer = e.detail; let assistText = '';
                         if (e.detail && e.detail.includes('|')) { const parts = e.detail.split('|').map(p => p.trim()); goalScorer = parts[0]; assistText = parts[1]; }
                         let formattedSubtext = `${flagHTML} ${e.subtext || ''}`;
-                        if (assistText) formattedSubtext = `${flagHTML} ${assistText} &bull; ${e.subtext || ''}`;
-                        detailHTML = `<div class="event-details"><div style="margin-bottom: 2px;"><span class="goal-badge">GOAL</span><span class="goal-player">${goalScorer}</span></div><span class="event-subtext" style="margin-top: 4px;">${formattedSubtext}</span></div>`;
+                        if (assistText) formattedSubtext = `<i data-lucide="footprints" style="width:12px; height:12px; margin-right:4px; opacity:0.6;"></i> ${assistText} &bull; ${flagHTML} ${e.subtext || ''}`;                        detailHTML = `<div class="event-details"><div style="margin-bottom: 2px;"><span class="goal-badge">GOAL</span><span class="goal-player">${goalScorer}</span></div><span class="event-subtext" style="margin-top: 4px;">${formattedSubtext}</span></div>`;
                     } else if (e.type === 'sub' && e.detail && e.detail.includes('|')) {
                         const parts = e.detail.split('|').map(p => p.trim()); const inPlayer = parts[0].replace(/IN\s+/i, '').trim(); const outPlayer = parts.length > 1 ? parts[1].replace(/OUT\s+/i, '').trim() : '';
                         detailHTML = `<div class="event-details sub-container"><div class="sub-player sub-in"><i data-lucide="arrow-up"></i> <span>${inPlayer}</span></div>${outPlayer ? `<div class="sub-player sub-out"><i data-lucide="arrow-down"></i> <span>${outPlayer}</span></div>` : ''}<span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span></div>`;
