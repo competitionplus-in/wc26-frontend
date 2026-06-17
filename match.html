@@ -777,7 +777,10 @@
             }
         }
 
-        const socket = io(BACKEND_URL, { query: { viewerId: viewerId } });
+        const socket = io(BACKEND_URL, { 
+    query: { viewerId: viewerId },
+    transports: ['websocket'] 
+});
 
         socket.on('connect', () => {
             console.log("🟢 Connected to Live Match Stream!");
