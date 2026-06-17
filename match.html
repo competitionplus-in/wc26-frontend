@@ -147,9 +147,9 @@
         @keyframes slideInUp { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
         .event.phase-breaker { width: 100%; margin: 20px 0; justify-content: center; }
         .event.phase-breaker .event-wrapper { background: transparent; border: none; box-shadow: none; width: 100%; padding: 0; justify-content: center; }
-        .phase-text { display: flex; align-items: center; width: 100%; gap: 15px; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; z-index: 2; background: #FFFFFF; }
-        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); }
+        .phase-text { display: flex; align-items: center; justify-content: center; text-align: center; width: 100%; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; z-index: 2; line-height: 1.4; background: var(--bg-body); padding: 10px 15px; border-radius: 8px; border: 1px dashed var(--border-glass); }        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); }
         .event + .event { margin-top: -5px; }
+        .event-time .tick { font-size: 0.8rem; opacity: 0.5; font-weight: 500; margin-left: 1px; }
         .event.neutral-news .event-wrapper { background-color: #f8fafc; border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 4px solid var(--accent-glow); }
         .event.neutral-news .event-icon { background-color: var(--bg-body); border-color: var(--text-muted); }
         .commentary-box { font-size: 0.95rem; color: var(--text-main); line-height: 1.4; padding: 10px 15px; }
@@ -737,8 +737,8 @@
                         detailHTML = `<div class="event-details">${e.detail}<span class="event-subtext" style="margin-top: 4px;">${flagHTML} ${e.subtext || ''}</span></div>`;
                     }
 
-                    timelineHTML += `<div class="event ${animClass} ${rowHighlightClass} ${layoutClass}"><div class="event-wrapper"><div class="event-time">${e.time}</div><div class="event-icon ${mod}">${iconHTML}</div>${detailHTML}</div></div>`;
-                });
+                    const formattedTime = e.time.replace("'", "<span class=\"tick\">'</span>");
+                    timelineHTML += `<div class="event ${animClass} ${rowHighlightClass} ${layoutClass}"><div class="event-wrapper"><div class="event-time">${formattedTime}</div><div class="event-icon ${mod}">${iconHTML}</div>${detailHTML}</div></div>`;                });
                 prevEventsLength = data.events.length;
             } else {
                 timelineHTML = '<div style="text-align:center;color:var(--text-muted);padding-top:20px;">Awaiting events notification matrix...</div>';
