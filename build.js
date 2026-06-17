@@ -12,27 +12,41 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 (async () => {
     try {
         const cacheFile = path.join(__dirname, 'cached_schedule.json');
-        let data;
+        let data = null;
 
+        // 🛡️ 1. CACHE SANITIZATION: Check if cache exists AND is actually valid match data
         if (fs.existsSync(cacheFile)) {
-            console.log("📂 Found local cached schedule! Skipping API call.");
-            data = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
-        } else {
+            try {
+                const rawCache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+                if (rawCache.response && Array.isArray(rawCache.response) && rawCache.response.length > 0) {
+                    console.log("📂 Found valid local cached schedule!");
+                    data = rawCache;
+                } else {
+                    console.log("⚠️ Cached schedule is corrupt or empty. Ignoring bad cache.");
+                }
+            } catch (e) {
+                console.log("⚠️ Could not read cached schedule. Ignoring.");
+            }
+        }
+
+        // 🛡️ 2. FETCH OR MOCK: If cache was missing or corrupt, fetch fresh or use mock
+        if (!data) {
             console.log("📡 Fetching official schedule from API-Football...");
             try {
                 const response = await fetch("https://v3.football.api-sports.io/fixtures?league=1&season=2026", {
                     headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
                 });
                 if (!response.ok) throw new Error(`API request failed: ${response.status}`);
-                data = await response.json();
+                const fetchedData = await response.json();
 
-                if (!data.response || data.response.length === 0) {
+                if (!fetchedData.response || fetchedData.response.length === 0) {
                     throw new Error("2026 Schedule not released yet!");
                 } else {
+                    data = fetchedData;
                     fs.writeFileSync(cacheFile, JSON.stringify(data));
                 }
             } catch (err) {
-                console.log("⚠️ Schedule missing or API Key blocked! Injecting Vercel Mock Data...");
+                console.log("⚠️ API fetch failed! Injecting Vercel Mock Data...");
                 data = {
                     response: [
                         {
@@ -65,9 +79,16 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         };
         
         if (fs.existsSync(flagsCacheFile)) {
-            console.log("📂 Found local cached Flags dictionary! Skipping API call.");
-            flagMap = JSON.parse(fs.readFileSync(flagsCacheFile, 'utf8'));
-        } else {
+            try {
+                const rawFlags = JSON.parse(fs.readFileSync(flagsCacheFile, 'utf8'));
+                if (Object.keys(rawFlags).length > 0) {
+                    console.log("📂 Found valid local cached Flags dictionary!");
+                    flagMap = rawFlags;
+                }
+            } catch (e) {}
+        } 
+        
+        if (Object.keys(flagMap).length === 0) {
             console.log("🎨 Fetching high-resolution SVG Flags dictionary from API...");
             try {
                 const flagResponse = await fetch("https://v3.football.api-sports.io/teams/countries", {
@@ -83,7 +104,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                             flagMap[normalizeName(country.name)] = country.flag;
                         }
                     });
-                    
                     fs.writeFileSync(flagsCacheFile, JSON.stringify(flagMap));
                     console.log(`💾 Saved ${Object.keys(flagMap).length} SVG flags to cached_flags.json!`);
                 }
@@ -180,66 +200,59 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
-        // 🛠️ 1. LOAD THE STANDINGS CACHE FIRST
         let mappedStandings = [];
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
             
             const standingsCache = path.join(__dirname, 'cached_standings.json');
+            let standData = null;
             
-            try {
-                let standData;
-                if (fs.existsSync(standingsCache)) {
-                    console.log("📂 Found local cached Standings! Skipping API call.");
-                    standData = JSON.parse(fs.readFileSync(standingsCache, 'utf8'));
-                } else {
-                    console.log("📊 Fetching official standings from API-Football...");
+            if (fs.existsSync(standingsCache)) {
+                try {
+                    const raw = JSON.parse(fs.readFileSync(standingsCache, 'utf8'));
+                    if (raw.response && raw.response.length > 0) standData = raw;
+                } catch(e) {}
+            }
+            
+            if (!standData) {
+                console.log("📊 Fetching official standings from API-Football...");
+                try {
                     const standRes = await fetch("https://v3.football.api-sports.io/standings?league=1&season=2022", {
                         headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
                     });
-                    standData = await standRes.json();
+                    const fetchedStandData = await standRes.json();
                     
-                    if (standData.errors && Object.keys(standData.errors).length > 0) {
-                        console.log("⚠️ API Error on Standings (Limit reached?):", standData.errors);
-                    } else if (standData.response && standData.response.length > 0) {
+                    if (fetchedStandData.response && fetchedStandData.response.length > 0) {
+                        standData = fetchedStandData;
                         fs.writeFileSync(standingsCache, JSON.stringify(standData));
-                        console.log("💾 Saved standings to cached_standings.json for future builds!");
-                    }
+                    } else { throw new Error("Empty Standings"); }
+                } catch (e) {
+                    console.log("⚠️ Injecting Pitch90 Mock Standings...");
+                    mappedStandings = [{ name: "Group A", teams: [ 
+                        { name: "Mexico", code: "mexico", pld: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: 2, pts: 3 },
+                        { name: "South Africa", code: "south africa", pld: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: -2, pts: 0 }
+                    ]}];
                 }
-                
-                if (standData.response && standData.response.length > 0) {
-                    const rawGroups = standData.response[0].league.standings;
-                    mappedStandings = rawGroups.map(group => {
-                        return {
-                            name: group[0].group, 
-                            teams: group.map(t => ({
-                                name: t.team.name,
-                                pld: t.all.played, w: t.all.win, d: t.all.draw, l: t.all.lose,
-                                gf: t.all.goals.for, ga: t.all.goals.against, gd: t.goalsDiff, pts: t.points,
-                                code: normalizeName(t.team.name) 
-                            }))
-                        };
-                    });
-                } else {
-                    throw new Error("Empty response or API limit reached.");
-                }
-            } catch (e) {
-                console.log("⚠️ Injecting Pitch90 Mock Standings (API Limit hit)...");
-                mappedStandings = [{ name: "Group A", teams: [ 
-                    { name: "Mexico", code: "mexico", pld: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: 2, pts: 3 },
-                    { name: "South Africa", code: "south africa", pld: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: -2, pts: 0 }
-                ]}];
+            }
+
+            if (standData && standData.response && standData.response.length > 0) {
+                const rawGroups = standData.response[0].league.standings;
+                mappedStandings = rawGroups.map(group => ({
+                    name: group[0].group, 
+                    teams: group.map(t => ({
+                        name: t.team.name, pld: t.all.played, w: t.all.win, d: t.all.draw, l: t.all.lose,
+                        gf: t.all.goals.for, ga: t.all.goals.against, gd: t.goalsDiff, pts: t.points, code: normalizeName(t.team.name) 
+                    }))
+                }));
             }
 
             let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); 
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
-            console.log("✅ Physically generated the /standings directory.");
         }
 
-        // 🚀 2. NOW GENERATE MATCH.HTML WITH THE LOADED STANDINGS
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
             const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
 
@@ -288,7 +301,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated dynamic match directories WITH injected SEO data and Live Standings!");
         }
 
-        // 🛠️ 3. THE NEW STATS & SVG INJECTION LOGIC
         if (fs.existsSync(path.join(__dirname, 'stats.html'))) {
             const statsDir = path.join(outputDir, 'stats');
             fs.mkdirSync(statsDir, { recursive: true });
@@ -296,13 +308,20 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             const statsCache = path.join(__dirname, 'cached_stats.json');
             let mappedStats = { topScorers: [], topAssists: [], cleanSheets: [], yellowCards: [], redCards: [] };
 
-            try {
-                if (fs.existsSync(statsCache)) {
-                    console.log("📂 Found local cached Stats! Skipping API call.");
-                    mappedStats = JSON.parse(fs.readFileSync(statsCache, 'utf8'));
-                } else {
+            let statsLoaded = false;
+            if (fs.existsSync(statsCache)) {
+                try {
+                    const rawStats = JSON.parse(fs.readFileSync(statsCache, 'utf8'));
+                    if (rawStats.topScorers && rawStats.topScorers.length > 0) {
+                        mappedStats = rawStats;
+                        statsLoaded = true;
+                    }
+                } catch(e) {}
+            }
+            
+            if (!statsLoaded) {
+                try {
                     console.log("📈 Fetching official player stats from API-Football...");
-                    
                     const scorersRes = await fetch("https://v3.football.api-sports.io/players/topscorers?league=1&season=2022", { headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY } });
                     const scorersData = await scorersRes.json();
 
@@ -317,26 +336,22 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
                     if (scorersData.response && scorersData.response.length > 0) {
                         mappedStats.topScorers = scorersData.response.slice(0, 5).map(item => ({
-                            name: item.player.name, teamName: item.statistics[0].team.name,
-                            value: item.statistics[0].goals.total, fallbackLogo: item.statistics[0].team.logo
+                            name: item.player.name, teamName: item.statistics[0].team.name, value: item.statistics[0].goals.total, fallbackLogo: item.statistics[0].team.logo
                         }));
                     }
                     if (assistsData.response && assistsData.response.length > 0) {
                         mappedStats.topAssists = assistsData.response.slice(0, 5).map(item => ({
-                            name: item.player.name, teamName: item.statistics[0].team.name,
-                            value: item.statistics[0].goals.assists, fallbackLogo: item.statistics[0].team.logo
+                            name: item.player.name, teamName: item.statistics[0].team.name, value: item.statistics[0].goals.assists, fallbackLogo: item.statistics[0].team.logo
                         }));
                     }
                     if (yellowData.response && yellowData.response.length > 0) {
                         mappedStats.yellowCards = yellowData.response.slice(0, 5).map(item => ({
-                            name: item.player.name, teamName: item.statistics[0].team.name,
-                            value: item.statistics[0].cards.yellow, fallbackLogo: item.statistics[0].team.logo
+                            name: item.player.name, teamName: item.statistics[0].team.name, value: item.statistics[0].cards.yellow, fallbackLogo: item.statistics[0].team.logo
                         }));
                     }
                     if (redData.response && redData.response.length > 0) {
                         mappedStats.redCards = redData.response.slice(0, 5).map(item => ({
-                            name: item.player.name, teamName: item.statistics[0].team.name,
-                            value: item.statistics[0].cards.red, fallbackLogo: item.statistics[0].team.logo
+                            name: item.player.name, teamName: item.statistics[0].team.name, value: item.statistics[0].cards.red, fallbackLogo: item.statistics[0].team.logo
                         }));
                     }
                     
@@ -348,20 +363,17 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
                     if (mappedStats.topScorers.length > 0) {
                         fs.writeFileSync(statsCache, JSON.stringify(mappedStats));
-                        console.log("💾 Saved stats to cached_stats.json for future builds!");
-                    } else {
-                        throw new Error("Empty stats response or API limit reached.");
-                    }
+                    } else { throw new Error("Empty stats"); }
+                } catch (e) {
+                    console.log("⚠️ Injecting Pitch90 Mock Stats (API Limit hit)...");
+                    mappedStats = {
+                        topScorers: [{ name: "K. Mbappé", teamName: "France", value: 8, fallbackLogo: "https://media.api-sports.io/football/teams/773.png" }],
+                        topAssists: [{ name: "L. Messi", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
+                        cleanSheets: [{ name: "E. Martínez", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
+                        yellowCards: [{ name: "M. Acuña", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
+                        redCards: [{ name: "D. Dumfries", teamName: "Netherlands", value: 1, fallbackLogo: "https://media.api-sports.io/football/teams/1118.png" }]
+                    };
                 }
-            } catch (e) {
-                console.log("⚠️ Injecting Pitch90 Mock Stats (API Limit hit)...");
-                mappedStats = {
-                    topScorers: [{ name: "K. Mbappé", teamName: "France", value: 8, fallbackLogo: "https://media.api-sports.io/football/teams/773.png" }],
-                    topAssists: [{ name: "L. Messi", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
-                    cleanSheets: [{ name: "E. Martínez", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
-                    yellowCards: [{ name: "M. Acuña", teamName: "Argentina", value: 3, fallbackLogo: "https://media.api-sports.io/football/teams/26.png" }],
-                    redCards: [{ name: "D. Dumfries", teamName: "Netherlands", value: 1, fallbackLogo: "https://media.api-sports.io/football/teams/1118.png" }]
-                };
             }
 
             let statsTemplate = fs.readFileSync(path.join(__dirname, 'stats.html'), 'utf8');
