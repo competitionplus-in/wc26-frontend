@@ -147,8 +147,8 @@
         @keyframes slideInUp { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
         .event.phase-breaker { width: 100%; margin: 20px 0; justify-content: center; }
         .event.phase-breaker .event-wrapper { background: transparent; border: none; box-shadow: none; width: 100%; padding: 0; justify-content: center; }
-        .phase-text { display: flex; align-items: center; width: 100%; gap: 15px; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; z-index: 2; }
-        
+        .phase-text { display: flex; align-items: center; width: 100%; gap: 15px; font-size: 0.85rem; color: var(--text-muted); font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; z-index: 1; }
+        .phase-text::before, .phase-text::after { content: ''; flex: 1; height: 1px; background-color: var(--border-glass); z-index: 1; }
         .event + .event { margin-top: -5px; }
         .event.neutral-news .event-wrapper { background-color: #f8fafc; border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 4px solid var(--accent-glow); }
         .event.neutral-news .event-icon { background-color: var(--bg-body); border-color: var(--text-muted); }
