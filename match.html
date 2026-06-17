@@ -454,7 +454,7 @@
         const STATIC_AWAY_LOGO = "[[AWAY_LOGO]]";
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.392.0/umd/lucide.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
 
     <script>
@@ -771,6 +771,7 @@
                     }
                 });
             }
+        }
 
         // --- 5. THE WEBSOCKET CONNECTION ---
         async function fetchInitialData() {
