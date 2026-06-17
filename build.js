@@ -434,6 +434,16 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         fs.writeFileSync(path.join(outputDir, 'robots.txt'), robotsTxt);
         
         console.log(`✅ Generated sitemap.xml and robots.txt with ${schedule.length + staticPages.length} pages!`);
+
+        // 🚀 NEW: Copy the self-hosted Lucide icons to the public folder
+        const lucideSrc = path.join(__dirname, 'lucide.min.js');
+        const lucideDest = path.join(outputDir, 'lucide.min.js');
+        if (fs.existsSync(lucideSrc)) {
+            fs.copyFileSync(lucideSrc, lucideDest);
+            console.log("✅ Successfully copied lucide.min.js to public folder!");
+        } else {
+            console.log("⚠️ lucide.min.js not found in root. Make sure you downloaded it!");
+        }
         
         console.log("✅ Successfully generated API-driven website in the /public folder!");
 
