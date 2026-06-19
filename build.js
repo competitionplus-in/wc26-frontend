@@ -1,11 +1,15 @@
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 try {
     require('dotenv').config();
 } catch (e) {
     console.log("☁️ Running on Vercel, skipping local .env file...");
 }
+
+// Define your site URL globally so it can be used everywhere
+const SITE_URL = "https://pitch90.vercel.app"; 
 
 console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
@@ -14,7 +18,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         const cacheFile = path.join(__dirname, 'cached_schedule.json');
         let data = null;
 
-        // 🛡️ 1. CACHE SANITIZATION: Check if cache exists AND is actually valid match data
+        // 🛡️ 1. CACHE SANITIZATION
         if (fs.existsSync(cacheFile)) {
             try {
                 const rawCache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
@@ -29,7 +33,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             }
         }
 
-        // 🛡️ 2. FETCH OR MOCK: If cache was missing or corrupt, fetch fresh or use mock
+        // 🛡️ 2. FETCH OR MOCK
         if (!data) {
             console.log("📡 Fetching official schedule from API-Football...");
             try {
@@ -119,7 +123,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             const homeName = match.teams.home.name;
             const awayName = match.teams.away.name;
             
-            // 🛡️ FIX: Generate unique slugs for Knockout matches that don't have teams yet
             let matchSlug = `${createSlug(homeName)}-vs-${createSlug(awayName)}`;
             if (homeName.toUpperCase() === "TBD" || awayName.toUpperCase() === "TBD" || homeName === awayName) {
                 matchSlug += `-${match.fixture.id || Math.floor(Math.random() * 10000)}`;
@@ -199,12 +202,53 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         const outputDir = path.join(__dirname, 'public');
         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
+        const ogDir = path.join(outputDir, 'og');
+        if (!fs.existsSync(ogDir)) fs.mkdirSync(ogDir, { recursive: true });
+
+        // 🚀 DYNAMIC OG IMAGE GENERATOR
+        async function generateOGImage(homeLogoUrl, awayLogoUrl, matchSlug) {
+            const ogPath = path.join(ogDir, `${matchSlug}.png`);
+            if (fs.existsSync(ogPath)) return; 
+
+            try {
+                const [homeRes, awayRes] = await Promise.all([ fetch(homeLogoUrl), fetch(awayLogoUrl) ]);
+                const homeBuffer = await homeRes.arrayBuffer();
+                const awayBuffer = await awayRes.arrayBuffer();
+
+                const homeImg = await sharp(Buffer.from(homeBuffer)).resize(300, 300, { fit: 'contain', background: {r:0,g:0,b:0,alpha:0} }).toBuffer();
+                const awayImg = await sharp(Buffer.from(awayBuffer)).resize(300, 300, { fit: 'contain', background: {r:0,g:0,b:0,alpha:0} }).toBuffer();
+
+                const overlaySvg = Buffer.from(`
+                    <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+                        <text x="600" y="100" font-family="Arial, sans-serif" font-size="35" font-weight="bold" fill="#cbd5e1" text-anchor="middle" letter-spacing="4">PITCH90 LIVE MATCH CENTER</text>
+                        <text x="600" y="340" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#2563eb" text-anchor="middle">VS</text>
+                        <text x="600" y="550" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">FIFA WORLD CUP 2026</text>
+                    </svg>
+                `);
+
+                await sharp({
+                    create: { width: 1200, height: 630, channels: 4, background: '#0f172a' }
+                })
+                .composite([
+                    { input: homeImg, top: 165, left: 150 },
+                    { input: awayImg, top: 165, left: 750 },
+                    { input: overlaySvg, top: 0, left: 0 }
+                ])
+                .toFile(ogPath);
+                
+                console.log(`📸 Generated OG Image for: ${matchSlug}`);
+            } catch (e) {
+                console.log(`⚠️ Failed to generate OG image for ${matchSlug}`);
+            }
+        }
+
+        // --- HOMEPAGE BUILD ---
         let finalHTML = htmlTemplate.replace('[[INJECT_MATCHES_HERE]]', matchCardsHTML);
         finalHTML = finalHTML.replace('[[INJECT_CALENDAR_HERE]]', calendarHTML);
-        finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML); 
-
+        finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML);
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
+        // --- STANDINGS BUILD ---
         let mappedStandings = [];
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
             const standingsDir = path.join(outputDir, 'standings');
@@ -258,14 +302,25 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
         }
 
+        // --- MATCH PAGES BUILD ---
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
             const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
 
-            schedule.forEach(match => {
+            for (const match of schedule) {
                 const matchDir = path.join(outputDir, 'match', match.date, match.slug);
                 fs.mkdirSync(matchDir, { recursive: true });
 
+                // 🚀 Generate the OG Image
+                await generateOGImage(match.home.logo, match.away.logo, match.slug);
+
                 let matchHTML = matchTemplate;
+
+                // 🚀 Inject SEO URLs
+                const matchUrl = `${SITE_URL}/match/${match.date}/${match.slug}`;
+                const ogImageUrl = `${SITE_URL}/og/${match.slug}.png`;
+                
+                matchHTML = matchHTML.replace(/\[\[MATCH_URL\]\]/g, matchUrl);
+                matchHTML = matchHTML.replace(/\[\[MATCH_OG_IMAGE\]\]/g, ogImageUrl);
 
                 matchHTML = matchHTML.replace(/\[\[HOME_NAME\]\]/g, match.home.fullName);
                 matchHTML = matchHTML.replace(/\[\[AWAY_NAME\]\]/g, match.away.fullName);
@@ -302,10 +357,11 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
                 matchHTML = matchHTML.replace('[[INJECT_MATCH_STANDINGS_HERE]]', groupHTML);
                 fs.writeFileSync(path.join(matchDir, 'index.html'), matchHTML);
-            });
+            }
             console.log("✅ Physically generated dynamic match directories WITH injected SEO data and Live Standings!");
         }
 
+        // --- STATS BUILD ---
         if (fs.existsSync(path.join(__dirname, 'stats.html'))) {
             const statsDir = path.join(outputDir, 'stats');
             fs.mkdirSync(statsDir, { recursive: true });
@@ -388,11 +444,9 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /stats directory.");
         }
 
-// 🚀 4. GENERATE SEO SITEMAP & ROBOTS.TXT
+        // 🚀 4. GENERATE SEO SITEMAP & ROBOTS.TXT
         console.log("🗺️ Generating SEO Sitemap...");
         
-        // I noticed your Vercel URL from the screenshot. Update this if you buy a custom domain!
-        const SITE_URL = "https://pitch90.vercel.app"; 
         const today = new Date().toISOString().split('T')[0];
 
         let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>\n`;
@@ -414,7 +468,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             sitemapXML += `  </url>\n`;
         });
 
-        // Add All 104+ Dynamic Match Pages
+        // Add All Dynamic Match Pages
         schedule.forEach(match => {
             sitemapXML += `  <url>\n`;
             sitemapXML += `    <loc>${SITE_URL}/match/${match.date}/${match.slug}</loc>\n`;
@@ -429,13 +483,13 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         // Save sitemap.xml
         fs.writeFileSync(path.join(outputDir, 'sitemap.xml'), sitemapXML);
         
-        // Save robots.txt (Tells Google where to find the sitemap)
+        // Save robots.txt
         const robotsTxt = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml`;
         fs.writeFileSync(path.join(outputDir, 'robots.txt'), robotsTxt);
         
         console.log(`✅ Generated sitemap.xml and robots.txt with ${schedule.length + staticPages.length} pages!`);
 
-        // 🚀 NEW: Copy the self-hosted Lucide icons to the public folder
+        // Copy the self-hosted Lucide icons to the public folder
         const lucideSrc = path.join(__dirname, 'lucide.min.js');
         const lucideDest = path.join(outputDir, 'lucide.min.js');
         if (fs.existsSync(lucideSrc)) {
