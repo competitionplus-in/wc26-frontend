@@ -15,6 +15,7 @@
             --text-muted: #64748b;
             --accent-glow: #2563eb;
             --accent-green: #10b981;
+            --live-red: #ef4444;
             --border-glass: #cbd5e1;
         }
 
@@ -28,12 +29,12 @@
             align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-glass); 
             position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
-        .brand-title { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .brand-title { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; color: var(--text-main); display: flex; align-items: center; }
         .brand-title span { color: var(--accent-glow); }
         .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
 
         /* --- MAIN CONTENT --- */
-        .content-container { max-width: 800px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 30px; }
+        .content-container { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 30px; }
 
         /* Premium Elevated Card */
         .group-card {
@@ -116,6 +117,13 @@
         .col-pts { font-family: 'Oswald', sans-serif; font-weight: 800; color: var(--text-main); font-size: 1.25rem; }
         .col-gd { color: var(--text-muted); font-weight: 600; }
 
+        /* Form Pills */
+        .form-run { display: flex; gap: 4px; justify-content: center; }
+        .form-pill { width: 20px; height: 20px; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 0.7rem; font-weight: 800; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .form-w { background-color: var(--accent-green); }
+        .form-d { background-color: #94a3b8; }
+        .form-l { background-color: var(--live-red); }
+
         /* 🏆 QUALIFICATION ZONES */
         .qualified-row td { background-color: #f2fdf9; } /* Very subtle mint green */
         .qualified-row:hover td { background-color: #e6fcf5; }
@@ -151,17 +159,30 @@
             .bottom-nav { display: none; }
             body { padding-bottom: 20px; }
         }
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .hide-mobile { display: none; }
             th, td { padding: 12px 8px; font-size: 0.85rem; }
             .col-team img { width: 24px; height: 24px; }
+            .col-team span { font-size: 1rem; }
+            .col-pts { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
     <header class="top-bar">
-        <div class="brand-title">PITCH<span>90</span></div>
+        <a href="/" class="brand-title" aria-label="Pitch90 Home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="36" height="36" style="margin-right: 8px;">
+                <g id="pitch90-logo">
+                    <path d="M 239 55.24 A 130 130 0 1 1 215 37.42 L 215 24 L 239 24 Z" 
+                          fill="#FFFFFF" stroke="#C4CCD3" stroke-width="4" stroke-linejoin="round" />
+                    <path d="M 239 72.52 A 118 118 0 1 1 215 51.52 L 215 84 L 239 84 Z" 
+                          fill="#2563eb" stroke="#C4CCD3" stroke-width="4" stroke-linejoin="round" />
+                    <text x="148" y="205" font-family="Bahnschrift, system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="bold" font-size="160" fill="#FFFFFF" text-anchor="middle" letter-spacing="-2">90</text>
+                </g>
+            </svg>
+            PITCH<span>90</span>
+        </a>
         <div class="page-title">Global Standings</div>
     </header>
 
@@ -194,6 +215,17 @@
         
         const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
 
+        // Helper to map a form string (e.g., "W,D,L") into HTML pills
+        function renderForm(formString) {
+            if (!formString) return '<span style="color:var(--text-muted)">-</span>';
+            const results = formString.split(',').slice(0, 5); // Take up to 5
+            return results.map(r => {
+                const char = r.trim().charAt(0).toUpperCase();
+                const badgeClass = char === 'W' ? 'form-w' : (char === 'D' ? 'form-d' : 'form-l');
+                return `<div class="form-pill ${badgeClass}">${char}</div>`;
+            }).join('');
+        }
+
         // ⚡ THE INSTANT SSG RENDER ENGINE
         function renderMasterStandings() {
             const container = document.getElementById('standings-container');
@@ -214,6 +246,9 @@
                     // 🎨 Check dictionary for crisp SVG. If not found, use API-Football PNG fallback.
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(team.name)] || team.fallbackLogo;
 
+                    // Assume the API provides a 'form' property (e.g., 'W,D,L'). If missing, we fallback.
+                    const formHTML = renderForm(team.form || 'W,D,L'); 
+
                     rowsHTML += `
                         <tr class="${rowClass}">
                             <td class="col-pos">${index + 1}</td>
@@ -227,9 +262,13 @@
                             <td class="center-col hide-mobile">${team.w}</td>
                             <td class="center-col hide-mobile">${team.d}</td>
                             <td class="center-col hide-mobile">${team.l}</td>
-                            <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.gf}:${team.ga}</td>
+                            <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.gf}</td>
+                            <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.ga}</td>
                             <td class="center-col col-gd">${displayGD}</td>
                             <td class="center-col col-pts">${team.pts}</td>
+                            <td class="center-col hide-mobile">
+                                <div class="form-run">${formHTML}</div>
+                            </td>
                         </tr>
                     `;
                 });
@@ -247,9 +286,11 @@
                                         <th class="center-col hide-mobile">W</th>
                                         <th class="center-col hide-mobile">D</th>
                                         <th class="center-col hide-mobile">L</th>
-                                        <th class="center-col hide-mobile">Goals</th>
+                                        <th class="center-col hide-mobile">GF</th>
+                                        <th class="center-col hide-mobile">GA</th>
                                         <th class="center-col">GD</th>
                                         <th class="center-col">PTS</th>
+                                        <th class="center-col hide-mobile">Form</th>
                                     </tr>
                                 </thead>
                                 <tbody>
