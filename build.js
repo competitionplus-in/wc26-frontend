@@ -73,10 +73,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             }
         }
 
-
-
-        
-
         const flagsCacheFile = path.join(__dirname, 'cached_flags.json');
         let flagMap = {};
         
@@ -99,10 +95,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             return teamAliases[cleanName] || cleanName;
         };
 
-
-
-        
-        
         if (fs.existsSync(flagsCacheFile)) {
             try {
                 const rawFlags = JSON.parse(fs.readFileSync(flagsCacheFile, 'utf8'));
@@ -213,8 +205,8 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             `;
 
             if (!match.slug.includes('tbd')) {
-    seoLinksHTML += `<li><a href="/match/${match.date}/${match.slug}">${match.home.fullName} vs ${match.away.fullName} World Cup 2026</a></li>\n`;
-}
+                seoLinksHTML += `<li><a href="/match/${match.date}/${match.slug}">${match.home.fullName} vs ${match.away.fullName} World Cup 2026</a></li>\n`;
+            }
         });
 
         matchCardsHTML += `\n</section>`;
@@ -271,10 +263,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML);
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
-
-
-        
-
         // --- STANDINGS BUILD ---
         let mappedStandings = [];
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
@@ -308,8 +296,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /standings directory.");
         }
 
-        
-
         // --- MATCH PAGES BUILD ---
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
             const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
@@ -341,11 +327,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     matchHTML = matchHTML.replace('<meta name="robots" content="index, follow">', '<meta name="robots" content="noindex, follow">');
                 }
 
-              
-                
-                
-                
-                
                 // 🚀 STATIC HYDRATION: Admin Panel dictates the state, ignoring the clock!
                 let initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = null;</script>`;
                 
@@ -369,20 +350,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
                 // Inject the static data into the <head> so it loads instantly
                 matchHTML = matchHTML.replace('</head>', `${initialDataScript}\n</head>`);
-
-
-
-
-
-                
-                
-                const groupData = mappedStandings.find(g => g.name === match.group);
-                let groupHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>';
-
-
-                
-
-                
 
                 const groupData = mappedStandings.find(g => g.name === match.group);
                 let groupHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>';
@@ -525,16 +492,16 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         });
 
         // Add All Dynamic Match Pages (Excluding TBDs)
-schedule.forEach(match => {
-    if (match.slug.includes('tbd')) return; // 🛑 Skip TBD matches
-    
-    sitemapXML += `  <url>\n`;
-    sitemapXML += `    <loc>${SITE_URL}/match/${match.date}/${match.slug}</loc>\n`;
-    sitemapXML += `    <lastmod>${today}</lastmod>\n`;
-    sitemapXML += `    <changefreq>always</changefreq>\n`;
-    sitemapXML += `    <priority>0.8</priority>\n`;
-    sitemapXML += `  </url>\n`;
-});
+        schedule.forEach(match => {
+            if (match.slug.includes('tbd')) return; // 🛑 Skip TBD matches
+            
+            sitemapXML += `  <url>\n`;
+            sitemapXML += `    <loc>${SITE_URL}/match/${match.date}/${match.slug}</loc>\n`;
+            sitemapXML += `    <lastmod>${today}</lastmod>\n`;
+            sitemapXML += `    <changefreq>always</changefreq>\n`;
+            sitemapXML += `    <priority>0.8</priority>\n`;
+            sitemapXML += `  </url>\n`;
+        });
 
         sitemapXML += `</urlset>`;
 
