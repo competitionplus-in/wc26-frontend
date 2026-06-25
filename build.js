@@ -336,14 +336,51 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
                 matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
 
-
-
                 // 🛑 THE TBD FIX: Prevent Google from indexing placeholder pages
-if (match.slug.includes('tbd')) {
-    matchHTML = matchHTML.replace('<meta name="robots" content="index, follow">', '<meta name="robots" content="noindex, follow">');
-}
+                if (match.slug.includes('tbd')) {
+                    matchHTML = matchHTML.replace('<meta name="robots" content="index, follow">', '<meta name="robots" content="noindex, follow">');
+                }
+
+              
+                
+                
+                
+                
+                // 🚀 STATIC HYDRATION: Admin Panel dictates the state, ignoring the clock!
+                let initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = null;</script>`;
+                
+                try {
+                    const matchId = `${match.slug}-${match.date}`;
+                    // Securely hit backend to bypass rate limit
+                    const backendRes = await fetch(`https://wc26-backend-kd7l.onrender.com/api/live-match?id=${matchId}`, {
+                        headers: { "Authorization": process.env.ADMIN_PASSWORD || "super-secret-world-cup" } 
+                    });
+                    if (backendRes.ok) {
+                        const matchData = await backendRes.json();
+                        // 👑 THE ADMIN SWITCH: Only bake if Admin specifically set it to 'post-match'
+                        if (matchData.setup?.status === 'post-match') {
+                            initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = ${JSON.stringify(matchData)};</script>`;
+                            console.log(`🏆 Baked static data for completed match: ${matchId}`);
+                        }
+                    }
+                } catch (err) {
+                    console.log(`⚠️ Failed to statically hydrate ${match.slug}, falling back to client-side load.`);
+                }
+
+                // Inject the static data into the <head> so it loads instantly
+                matchHTML = matchHTML.replace('</head>', `${initialDataScript}\n</head>`);
 
 
+
+
+
+                
+                
+                const groupData = mappedStandings.find(g => g.name === match.group);
+                let groupHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>';
+
+
+                
 
                 
 
