@@ -31,7 +31,9 @@
         }
         .brand-title { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; color: var(--text-main); display: flex; align-items: center; }
         .brand-title span { color: var(--accent-glow); }
-        .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
+        .page-title-container { display: flex; flex-direction: column; align-items: flex-end; }
+        .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px;}
+        .last-updated { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
 
         /* --- MAIN CONTENT --- */
         .content-container { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 30px; }
@@ -60,14 +62,9 @@
             align-items: center;
             gap: 10px;
         }
-        /* Blue accent bar next to the group name */
         .group-header::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 20px;
-            background-color: var(--accent-glow);
-            border-radius: 4px;
+            content: ''; display: inline-block; width: 4px; height: 20px;
+            background-color: var(--accent-glow); border-radius: 4px;
         }
 
         /* --- TABLE LAYOUT --- */
@@ -75,23 +72,16 @@
         table { width: 100%; border-collapse: collapse; text-align: left; }
         
         th { 
-            background: #ffffff; 
-            color: var(--text-muted); 
-            padding: 12px 15px;
-            font-family: 'Oswald', sans-serif; 
-            font-size: 0.8rem; 
-            font-weight: 600; 
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border-glass); 
-            white-space: nowrap;
-            letter-spacing: 0.5px;
+            background: #ffffff; color: var(--text-muted); padding: 12px 15px;
+            font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; 
+            text-transform: uppercase; border-bottom: 1px solid var(--border-glass); 
+            white-space: nowrap; letter-spacing: 0.5px;
         }
+        th[title] { cursor: help; text-decoration: underline dotted rgba(100, 116, 139, 0.4); text-underline-offset: 3px; }
+        
         td { 
-            padding: 14px 15px; 
-            border-bottom: 1px solid rgba(0,0,0,0.04); 
-            font-weight: 600; 
-            font-size: 0.95rem; 
-            color: var(--text-main); 
+            padding: 14px 15px; border-bottom: 1px solid rgba(0,0,0,0.04); 
+            font-weight: 600; font-size: 0.95rem; color: var(--text-main); 
             transition: background-color 0.2s ease; 
         }
         tr:last-child td { border-bottom: none; }
@@ -103,16 +93,10 @@
         /* Typography and Premium Flags */
         .col-team { min-width: 160px; display: flex; align-items: center; gap: 15px; }
         .col-team img { 
-            width: 32px; height: 32px; 
-            border-radius: 50%; object-fit: cover; 
-            border: 1px solid var(--border-glass);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.06); 
+            width: 32px; height: 32px; border-radius: 50%; object-fit: cover; 
+            border: 1px solid var(--border-glass); box-shadow: 0 4px 6px rgba(0,0,0,0.06); 
         }
-        .col-team span {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.15rem;
-            letter-spacing: 0.5px;
-        }
+        .col-team span { font-family: 'Oswald', sans-serif; font-size: 1.15rem; letter-spacing: 0.5px; }
         
         .col-pts { font-family: 'Oswald', sans-serif; font-weight: 800; color: var(--text-main); font-size: 1.25rem; }
         .col-gd { color: var(--text-muted); font-weight: 600; }
@@ -125,25 +109,27 @@
         .form-l { background-color: var(--live-red); }
 
         /* 🏆 QUALIFICATION ZONES */
-        .qualified-row td { background-color: #f2fdf9; } /* Very subtle mint green */
+        .qualified-row td { background-color: #f2fdf9; } 
         .qualified-row:hover td { background-color: #e6fcf5; }
-        .qualified-row td:first-child { 
-            position: relative; 
-            color: var(--accent-green); /* Makes the 1 and 2 green */
-        }
-        /* Thick green accent line on the exact edge of the row */
+        .qualified-row td:first-child { position: relative; color: var(--accent-green); }
         .qualified-row td:first-child::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 4px;
-            background-color: var(--accent-green);
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 4px; background-color: var(--accent-green);
         }
+
+        /* Legend */
+        .table-legend {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 25px;
+            background: var(--bg-card); padding: 15px 20px; border-radius: 12px;
+            border: 1px solid var(--border-glass); font-size: 0.8rem; color: var(--text-muted);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-top: 10px;
+        }
+        .table-legend span { display: inline-flex; align-items: center; gap: 6px; }
+        .table-legend strong { color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
 
         .loading-state { text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        
         /* --- BOTTOM NAV --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
@@ -174,20 +160,35 @@
         <a href="/" class="brand-title" aria-label="Pitch90 Home">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="36" height="36" style="margin-right: 8px;">
                 <g id="pitch90-logo">
-                    <path d="M 239 55.24 A 130 130 0 1 1 215 37.42 L 215 24 L 239 24 Z" 
-                          fill="#FFFFFF" stroke="#C4CCD3" stroke-width="4" stroke-linejoin="round" />
-                    <path d="M 239 72.52 A 118 118 0 1 1 215 51.52 L 215 84 L 239 84 Z" 
-                          fill="#2563eb" stroke="#C4CCD3" stroke-width="4" stroke-linejoin="round" />
+                    <path d="M 239 55.24 A 130 130 0 1 1 215 37.42 L 215 24 L 239 24 Z" fill="#FFFFFF" stroke="#C4CCD3" stroke-width="4" stroke-linejoin="round" />
+                    <path d="M 239 72.52 A 118 118 0 1 1 215 51.52 L 215 84 L 239 84 Z" fill="#2563eb" stroke="#C4CCD3" stroke-width="4" stroke-linejoin="round" />
                     <text x="148" y="205" font-family="Bahnschrift, system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="bold" font-size="160" fill="#FFFFFF" text-anchor="middle" letter-spacing="-2">90</text>
                 </g>
             </svg>
             PITCH<span>90</span>
         </a>
-        <div class="page-title">Global Standings</div>
+        <div class="page-title-container">
+            <div class="page-title">Global Standings</div>
+            <div id="timestamp" class="last-updated">Updating...</div>
+        </div>
     </header>
 
-    <main class="content-container" id="standings-container">
-        <div class="loading-state">Synchronizing Global Leaderboards...</div>
+    <main class="content-container">
+        <div id="standings-container">
+            <div class="loading-state">Synchronizing Global Leaderboards...</div>
+        </div>
+        
+        <!-- Legend Component -->
+        <div class="table-legend">
+            <span><strong>PL</strong> Played</span>
+            <span><strong>W</strong> Won</span>
+            <span><strong>D</strong> Drawn</span>
+            <span><strong>L</strong> Lost</span>
+            <span><strong>GF</strong> Goals For</span>
+            <span><strong>GA</strong> Goals Against</span>
+            <span><strong>GD</strong> Goal Difference</span>
+            <span><strong>PTS</strong> Points</span>
+        </div>
     </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
@@ -209,22 +210,32 @@
     <script>
         lucide.createIcons();
 
-        // 🧠 The Build Script will inject the data here permanently!
+        // Build Process Injections
         const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
         const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];
+        const BUILD_TIME = "[[INJECT_BUILD_TIME_HERE]]";
         
-        // 🛡️ FRONTEND ALIAS DICTIONARY (Matches build.js)
+        // Localized Timestamp Logic
+        if (BUILD_TIME && !BUILD_TIME.includes('INJECT')) {
+            const dateObj = new Date(BUILD_TIME);
+            document.getElementById('timestamp').innerText = "Updated: " + dateObj.toLocaleString(undefined, {
+                month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+        } else {
+            document.getElementById('timestamp').style.display = 'none';
+        }
+
+        // Frontend Alias Dictionary
         const teamAliases = { 
             "czechia": "czech republic", 
             "turkiye": "turkey",
             "bosnia and herzegovina": "bosnia",
             "dr congo": "congo dr",
             "cote d'ivoire": "ivory coast",
-            "cabo verde": "Cabo Verde" // Fixes the uppercase key in API dictionary
+            "cabo verde": "Cabo Verde" 
         };
         
         const normalizeName = (name) => {
-            // Lowercase, strip accents, translate aliases
             let cleanName = name.toLowerCase()
                                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                                 .replace(/-/g, ' ')
@@ -232,10 +243,9 @@
             return teamAliases[cleanName] || cleanName;
         };
 
-        // Helper to map a form string (e.g., "W,D,L") into HTML pills
         function renderForm(formString) {
             if (!formString) return '<span style="color:var(--text-muted)">-</span>';
-            const results = formString.split(',').slice(0, 5); // Take up to 5
+            const results = formString.split(',').slice(0, 5);
             return results.map(r => {
                 const char = r.trim().charAt(0).toUpperCase();
                 const badgeClass = char === 'W' ? 'form-w' : (char === 'D' ? 'form-d' : 'form-l');
@@ -243,7 +253,6 @@
             }).join('');
         }
 
-        // ⚡ THE INSTANT SSG RENDER ENGINE
         function renderMasterStandings() {
             const container = document.getElementById('standings-container');
             let htmlContent = '';
@@ -251,15 +260,12 @@
             INJECTED_STANDINGS.forEach(group => {
                 let rowsHTML = '';
                 
-                // Sort teams by Points, then Goal Difference, then Goals For
                 group.teams.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
 
                 group.teams.forEach((team, index) => {
-                    const isQualified = index < 2; // Top 2 advance
+                    const isQualified = index < 2;
                     const rowClass = isQualified ? 'qualified-row' : '';
                     const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
-
-                    // 🎨 Smart Dictionary Lookup
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(team.name)] || team.fallbackLogo;
                     const formHTML = renderForm(team.form || 'W,D,L'); 
 
@@ -296,15 +302,15 @@
                                     <tr>
                                         <th class="center-col">#</th>
                                         <th>Team</th>
-                                        <th class="center-col">PL</th>
-                                        <th class="center-col hide-mobile">W</th>
-                                        <th class="center-col hide-mobile">D</th>
-                                        <th class="center-col hide-mobile">L</th>
-                                        <th class="center-col hide-mobile">GF</th>
-                                        <th class="center-col hide-mobile">GA</th>
-                                        <th class="center-col">GD</th>
-                                        <th class="center-col">PTS</th>
-                                        <th class="center-col hide-mobile">Form</th>
+                                        <th class="center-col" title="Played">PL</th>
+                                        <th class="center-col hide-mobile" title="Won">W</th>
+                                        <th class="center-col hide-mobile" title="Drawn">D</th>
+                                        <th class="center-col hide-mobile" title="Lost">L</th>
+                                        <th class="center-col hide-mobile" title="Goals For">GF</th>
+                                        <th class="center-col hide-mobile" title="Goals Against">GA</th>
+                                        <th class="center-col" title="Goal Difference">GD</th>
+                                        <th class="center-col" title="Points">PTS</th>
+                                        <th class="center-col hide-mobile" title="Recent Form">Form</th>
                                     </tr>
                                 </thead>
                                 <tbody>
