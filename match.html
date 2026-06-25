@@ -864,43 +864,66 @@ function injectSEOSchema(data, matchUrl) {
             }
         }
 
-        // --- 5. THE WEBSOCKET CONNECTION ---
+        // --- 5. THE HYBRID CONNECTION LOGIC ---
         async function fetchInitialData() {
+            // 🛑 1. Check for Baked Static Data (Post-Match)
+            if (window.__INITIAL_MATCH_DATA__ && window.__INITIAL_MATCH_DATA__.setup?.status === 'post-match') {
+                console.log("🏆 Loaded static completed match data. Bypassing backend.");
+                // This call ensures your SEO schema generates perfectly from the baked data
+                renderDOM(window.__INITIAL_MATCH_DATA__); 
+                return; // Stop execution! No WebSockets needed.
+            }
+
+            // 🟢 2. No static data found, we must fetch from the live server
             try {
                 const response = await fetch(`${BACKEND_URL}/api/live-match?id=${matchId}&viewerId=${viewerId}`);
                 if (!response.ok) throw new Error('Initial sync failed');
                 const data = await response.json();
+                
                 renderDOM(data);
+
+                // If backend says it just finished but wasn't baked yet, don't open sockets
+                if (data.setup?.status === 'post-match') {
+                    console.log("🛑 Match recently finished. Cancelling WebSocket connection.");
+                    return; 
+                }
+
+                // Initialize live stream for active or upcoming matches
+                initializeLiveStream();
+
             } catch (err) {
                 console.error('Initial load breakdown:', err);
-                setTimeout(fetchInitialData, 5000);
+                setTimeout(fetchInitialData, 5000); // Retry on cold start
             }
         }
 
-        const socket = io(BACKEND_URL, { 
-    query: { viewerId: viewerId },
-    transports: ['websocket'] 
-});
+        function initializeLiveStream() {
+            const socket = io(BACKEND_URL, { 
+                query: { viewerId: viewerId },
+                transports: ['websocket'] 
+            });
 
-        socket.on('connect', () => {
-            console.log("🟢 Connected to Live Match Stream!");
-            socket.emit('join-match', matchId);
-        });
+            socket.on('connect', () => {
+                console.log("🟢 Connected to Live Match Stream!");
+                socket.emit('join-match', matchId);
+            });
 
-        // If the socket drops and reconnects, fetch the latest state just in case we missed a goal
-        socket.on('reconnect', () => {
-            console.log("🔄 Reconnected to stream. Fetching latest state...");
-            fetchInitialData();
-        });
+            socket.on('reconnect', () => {
+                console.log("🔄 Reconnected to stream. Fetching latest state...");
+                fetchInitialData();
+            });
 
-        socket.on('match-updated', (newData) => {
-            console.log("⚡ Instant Update Received!");
-            renderDOM(newData);
-        });
-
-        socket.on('disconnect', () => {
-            console.log("🔴 Stream Disconnected. Reconnecting...");
-        });
+            socket.on('match-updated', (newData) => {
+                console.log("⚡ Instant Update Received!");
+                renderDOM(newData);
+                
+                // Auto-disconnect if the match finishes while the user is watching
+                if (newData.setup?.status === 'post-match') {
+                    console.log("🏁 Match concluded. Disconnecting stream.");
+                    socket.disconnect();
+                }
+            });
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
             if (typeof lucide !== 'undefined') lucide.createIcons();
