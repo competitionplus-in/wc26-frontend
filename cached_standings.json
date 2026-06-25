@@ -38,10 +38,10 @@
   {
     "name": "Group E",
     "teams": [
-      { "name": "Germany", "pld": 2, "w": 2, "d": 0, "l": 0, "gf": 9, "ga": 2, "gd": 7, "pts": 6, "code": "germany", "form": "W,W" },
-      { "name": "Côte d'Ivoire", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 3, "code": "cote d'ivoire", "form": "W,L" },
-      { "name": "Ecuador", "pld": 2, "w": 0, "d": 1, "l": 1, "gf": 0, "ga": 1, "gd": -1, "pts": 1, "code": "ecuador", "form": "L,D" },
-      { "name": "Curaçao", "pld": 2, "w": 0, "d": 1, "l": 1, "gf": 1, "ga": 7, "gd": -6, "pts": 1, "code": "curacao", "form": "L,D" }
+      { "name": "Germany", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 10, "ga": 4, "gd": 6, "pts": 6, "code": "germany", "form": "W,W,L" },
+      { "name": "Côte d'Ivoire", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 4, "ga": 2, "gd": 2, "pts": 6, "code": "cote d'ivoire", "form": "W,L,W" },
+      { "name": "Ecuador", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "code": "ecuador", "form": "L,D,W" },
+      { "name": "Curaçao", "pld": 3, "w": 0, "d": 1, "l": 2, "gf": 1, "ga": 9, "gd": -8, "pts": 1, "code": "curacao", "form": "L,D,L" }
     ]
   },
   {
