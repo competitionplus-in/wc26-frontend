@@ -292,8 +292,13 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); 
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
+            
+            // 🚀 NEW: Inject the exact build time
+            standingsTemplate = standingsTemplate.replace('[[INJECT_BUILD_TIME_HERE]]', new Date().toISOString());
+            
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
             console.log("✅ Physically generated the /standings directory.");
+
         }
 
         // --- MATCH PAGES BUILD ---
