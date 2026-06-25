@@ -213,7 +213,24 @@
         const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
         const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];
         
-        const normalizeName = (name) => name.toLowerCase().replace(/-/g, ' ').trim();
+        // 🛡️ FRONTEND ALIAS DICTIONARY (Matches build.js)
+        const teamAliases = { 
+            "czechia": "czech republic", 
+            "turkiye": "turkey",
+            "bosnia and herzegovina": "bosnia",
+            "dr congo": "congo dr",
+            "cote d'ivoire": "ivory coast",
+            "cabo verde": "Cabo Verde" // Fixes the uppercase key in API dictionary
+        };
+        
+        const normalizeName = (name) => {
+            // Lowercase, strip accents, translate aliases
+            let cleanName = name.toLowerCase()
+                                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                                .replace(/-/g, ' ')
+                                .trim();
+            return teamAliases[cleanName] || cleanName;
+        };
 
         // Helper to map a form string (e.g., "W,D,L") into HTML pills
         function renderForm(formString) {
@@ -231,7 +248,6 @@
             const container = document.getElementById('standings-container');
             let htmlContent = '';
 
-            // Loop through the injected data
             INJECTED_STANDINGS.forEach(group => {
                 let rowsHTML = '';
                 
@@ -243,10 +259,8 @@
                     const rowClass = isQualified ? 'qualified-row' : '';
                     const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
 
-                    // 🎨 Check dictionary for crisp SVG. If not found, use API-Football PNG fallback.
+                    // 🎨 Smart Dictionary Lookup
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(team.name)] || team.fallbackLogo;
-
-                    // Assume the API provides a 'form' property (e.g., 'W,D,L'). If missing, we fallback.
                     const formHTML = renderForm(team.form || 'W,D,L'); 
 
                     rowsHTML += `
@@ -305,7 +319,6 @@
             container.innerHTML = htmlContent;
         }
 
-        // Render instantly on page load (No loading spinner needed!)
         renderMasterStandings();
     </script>
 </body>
