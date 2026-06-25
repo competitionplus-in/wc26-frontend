@@ -646,28 +646,64 @@ function injectSEOSchema(data, matchUrl) {
     const homeName = STATIC_HOME_NAME;
     const awayName = STATIC_AWAY_NAME;
     const isLive = data.setup?.status === 'live';
+    
+    // Parse valid structural fallback dates
+    const kickoffTime = data.setup?.countdownTarget || new Date().toISOString();
+    // Approximate a standard 2-hour window closure for the mandatory endDate property
+    const closureTime = new Date(new Date(kickoffTime).getTime() + 120 * 60 * 1000).toISOString();
 
     const schema = {
         "@context": "https://schema.org",
         "@type": "SportsEvent",
         "name": `${homeName} vs ${awayName} - World Cup 2026`,
+        "description": data.setup?.matchFacts || `Live score, real-time stats, tactical line-ups and match timeline events for ${homeName} vs ${awayName} in the FIFA World Cup 2026.`,
         "url": matchUrl,
+        "image": [ STATIC_HOME_LOGO, STATIC_AWAY_LOGO ],
+        "startDate": kickoffTime,
+        "endDate": closureTime,
         "eventStatus": isLive ? "https://schema.org/EventInProgress" : (data.setup?.status === 'post-match' ? "https://schema.org/EventFinished" : "https://schema.org/EventScheduled"),
-        "homeTeam": { "@type": "SportsTeam", "name": homeName },
-        "awayTeam": { "@type": "SportsTeam", "name": awayName }
+        "homeTeam": { 
+            "@type": "SportsTeam", 
+            "name": homeName,
+            "logo": STATIC_HOME_LOGO
+        },
+        "awayTeam": { 
+            "@type": "SportsTeam", 
+            "name": awayName,
+            "logo": STATIC_AWAY_LOGO
+        },
+        "location": {
+            "@type": "Place",
+            "name": data.setup?.matchVenue || "World Cup Stadium",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": data.setup?.matchVenue ? data.setup.matchVenue.split(',')[0]?.trim() : "Host City",
+                "addressCountry": "United States"
+            }
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "FIFA",
+          "url": "https://www.fifa.com"
+        },
+        "performer": [
+          { "@type": "SportsTeam", "name": homeName, "logo": STATIC_HOME_LOGO },
+          { "@type": "SportsTeam", "name": awayName, "logo": STATIC_AWAY_LOGO }
+        ]
     };
 
-    // If live or finished, add LiveBlogPosting schema for the timeline
+    // Safely structure LiveBlogPosting data blocks
     if (data.events && data.events.length > 0) {
         schema.subjectOf = {
             "@type": "LiveBlogPosting",
             "headline": `Live updates: ${homeName} vs ${awayName}`,
-            "coverageStartTime": data.setup?.matchTime || new Date().toISOString(),
+            "coverageStartTime": kickoffTime,
+            "coverageEndTime": closureTime,
             "liveBlogUpdate": data.events.map(e => ({
                 "@type": "BlogPosting",
                 "headline": e.type.toUpperCase(),
-                "articleBody": e.detail,
-                "datePublished": new Date().toISOString() // Ideally map this to actual event timestamp if available
+                "articleBody": e.detail ? e.detail.replace(/<[^>]*>/g, '') : "Match event update.", // Strips raw HTML to prevent schema breakage
+                "datePublished": new Date().toISOString()
             }))
         };
     }
