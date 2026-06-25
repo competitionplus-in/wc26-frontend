@@ -281,15 +281,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 } catch (e) {
     console.log("⚠️ Injecting Pitch90 2026 Master Standings Data...");
     mappedStandings = [
-        {
-            name: "Group A",
-            teams: [
-                { name: "Mexico", pld: 3, w: 3, d: 0, l: 0, gf: 6, ga: 0, gd: 6, pts: 9, code: "mexico", form: "W,W,W" },
-                { name: "South Africa", pld: 3, w: 1, d: 1, l: 1, gf: 2, ga: 3, gd: -1, pts: 4, code: "south africa", form: "L,D,W" },
-                { name: "South Korea", pld: 3, w: 1, d: 0, l: 2, gf: 2, ga: 3, gd: -1, pts: 3, code: "south korea", form: "W,L,L" },
-                { name: "Czechia", pld: 3, w: 0, d: 1, l: 2, gf: 2, ga: 6, gd: -4, pts: 1, code: "czechia", form: "L,D,L" }
-            ]
-        },
+        
         {
             name: "Group B",
             teams: [
