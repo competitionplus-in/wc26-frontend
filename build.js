@@ -73,14 +73,35 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             }
         }
 
+
+
+        
+
         const flagsCacheFile = path.join(__dirname, 'cached_flags.json');
         let flagMap = {};
-        const teamAliases = { "czechia": "czech republic", "turkiye": "turkey" };
+        
+        // 🛡️ UNIVERSAL TEAM NAME DICTIONARY
+        // Maps all variations from API-Fixtures and API-Standings to the cached_flags.json keys
+        const teamAliases = { 
+            "czechia": "czech republic", 
+            "turkiye": "turkey",
+            "bosnia and herzegovina": "bosnia",
+            "dr congo": "congo dr",
+            "cote d'ivoire": "ivory coast"
+        };
         
         const normalizeName = (name) => {
-            let cleanName = name.toLowerCase().replace(/-/g, ' ').trim();
+            // Lowercase, strip accents (e.g., "Côte d'Ivoire" -> "cote d'ivoire"), replace hyphens
+            let cleanName = name.toLowerCase()
+                                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                                .replace(/-/g, ' ')
+                                .trim();
             return teamAliases[cleanName] || cleanName;
         };
+
+
+
+        
         
         if (fs.existsSync(flagsCacheFile)) {
             try {
@@ -250,6 +271,10 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML);
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
+
+
+        
+
         // --- STANDINGS BUILD ---
         let mappedStandings = [];
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
@@ -257,159 +282,33 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             fs.mkdirSync(standingsDir, { recursive: true });
             
             const standingsCache = path.join(__dirname, 'cached_standings.json');
-            let standData = null;
             
+            // 🛡️ 1. READ CUSTOM MASTER JSON FILE (Bypassing API completely for 2026)
             if (fs.existsSync(standingsCache)) {
                 try {
-                    const raw = JSON.parse(fs.readFileSync(standingsCache, 'utf8'));
-                    if (raw.response && raw.response.length > 0) standData = raw;
-                } catch(e) {}
-            }
-            
-            if (!standData) {
-                console.log("📊 Fetching official standings from API-Football...");
-                try {
-                    const standRes = await fetch("https://v3.football.api-sports.io/standings?league=1&season=2022", {
-                        headers: { "x-apisports-key": process.env.API_FOOTBALL_KEY }
-                    });
-                    const fetchedStandData = await standRes.json();
-                    
-                    if (fetchedStandData.response && fetchedStandData.response.length > 0) {
-                        standData = fetchedStandData;
-                        fs.writeFileSync(standingsCache, JSON.stringify(standData));
-                    } else { throw new Error("Empty Standings"); }
-                } catch (e) {
-    console.log("⚠️ Injecting Pitch90 2026 Master Standings Data...");
-    mappedStandings = [
-        
-        {
-            name: "Group A",
-            teams: [
-                { name: "Mexico", pld: 3, w: 3, d: 0, l: 0, gf: 6, ga: 0, gd: 6, pts: 9, code: "mexico", form: "W,W,W" },
-                { name: "South Africa", pld: 3, w: 1, d: 1, l: 1, gf: 2, ga: 3, gd: -1, pts: 4, code: "south africa", form: "L,D,W" },
-                { name: "South Korea", pld: 3, w: 1, d: 0, l: 2, gf: 2, ga: 3, gd: -1, pts: 3, code: "south korea", form: "W,L,L" },
-                { name: "Czechia", pld: 3, w: 0, d: 1, l: 2, gf: 2, ga: 6, gd: -4, pts: 1, code: "czechia", form: "L,D,L" }
-            ]
-        },
-        {
-            name: "Group B",
-            teams: [
-                { name: "Switzerland", pld: 3, w: 2, d: 1, l: 0, gf: 7, ga: 3, gd: 4, pts: 7, code: "switzerland", form: "D,W,W" },
-                { name: "Canada", pld: 3, w: 1, d: 1, l: 1, gf: 8, ga: 3, gd: 5, pts: 4, code: "canada", form: "D,W,L" },
-                { name: "Bosnia and Herzegovina", pld: 3, w: 1, d: 1, l: 1, gf: 5, ga: 6, gd: -1, pts: 4, code: "bosnia and herzegovina", form: "D,L,W" },
-                { name: "Qatar", pld: 3, w: 0, d: 1, l: 2, gf: 2, ga: 10, gd: -8, pts: 1, code: "qatar", form: "D,L,L" }
-            ]
-        },
-        {
-            name: "Group C",
-            teams: [
-                { name: "Brazil", pld: 3, w: 2, d: 1, l: 0, gf: 7, ga: 1, gd: 6, pts: 7, code: "brazil", form: "D,W,W" },
-                { name: "Morocco", pld: 3, w: 2, d: 1, l: 0, gf: 6, ga: 3, gd: 3, pts: 7, code: "morocco", form: "D,W,W" },
-                { name: "Scotland", pld: 3, w: 1, d: 0, l: 2, gf: 1, ga: 4, gd: -3, pts: 3, code: "scotland", form: "W,L,L" },
-                { name: "Haiti", pld: 3, w: 0, d: 0, l: 3, gf: 2, ga: 8, gd: -6, pts: 0, code: "haiti", form: "L,L,L" }
-            ]
-        },
-        {
-            name: "Group D",
-            teams: [
-                { name: "USA", pld: 2, w: 2, d: 0, l: 0, gf: 6, ga: 1, gd: 5, pts: 6, code: "usa", form: "W,W" },
-                { name: "Australia", pld: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: 0, pts: 3, code: "australia", form: "W,L" },
-                { name: "Paraguay", pld: 2, w: 1, d: 0, l: 1, gf: 2, ga: 4, gd: -2, pts: 3, code: "paraguay", form: "L,W" },
-                { name: "Türkiye", pld: 2, w: 0, d: 0, l: 2, gf: 0, ga: 3, gd: -3, pts: 0, code: "turkey", form: "L,L" }
-            ]
-        },
-        {
-            name: "Group E",
-            teams: [
-                { name: "Germany", pld: 2, w: 2, d: 0, l: 0, gf: 9, ga: 2, gd: 7, pts: 6, code: "germany", form: "W,W" },
-                { name: "Côte d'Ivoire", pld: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: 0, pts: 3, code: "cote d'ivoire", form: "W,L" },
-                { name: "Ecuador", pld: 2, w: 0, d: 1, l: 1, gf: 0, ga: 1, gd: -1, pts: 1, code: "ecuador", form: "L,D" },
-                { name: "Curaçao", pld: 2, w: 0, d: 1, l: 1, gf: 1, ga: 7, gd: -6, pts: 1, code: "curacao", form: "L,D" }
-            ]
-        },
-        {
-            name: "Group F",
-            teams: [
-                { name: "Netherlands", pld: 2, w: 1, d: 1, l: 0, gf: 7, ga: 3, gd: 4, pts: 4, code: "netherlands", form: "D,W" },
-                { name: "Japan", pld: 2, w: 1, d: 1, l: 0, gf: 6, ga: 2, gd: 4, pts: 4, code: "japan", form: "D,W" },
-                { name: "Sweden", pld: 2, w: 1, d: 0, l: 1, gf: 6, ga: 6, gd: 0, pts: 3, code: "sweden", form: "W,L" },
-                { name: "Tunisia", pld: 2, w: 0, d: 0, l: 2, gf: 1, ga: 9, gd: -8, pts: 0, code: "tunisia", form: "L,L" }
-            ]
-        },
-        {
-            name: "Group G",
-            teams: [
-                { name: "Egypt", pld: 2, w: 1, d: 1, l: 0, gf: 4, ga: 2, gd: 2, pts: 4, code: "egypt", form: "D,W" },
-                { name: "Iran", pld: 2, w: 0, d: 2, l: 0, gf: 2, ga: 2, gd: 0, pts: 2, code: "iran", form: "D,D" },
-                { name: "Belgium", pld: 2, w: 0, d: 2, l: 0, gf: 1, ga: 1, gd: 0, pts: 2, code: "belgium", form: "D,D" },
-                { name: "New Zealand", pld: 2, w: 0, d: 1, l: 1, gf: 3, ga: 5, gd: -2, pts: 1, code: "new zealand", form: "D,L" }
-            ]
-        },
-        {
-            name: "Group H",
-            teams: [
-                { name: "Spain", pld: 2, w: 1, d: 1, l: 0, gf: 4, ga: 0, gd: 4, pts: 4, code: "spain", form: "D,W" },
-                { name: "Uruguay", pld: 2, w: 0, d: 2, l: 0, gf: 3, ga: 3, gd: 0, pts: 2, code: "uruguay", form: "D,D" },
-                { name: "Cabo Verde", pld: 2, w: 0, d: 2, l: 0, gf: 2, ga: 2, gd: 0, pts: 2, code: "cabo verde", form: "D,D" },
-                { name: "Saudi Arabia", pld: 2, w: 0, d: 1, l: 1, gf: 1, ga: 5, gd: -4, pts: 1, code: "saudi arabia", form: "D,L" }
-            ]
-        },
-        {
-            name: "Group I",
-            teams: [
-                { name: "France", pld: 2, w: 2, d: 0, l: 0, gf: 6, ga: 1, gd: 5, pts: 6, code: "france", form: "W,W" },
-                { name: "Norway", pld: 2, w: 2, d: 0, l: 0, gf: 7, ga: 3, gd: 4, pts: 6, code: "norway", form: "W,W" },
-                { name: "Senegal", pld: 2, w: 0, d: 0, l: 2, gf: 3, ga: 6, gd: -3, pts: 0, code: "senegal", form: "L,L" },
-                { name: "Iraq", pld: 2, w: 0, d: 0, l: 2, gf: 1, ga: 7, gd: -6, pts: 0, code: "iraq", form: "L,L" }
-            ]
-        },
-        {
-            name: "Group J",
-            teams: [
-                { name: "Argentina", pld: 2, w: 2, d: 0, l: 0, gf: 5, ga: 0, gd: 5, pts: 6, code: "argentina", form: "W,W" },
-                { name: "Austria", pld: 2, w: 1, d: 0, l: 1, gf: 3, ga: 3, gd: 0, pts: 3, code: "austria", form: "W,L" },
-                { name: "Algeria", pld: 2, w: 1, d: 0, l: 1, gf: 2, ga: 4, gd: -2, pts: 3, code: "algeria", form: "L,W" },
-                { name: "Jordan", pld: 2, w: 0, d: 0, l: 2, gf: 2, ga: 5, gd: -3, pts: 0, code: "jordan", form: "L,L" }
-            ]
-        },
-        {
-            name: "Group K",
-            teams: [
-                { name: "Colombia", pld: 2, w: 2, d: 0, l: 0, gf: 4, ga: 1, gd: 3, pts: 6, code: "colombia", form: "W,W" },
-                { name: "Portugal", pld: 2, w: 1, d: 1, l: 0, gf: 6, ga: 1, gd: 5, pts: 4, code: "portugal", form: "D,W" },
-                { name: "DR Congo", pld: 2, w: 0, d: 1, l: 1, gf: 1, ga: 2, gd: -1, pts: 1, code: "congo dr", form: "D,L" },
-                { name: "Uzbekistan", pld: 2, w: 0, d: 0, l: 2, gf: 1, ga: 8, gd: -7, pts: 0, code: "uzbekistan", form: "L,L" }
-            ]
-        },
-        {
-            name: "Group L",
-            teams: [
-                { name: "England", pld: 2, w: 1, d: 1, l: 0, gf: 4, ga: 2, gd: 2, pts: 4, code: "england", form: "W,D" },
-                { name: "Ghana", pld: 2, w: 1, d: 1, l: 0, gf: 1, ga: 0, gd: 1, pts: 4, code: "ghana", form: "W,D" },
-                { name: "Croatia", pld: 2, w: 1, d: 0, l: 1, gf: 3, ga: 4, gd: -1, pts: 3, code: "croatia", form: "L,W" },
-                { name: "Panama", pld: 2, w: 0, d: 0, l: 2, gf: 0, ga: 2, gd: -2, pts: 0, code: "panama", form: "L,L" }
-            ]
-        }
-    ];
-}
+                    console.log("📊 Loading Master Standings from cached_standings.json...");
+                    const raw = fs.readFileSync(standingsCache, 'utf8');
+                    mappedStandings = JSON.parse(raw);
+                } catch(e) {
+                    console.log("⚠️ Error reading cached_standings.json", e);
+                }
             }
 
-            if (standData && standData.response && standData.response.length > 0) {
-                const rawGroups = standData.response[0].league.standings;
-                mappedStandings = rawGroups.map(group => ({
-                    name: group[0].group, 
-                    teams: group.map(t => ({
-                        name: t.team.name, pld: t.all.played, w: t.all.win, d: t.all.draw, l: t.all.lose,
-                        gf: t.all.goals.for, ga: t.all.goals.against, gd: t.goalsDiff, pts: t.points, code: normalizeName(t.team.name) 
-                    }))
-                }));
+            // 🛡️ 2. EMERGENCY FALLBACK (Prevents build crash if file is missing)
+            if (!mappedStandings || mappedStandings.length === 0) {
+                console.log("⚠️ Standings file empty! Injecting empty fallback...");
+                mappedStandings = [{ name: "Group A", teams: [] }];
             }
 
+            // 🛡️ 3. INJECT INTO HTML
             let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); 
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
+            console.log("✅ Physically generated the /standings directory.");
         }
+
+        
 
         // --- MATCH PAGES BUILD ---
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
