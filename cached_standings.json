@@ -48,7 +48,7 @@
     "name": "Group F",
     "teams": [
       { "name": "Netherlands", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 7, "ga": 3, "gd": 4, "pts": 4, "code": "netherlands", "form": "D,W" },
-      { "name": "Japan", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 6, "ga: 2, "gd": 4, "pts": 4, "code": "japan", "form": "D,W" },
+      { "name": "Japan", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 6, "ga": 2, "gd": 4, "pts": 4, "code": "japan", "form": "D,W" },
       { "name": "Sweden", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 6, "ga": 6, "gd": 0, "pts": 3, "code": "sweden", "form": "W,L" },
       { "name": "Tunisia", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 1, "ga": 9, "gd": -8, "pts": 0, "code": "tunisia", "form": "L,L" }
     ]
