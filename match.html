@@ -658,6 +658,7 @@ function injectSEOSchema(data, matchUrl) {
         "name": `${homeName} vs ${awayName} - World Cup 2026`,
         "description": data.setup?.matchFacts || `Live score, real-time stats, tactical line-ups and match timeline events for ${homeName} vs ${awayName} in the FIFA World Cup 2026.`,
         "url": matchUrl,
+        "isAccessibleForFree": true,
         "image": [ STATIC_HOME_LOGO, STATIC_AWAY_LOGO ],
         "startDate": kickoffTime,
         "endDate": closureTime,
