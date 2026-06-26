@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 🚀 PRIMARY SEO TAGS -->
     <title>FIFA World Cup 2026 Player Stats | Top Scorers & Golden Boot</title>
     <meta name="description" content="Track the live FIFA World Cup 2026 player statistics. View the race for the Golden Boot, top goal scorers, most assists, clean sheets, and disciplinary records.">
     <meta name="keywords" content="World Cup 2026 top scorers, Golden Boot race, most assists World Cup, FIFA player stats, clean sheets, red cards, yellow cards, football live rankings">
     <meta name="robots" content="index, follow">
 
-    <!-- 🚀 SOCIAL SHARING (OPEN GRAPH & TWITTER) -->
     <meta property="og:title" content="World Cup 2026 Player Stats & Rankings">
     <meta property="og:description" content="Live leaderboard for the 2026 World Cup. Track the top scorers, most assists, and clean sheets.">
     <meta property="og:type" content="website">
@@ -47,6 +45,29 @@
         .page-title-container { display: flex; flex-direction: column; align-items: flex-end; }
         .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; margin: 0;}
         .last-updated { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+
+        /* 🚀 DESKTOP NAVBAR */
+        .desktop-nav {
+            display: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--accent-glow);
+        }
+        .desktop-nav a i { width: 18px; height: 18px; }
 
         /* --- MAIN CONTENT --- */
         .content-container { max-width: 1100px; margin: 0 auto; padding: 20px; display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
@@ -118,6 +139,7 @@
 
         @media (min-width: 768px) {
             .bottom-nav { display: none; }
+            .desktop-nav { display: flex; }
             body { padding-bottom: 20px; }
         }
     </style>
@@ -135,6 +157,13 @@
             </svg>
             PITCH<span>90</span>
         </a>
+
+        <nav class="desktop-nav" aria-label="Main Navigation">
+            <a href="/"><i data-lucide="calendar-days"></i> Matches</a>
+            <a href="/standings"><i data-lucide="list-ordered"></i> Standings</a>
+            <a href="/stats" class="active"><i data-lucide="bar-chart-2"></i> Stats</a>
+        </nav>
+
         <div class="page-title-container">
             <h1 class="page-title">World Cup Stats</h1>
             <div id="timestamp" class="last-updated">Updating...</div>
@@ -142,10 +171,9 @@
     </header>
 
     <main class="content-container" id="stats-main-container">
-        <!-- Injected via JS -->
-    </main>
+        </main>
 
-    <nav class="bottom-nav" aria-label="Main Navigation">
+    <nav class="bottom-nav" aria-label="Mobile Navigation">
         <a href="/" class="nav-item">
             <i data-lucide="calendar-days"></i>
             <span>Matches</span>
@@ -260,7 +288,6 @@
                 label.innerText = "Show Less";
             } else {
                 label.innerText = "Show More";
-                // Smoothly pull layout focus back to top of the card when closing long lists
                 card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
