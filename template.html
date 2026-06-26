@@ -468,7 +468,7 @@
                 }
                 
                 localizeMatchTimes();
-                hydrateLiveScores(); // Ensure scores sync on render
+                hydrateLiveScores(true); // Ensure scores sync on render
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
@@ -515,13 +515,16 @@
 
             requestAnimationFrame(() => applyFilters());
 
-            // 🚀 THE BULK HYDRATION ENGINE (Prevents Server DDoS)
-            async function hydrateLiveScores() {
-                // If WebSockets are active, don't spam the server via polling
-                if (window.isSocketConnected) return; 
+            // 🚀 THE BULK HYDRATION ENGINE 
+async function hydrateLiveScores(forceSync = false) {
+    // If WebSockets are active AND we aren't forcing a layout sync, don't spam
+    if (window.isSocketConnected && !forceSync) return; 
 
-                const visibleCards = Array.from(document.querySelectorAll('.match-card'));
-                if (visibleCards.length === 0) return;
+    const visibleCards = Array.from(document.querySelectorAll('.match-card'));
+    if (visibleCards.length === 0) return;
+
+                    
+                
 
                 const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-matches-bulk';
                 
@@ -568,7 +571,7 @@
                 } catch (error) {}
             }
 
-            setInterval(hydrateLiveScores, 30000);
+            setInterval(() => hydrateLiveScores(false), 30000);
             
             // --- WEBSOCKET ENGINE ---
             window.isSocketConnected = false;
