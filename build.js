@@ -468,6 +468,10 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             let statsTemplate = fs.readFileSync(path.join(__dirname, 'stats.html'), 'utf8');
             statsTemplate = statsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             statsTemplate = statsTemplate.replace('[[INJECT_STATS_HERE]]', JSON.stringify(mappedStats));
+            
+            // 🚀 NEW: Inject the exact build time for stats.html
+            statsTemplate = statsTemplate.replace('[[INJECT_BUILD_TIME_HERE]]', new Date().toISOString());
+
             fs.writeFileSync(path.join(statsDir, 'index.html'), statsTemplate);
             console.log("✅ Physically generated the /stats directory.");
         }
