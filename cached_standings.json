@@ -29,10 +29,10 @@
   {
     "name": "Group D",
     "teams": [
-      { "name": "USA", "pld": 2, "w": 2, "d": 0, "l": 0, "gf": 6, "ga": 1, "gd": 5, "pts": 6, "code": "usa", "form": "W,W" },
-      { "name": "Australia", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 3, "code": "australia", "form": "W,L" },
-      { "name": "Paraguay", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 3, "code": "paraguay", "form": "L,W" },
-      { "name": "Türkiye", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 0, "ga": 3, "gd": -3, "pts": 0, "code": "turkiye", "form": "L,L" }
+      { "name": "USA", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 8, "ga": 4, "gd": 4, "pts": 6, "code": "usa", "form": "W,W,L" },
+      { "name": "Australia", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "code": "australia", "form": "W,L,D" },
+      { "name": "Paraguay", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 4, "code": "paraguay", "form": "L,W,D" },
+      { "name": "Türkiye", "pld": 3, "w": 1, "d": 0, "l": 2, "gf": 3, "ga": 5, "gd": -2, "pts": 3, "code": "turkiye", "form": "L,L,W" }
     ]
   },
   {
@@ -47,10 +47,10 @@
   {
     "name": "Group F",
     "teams": [
-      { "name": "Netherlands", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 7, "ga": 3, "gd": 4, "pts": 4, "code": "netherlands", "form": "D,W" },
-      { "name": "Japan", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 6, "ga": 2, "gd": 4, "pts": 4, "code": "japan", "form": "D,W" },
-      { "name": "Sweden", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 6, "ga": 6, "gd": 0, "pts": 3, "code": "sweden", "form": "W,L" },
-      { "name": "Tunisia", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 1, "ga": 9, "gd": -8, "pts": 0, "code": "tunisia", "form": "L,L" }
+      { "name": "Netherlands", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 10, "ga": 4, "gd": 6, "pts": 7, "code": "netherlands", "form": "D,W,W" },
+      { "name": "Japan", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 7, "ga": 3, "gd": 4, "pts": 5, "code": "japan", "form": "D,W,D" },
+      { "name": "Sweden", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 7, "ga": 7, "gd": 0, "pts": 4, "code": "sweden", "form": "W,L,D" },
+      { "name": "Tunisia", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 2, "ga": 12, "gd": -10, "pts": 0, "code": "tunisia", "form": "L,L,L" }
     ]
   },
   {
