@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 🚀 PRIMARY SEO TAGS -->
     <title>FIFA World Cup Standings 2026 | Live Group Stage Points Table</title>
     <meta name="description" content="Check the live FIFA World Cup 2026 standings. Track group stage points tables, match results, goal differences, and team qualification status in real-time.">
     <meta name="keywords" content="FIFA World Cup standings 2026, World Cup group stage table, 2026 World Cup points table, live football standings, soccer group rankings, World Cup bracket">
@@ -44,6 +43,29 @@
         .page-title-container { display: flex; flex-direction: column; align-items: flex-end; }
         .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; margin: 0;}
         .last-updated { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+
+        /* 🚀 DESKTOP NAVBAR */
+        .desktop-nav {
+            display: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--accent-glow);
+        }
+        .desktop-nav a i { width: 18px; height: 18px; }
 
         /* --- PHASE TABS --- */
         .phase-tabs-container {
@@ -204,6 +226,7 @@
 
         @media (min-width: 768px) {
             .bottom-nav { display: none; }
+            .desktop-nav { display: flex; }
             body { padding-bottom: 20px; }
         }
         @media (max-width: 768px) {
@@ -228,8 +251,15 @@
             </svg>
             PITCH<span>90</span>
         </a>
+
+        <nav class="desktop-nav" aria-label="Main Navigation">
+            <a href="/"><i data-lucide="calendar-days"></i> Matches</a>
+            <a href="/standings" class="active"><i data-lucide="list-ordered"></i> Standings</a>
+            <a href="/stats"><i data-lucide="bar-chart-2"></i> Stats</a>
+        </nav>
+
         <div class="page-title-container">
-            <h1 class="page-title">World Cup 2026 Standings</h1>
+            <h1 class="page-title">World Cup Standings</h1>
             <div id="timestamp" class="last-updated">Updating...</div>
         </div>
     </header>
@@ -247,7 +277,6 @@
 
     <main class="content-container">
         
-        <!-- GROUP STAGE PANEL -->
         <div id="panel-group-stage" class="tab-panel active">
             <div id="standings-container">
                 <div class="loading-state">Synchronizing Global Leaderboards...</div>
@@ -265,7 +294,6 @@
             </div>
         </div>
 
-        <!-- KNOCKOUT STAGE PANEL -->
         <div id="panel-knockout-stage" class="tab-panel">
             <div id="bracket-container">
                 <div class="loading-state">Building Knockout Bracket...</div>
@@ -275,7 +303,7 @@
 
     </main>
 
-    <nav class="bottom-nav" aria-label="Main Navigation">
+    <nav class="bottom-nav" aria-label="Mobile Navigation">
         <a href="/" class="nav-item">
             <i data-lucide="calendar-days"></i>
             <span>Matches</span>
