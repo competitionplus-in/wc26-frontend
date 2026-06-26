@@ -263,28 +263,39 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML);
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
+
+
+        
         // --- STANDINGS BUILD ---
         let mappedStandings = [];
+        let mappedBracket = [];
+        
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
             
             const standingsCache = path.join(__dirname, 'cached_standings.json');
             
-            // 🛡️ 1. READ CUSTOM MASTER JSON FILE (Bypassing API completely for 2026)
+            // 🛡️ 1. READ CUSTOM MASTER JSON FILE
             if (fs.existsSync(standingsCache)) {
                 try {
                     console.log("📊 Loading Master Standings from cached_standings.json...");
                     const raw = fs.readFileSync(standingsCache, 'utf8');
-                    mappedStandings = JSON.parse(raw);
+                    const parsedData = JSON.parse(raw);
+                    
+                    // Support both the old Array format and the new Object format
+                    if (Array.isArray(parsedData)) {
+                        mappedStandings = parsedData;
+                    } else {
+                        mappedStandings = parsedData.groups || [];
+                        mappedBracket = parsedData.bracket || [];
+                    }
                 } catch(e) {
                     console.log("⚠️ Error reading cached_standings.json", e);
                 }
             }
 
-            // 🛡️ 2. EMERGENCY FALLBACK (Prevents build crash if file is missing)
             if (!mappedStandings || mappedStandings.length === 0) {
-                console.log("⚠️ Standings file empty! Injecting empty fallback...");
                 mappedStandings = [{ name: "Group A", teams: [] }];
             }
 
@@ -292,14 +303,14 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); 
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
-            
-            // 🚀 NEW: Inject the exact build time
+            standingsTemplate = standingsTemplate.replace('[[INJECT_BRACKET_HERE]]', JSON.stringify(mappedBracket));
             standingsTemplate = standingsTemplate.replace('[[INJECT_BUILD_TIME_HERE]]', new Date().toISOString());
             
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
             console.log("✅ Physically generated the /standings directory.");
-
         }
+
+        
 
         // --- MATCH PAGES BUILD ---
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
