@@ -107,4 +107,63 @@
       { "name": "Panama", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 0, "ga": 2, "gd": -2, "pts": 0, "code": "panama", "form": "L,L" }
     ]
   }
-]
+],
+
+"bracket": [
+    {
+      "round": "Round of 32",
+      "matches": [
+        { "utcDate": "2026-06-28T19:00:00Z", "team1": "South Africa", "team2": "Canada", "matchNumber": 73 },
+        { "utcDate": "2026-06-29T17:00:00Z", "team1": "Brazil", "team2": "Japan", "matchNumber": 74 },
+        { "utcDate": "2026-06-29T20:30:00Z", "team1": "Germany", "team2": "TBD", "matchNumber": 75 },
+        { "utcDate": "2026-06-30T01:00:00Z", "team1": "Netherlands", "team2": "Morocco", "matchNumber": 76 },
+        { "utcDate": "2026-06-30T17:00:00Z", "team1": "Côte d'Ivoire", "team2": "TBD", "matchNumber": 77 },
+        { "utcDate": "2026-06-30T21:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 78 },
+        { "utcDate": "2026-07-01T01:00:00Z", "team1": "Mexico", "team2": "TBD", "matchNumber": 79 },
+        { "utcDate": "2026-07-01T16:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 80 },
+        { "utcDate": "2026-07-01T20:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 81 },
+        { "utcDate": "2026-07-02T00:00:00Z", "team1": "USA", "team2": "Bosnia and Herzegovina", "matchNumber": 82 },
+        { "utcDate": "2026-07-02T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 83 },
+        { "utcDate": "2026-07-02T23:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 84 },
+        { "utcDate": "2026-07-03T03:00:00Z", "team1": "Switzerland", "team2": "TBD", "matchNumber": 85 },
+        { "utcDate": "2026-07-03T18:00:00Z", "team1": "Australia", "team2": "TBD", "matchNumber": 86 },
+        { "utcDate": "2026-07-03T22:00:00Z", "team1": "Argentina", "team2": "TBD", "matchNumber": 87 },
+        { "utcDate": "2026-07-04T01:30:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 88 }
+      ]
+    },
+    {
+      "round": "Round of 16",
+      "matches": [
+        { "utcDate": "2026-07-04T17:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 89 },
+        { "utcDate": "2026-07-04T21:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 90 },
+        { "utcDate": "2026-07-05T20:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 91 },
+        { "utcDate": "2026-07-06T00:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 92 },
+        { "utcDate": "2026-07-06T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 93 },
+        { "utcDate": "2026-07-07T00:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 94 },
+        { "utcDate": "2026-07-07T16:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 95 },
+        { "utcDate": "2026-07-07T20:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 96 }
+      ]
+    },
+    {
+      "round": "Quarter-finals",
+      "matches": [
+        { "utcDate": "2026-07-09T20:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 97 },
+        { "utcDate": "2026-07-10T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 98 },
+        { "utcDate": "2026-07-11T21:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 99 },
+        { "utcDate": "2026-07-12T01:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 100 }
+      ]
+    },
+    {
+      "round": "Semi-finals",
+      "matches": [
+        { "utcDate": "2026-07-14T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 101 },
+        { "utcDate": "2026-07-15T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 102 }
+      ]
+    },
+    {
+      "round": "Final",
+      "matches": [
+        { "utcDate": "2026-07-19T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 104 }
+      ]
+    }
+  ]
