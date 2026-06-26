@@ -531,15 +531,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
 
     <script>
+        <script>
         // --- 1. PREMIUM ROUTING ENGINE ---
         const pathParts = window.location.pathname.split('/').filter(Boolean);
-        const matchDate = pathParts[1];
-        const matchSlug = pathParts[2];
-
-        if (!matchSlug || !matchDate) {
-            console.warn("Invalid match route. Redirecting...");
-            window.location.href = '/';
-        }
+        const matchDate = pathParts[1] || 'TBD';
+        const matchSlug = pathParts[2] || 'tbd-vs-tbd';
 
         const matchId = `${matchSlug}-${matchDate}`;
         
@@ -702,79 +698,79 @@
             }
         }
 
-function injectSEOSchema(data, matchUrl) {
-    const existingSchema = document.getElementById('seo-schema');
-    if (existingSchema) existingSchema.remove();
+        function injectSEOSchema(data, matchUrl) {
+            const existingSchema = document.getElementById('seo-schema');
+            if (existingSchema) existingSchema.remove();
 
-    const homeName = STATIC_HOME_NAME;
-    const awayName = STATIC_AWAY_NAME;
-    const isLive = data.setup?.status === 'live';
-    
-    const kickoffTime = data.setup?.countdownTarget || new Date().toISOString();
-    const closureTime = new Date(new Date(kickoffTime).getTime() + 120 * 60 * 1000).toISOString();
+            const homeName = STATIC_HOME_NAME;
+            const awayName = STATIC_AWAY_NAME;
+            const isLive = data.setup?.status === 'live';
+            
+            const kickoffTime = data.setup?.countdownTarget || new Date().toISOString();
+            const closureTime = new Date(new Date(kickoffTime).getTime() + 120 * 60 * 1000).toISOString();
 
-    const schema = {
-        "@context": "https://schema.org",
-        "@type": "SportsEvent",
-        "name": `${homeName} vs ${awayName} - World Cup 2026`,
-        "description": data.setup?.matchFacts || `Live score, real-time stats, tactical line-ups and match timeline events for ${homeName} vs ${awayName} in the FIFA World Cup 2026.`,
-        "url": matchUrl,
-        "isAccessibleForFree": true,
-        "image": [ STATIC_HOME_LOGO, STATIC_AWAY_LOGO ],
-        "startDate": kickoffTime,
-        "endDate": closureTime,
-        "eventStatus": isLive ? "https://schema.org/EventInProgress" : (data.setup?.status === 'post-match' ? "https://schema.org/EventFinished" : "https://schema.org/EventScheduled"),
-        "homeTeam": { 
-            "@type": "SportsTeam", 
-            "name": homeName,
-            "logo": STATIC_HOME_LOGO
-        },
-        "awayTeam": { 
-            "@type": "SportsTeam", 
-            "name": awayName,
-            "logo": STATIC_AWAY_LOGO
-        },
-        "location": {
-            "@type": "Place",
-            "name": data.setup?.matchVenue || "World Cup Stadium",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": data.setup?.matchVenue ? data.setup.matchVenue.split(',')[0]?.trim() : "Host City",
-                "addressCountry": "United States"
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "SportsEvent",
+                "name": `${homeName} vs ${awayName} - World Cup 2026`,
+                "description": data.setup?.matchFacts || `Live score, real-time stats, tactical line-ups and match timeline events for ${homeName} vs ${awayName} in the FIFA World Cup 2026.`,
+                "url": matchUrl,
+                "isAccessibleForFree": true,
+                "image": [ STATIC_HOME_LOGO, STATIC_AWAY_LOGO ],
+                "startDate": kickoffTime,
+                "endDate": closureTime,
+                "eventStatus": isLive ? "https://schema.org/EventInProgress" : (data.setup?.status === 'post-match' ? "https://schema.org/EventFinished" : "https://schema.org/EventScheduled"),
+                "homeTeam": { 
+                    "@type": "SportsTeam", 
+                    "name": homeName,
+                    "logo": STATIC_HOME_LOGO
+                },
+                "awayTeam": { 
+                    "@type": "SportsTeam", 
+                    "name": awayName,
+                    "logo": STATIC_AWAY_LOGO
+                },
+                "location": {
+                    "@type": "Place",
+                    "name": data.setup?.matchVenue || "World Cup Stadium",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": data.setup?.matchVenue ? data.setup.matchVenue.split(',')[0]?.trim() : "Host City",
+                        "addressCountry": "United States"
+                    }
+                },
+                "organizer": {
+                  "@type": "Organization",
+                  "name": "FIFA",
+                  "url": "https://www.fifa.com"
+                },
+                "performer": [
+                  { "@type": "SportsTeam", "name": homeName, "logo": STATIC_HOME_LOGO },
+                  { "@type": "SportsTeam", "name": awayName, "logo": STATIC_AWAY_LOGO }
+                ]
+            };
+
+            if (data.events && data.events.length > 0) {
+                schema.subjectOf = {
+                    "@type": "LiveBlogPosting",
+                    "headline": `Live updates: ${homeName} vs ${awayName}`,
+                    "coverageStartTime": kickoffTime,
+                    "coverageEndTime": closureTime,
+                    "liveBlogUpdate": data.events.map(e => ({
+                        "@type": "BlogPosting",
+                        "headline": e.type.toUpperCase(),
+                        "articleBody": e.detail ? e.detail.replace(/<[^>]*>/g, '') : "Match event update.", 
+                        "datePublished": new Date().toISOString()
+                    }))
+                };
             }
-        },
-        "organizer": {
-          "@type": "Organization",
-          "name": "FIFA",
-          "url": "https://www.fifa.com"
-        },
-        "performer": [
-          { "@type": "SportsTeam", "name": homeName, "logo": STATIC_HOME_LOGO },
-          { "@type": "SportsTeam", "name": awayName, "logo": STATIC_AWAY_LOGO }
-        ]
-    };
 
-    if (data.events && data.events.length > 0) {
-        schema.subjectOf = {
-            "@type": "LiveBlogPosting",
-            "headline": `Live updates: ${homeName} vs ${awayName}`,
-            "coverageStartTime": kickoffTime,
-            "coverageEndTime": closureTime,
-            "liveBlogUpdate": data.events.map(e => ({
-                "@type": "BlogPosting",
-                "headline": e.type.toUpperCase(),
-                "articleBody": e.detail ? e.detail.replace(/<[^>]*>/g, '') : "Match event update.", 
-                "datePublished": new Date().toISOString()
-            }))
-        };
-    }
-
-    const script = document.createElement('script');
-    script.id = 'seo-schema';
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(schema);
-    document.head.appendChild(script);
-}
+            const script = document.createElement('script');
+            script.id = 'seo-schema';
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(schema);
+            document.head.appendChild(script);
+        }
 
         // --- 4. THE RENDER ENGINE ---
         function renderDOM(data) {
@@ -926,7 +922,16 @@ function injectSEOSchema(data, matchUrl) {
             }
 
             try {
-                const response = await fetch(`${BACKEND_URL}/api/live-match?id=${matchId}&viewerId=${viewerId}`);
+                // 🛑 NEW: Add a timeout to the fetch request (e.g., 5 seconds)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const response = await fetch(`${BACKEND_URL}/api/live-match?id=${matchId}&viewerId=${viewerId}`, {
+                    signal: controller.signal 
+                });
+                
+                clearTimeout(timeoutId); // Clear the timeout if successful
+
                 if (!response.ok) throw new Error('Initial sync failed');
                 const data = await response.json();
                 
@@ -941,7 +946,16 @@ function injectSEOSchema(data, matchUrl) {
 
             } catch (err) {
                 console.error('Initial load breakdown:', err);
-                setTimeout(fetchInitialData, 5000); 
+                
+                // 🛑 NEW: Graceful degradation UI
+                if (!document.getElementById('timeline-container').innerHTML.includes('event-list')) {
+                     document.getElementById('timeline-container').innerHTML = '<div style="text-align:center;color:var(--live-red);padding-top:20px;font-weight:600;">Data Sync Failed. Retrying...</div>';
+                }
+
+                // 🛑 NEW: Exponential backoff
+                let retryDelay = window.fetchRetryDelay || 5000; 
+                setTimeout(fetchInitialData, retryDelay);
+                window.fetchRetryDelay = Math.min(retryDelay * 1.5, 30000); // Cap at 30 seconds
             }
         }
 
@@ -954,6 +968,7 @@ function injectSEOSchema(data, matchUrl) {
             socket.on('connect', () => {
                 console.log("🟢 Connected to Live Match Stream!");
                 socket.emit('join-match', matchId);
+                window.fetchRetryDelay = 5000; // Reset retry delay on successful connection
             });
 
             socket.on('reconnect', () => {
