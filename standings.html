@@ -169,7 +169,7 @@
         .bracket-match-header {
             background: var(--bg-elevated); padding: 8px 15px; font-size: 0.75rem; font-weight: 600;
             color: var(--text-muted); border-bottom: 1px solid var(--border-glass);
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: center; text-transform: uppercase;
         }
         
         .bracket-team-row {
@@ -270,7 +270,7 @@
             <div id="bracket-container">
                 <div class="loading-state">Building Knockout Bracket...</div>
             </div>
-            <div class="bracket-disclaimer">* All times are in India Standard Time (IST)</div>
+            <div class="bracket-disclaimer">* All times are shown in your local timezone</div>
         </div>
 
     </main>
@@ -294,72 +294,13 @@
     <script>
         lucide.createIcons();
 
-        // Build Process Injections
+        // 🧠 Data Injections
         const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
         const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];
+        const INJECTED_BRACKET = [[INJECT_BRACKET_HERE]];
         const BUILD_TIME = "[[INJECT_BUILD_TIME_HERE]]";
         
-        // Knockout Bracket Data
-        const bracketData = [
-            {
-                round: "Round of 32",
-                matches: [
-                    { time: "Mon, 29 Jun, 12:30 am", team1: "South Africa", team2: "Canada" },
-                    { time: "Mon, 29 Jun, 10:30 pm", team1: "Brazil", team2: "Japan" },
-                    { time: "Tue, 30 Jun, 2:00 am", team1: "Germany", team2: "TBD" },
-                    { time: "Tue, 30 Jun, 6:30 am", team1: "Netherlands", team2: "Morocco" },
-                    { time: "Tue, 30 Jun, 10:30 pm", team1: "Côte d'Ivoire", team2: "TBD" },
-                    { time: "Wed, 1 Jul, 2:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Wed, 1 Jul, 6:30 am", team1: "Mexico", team2: "TBD" },
-                    { time: "Wed, 1 Jul, 9:30 pm", team1: "TBD", team2: "TBD" },
-                    { time: "Thu, 2 Jul, 1:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Thu, 2 Jul, 5:30 am", team1: "USA", team2: "Bosnia and Herzegovina" },
-                    { time: "Fri, 3 Jul, 12:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Fri, 3 Jul, 4:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Fri, 3 Jul, 8:30 am", team1: "Switzerland", team2: "TBD" },
-                    { time: "Fri, 3 Jul, 11:30 pm", team1: "Australia", team2: "TBD" },
-                    { time: "Sat, 4 Jul, 3:30 am", team1: "Argentina", team2: "TBD" },
-                    { time: "Sat, 4 Jul, 7:00 am", team1: "TBD", team2: "TBD" }
-                ]
-            },
-            {
-                round: "Round of 16",
-                matches: [
-                    { time: "Sat, 4 Jul, 10:30 pm", team1: "TBD", team2: "TBD" },
-                    { time: "Sun, 5 Jul, 2:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Mon, 6 Jul, 1:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Mon, 6 Jul, 5:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Tue, 7 Jul, 12:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Tue, 7 Jul, 5:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Tue, 7 Jul, 9:30 pm", team1: "TBD", team2: "TBD" },
-                    { time: "Wed, 8 Jul, 1:30 am", team1: "TBD", team2: "TBD" }
-                ]
-            },
-            {
-                round: "Quarter-finals",
-                matches: [
-                    { time: "Fri, 10 Jul, 1:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Sat, 11 Jul, 12:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Sun, 12 Jul, 2:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Sun, 12 Jul, 6:30 am", team1: "TBD", team2: "TBD" }
-                ]
-            },
-            {
-                round: "Semi-finals",
-                matches: [
-                    { time: "Wed, 15 Jul, 12:30 am", team1: "TBD", team2: "TBD" },
-                    { time: "Thu, 16 Jul, 12:30 am", team1: "TBD", team2: "TBD" }
-                ]
-            },
-            {
-                round: "Final",
-                matches: [
-                    { time: "Mon, 20 Jul, 12:30 am", team1: "TBD", team2: "TBD" }
-                ]
-            }
-        ];
-
-        // Localized Timestamp Logic
+        // 🕒 Localized Timestamp Logic
         if (BUILD_TIME && !BUILD_TIME.includes('INJECT')) {
             const dateObj = new Date(BUILD_TIME);
             document.getElementById('timestamp').innerText = "Updated: " + dateObj.toLocaleString(undefined, {
@@ -369,7 +310,7 @@
             document.getElementById('timestamp').style.display = 'none';
         }
 
-        // Frontend Alias Dictionary
+        // 🛡️ Frontend Alias Dictionary
         const teamAliases = { 
             "czechia": "czech republic", 
             "turkiye": "turkey",
@@ -478,14 +419,25 @@
             container.innerHTML = htmlContent;
         }
 
-        // 🚀 THE NEW KNOCKOUT BRACKET RENDER ENGINE
+        // 🚀 THE NEW DYNAMIC KNOCKOUT BRACKET RENDER ENGINE
         function renderKnockoutBracket() {
             const container = document.getElementById('bracket-container');
             let bracketHTML = '';
 
             const tbdLogo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23cbd5e1'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='30' font-weight='bold' fill='%2364748b' text-anchor='middle' dominant-baseline='middle'%3E?%3C/text%3E%3C/svg%3E";
 
-            bracketData.forEach(roundData => {
+            if (!INJECTED_BRACKET || INJECTED_BRACKET.length === 0) {
+                container.innerHTML = `
+                    <div class="knockout-placeholder">
+                        <i data-lucide="calendar-clock"></i>
+                        <h3>Bracket Unlocks Soon</h3>
+                        <p>The knockout stages will populate here automatically.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            INJECTED_BRACKET.forEach(roundData => {
                 let matchesHTML = '';
 
                 roundData.matches.forEach(match => {
@@ -495,10 +447,21 @@
                     const t1Class = match.team1 === 'TBD' ? 'bracket-team-tbd' : 'bracket-team-name';
                     const t2Class = match.team2 === 'TBD' ? 'bracket-team-tbd' : 'bracket-team-name';
 
+                    // Localize the UTC Date
+                    let formattedTime = "TBD";
+                    if (match.utcDate) {
+                        const localDate = new Date(match.utcDate);
+                        formattedTime = localDate.toLocaleString(undefined, { 
+                            weekday: 'short', month: 'short', day: 'numeric', 
+                            hour: 'numeric', minute: '2-digit', hour12: true 
+                        });
+                    }
+
                     matchesHTML += `
                         <div class="bracket-match">
                             <div class="bracket-match-header">
-                                <span><i data-lucide="clock" style="width:12px; height:12px; vertical-align:middle; margin-right:4px;"></i> ${match.time}</span>
+                                <span><i data-lucide="clock" style="width:12px; height:12px; vertical-align:middle; margin-right:4px;"></i> ${formattedTime}</span>
+                                <span>M${match.matchNumber || '-'}</span>
                             </div>
                             <div class="bracket-team-row">
                                 <div class="bracket-team-info">
@@ -527,6 +490,7 @@
             });
 
             container.innerHTML = bracketHTML;
+            lucide.createIcons();
         }
 
         renderMasterStandings();
