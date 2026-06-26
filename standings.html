@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 🚀 PRIMARY SEO TAGS -->
     <title>FIFA World Cup Standings 2026 | Live Group Stage Points Table</title>
     <meta name="description" content="Check the live FIFA World Cup 2026 standings. Track group stage points tables, match results, goal differences, and team qualification status in real-time.">
     <meta name="keywords" content="FIFA World Cup standings 2026, World Cup group stage table, 2026 World Cup points table, live football standings, soccer group rankings, World Cup bracket">
     <meta name="robots" content="index, follow">
 
-    <!-- 🚀 SOCIAL SHARING (OPEN GRAPH & TWITTER) -->
     <meta property="og:title" content="FIFA World Cup 2026 Standings & Group Tables">
     <meta property="og:description" content="Live updates for the 2026 World Cup group stage. Track points, goals, and team rankings.">
     <meta property="og:type" content="website">
@@ -43,35 +41,47 @@
         .brand-title { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; color: var(--text-main); display: flex; align-items: center; }
         .brand-title span { color: var(--accent-glow); }
         .page-title-container { display: flex; flex-direction: column; align-items: flex-end; }
-        .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px;}
+        .page-title { font-size: 0.9rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; margin: 0;}
         .last-updated { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+
+        /* --- PHASE TABS --- */
+        .phase-tabs-container {
+            max-width: 1000px; margin: 20px auto 0; padding: 0 20px;
+        }
+        .phase-tabs {
+            display: flex; background: var(--bg-elevated); border-radius: 12px; padding: 6px;
+            border: 1px solid var(--border-glass); box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .phase-tab {
+            flex: 1; text-align: center; padding: 12px; font-family: 'Oswald', sans-serif;
+            font-size: 1.05rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 0.5px; cursor: pointer; border-radius: 8px; transition: all 0.2s ease;
+        }
+        .phase-tab.active {
+            background: var(--bg-card); color: var(--accent-glow);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid var(--border-glass);
+        }
+        .phase-tab i { margin-right: 6px; vertical-align: text-bottom; width: 18px; height: 18px; }
 
         /* --- MAIN CONTENT --- */
         .content-container { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 30px; }
+        
+        .tab-panel { display: none; flex-direction: column; gap: 30px; }
+        .tab-panel.active { display: flex; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Premium Elevated Card */
         .group-card {
-            background: var(--bg-card); 
-            border-radius: 16px; 
-            overflow: hidden;
-            border: 1px solid var(--border-glass); 
-            box-shadow: 0 6px 12px -4px rgba(0,0,0,0.05);
+            background: var(--bg-card); border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border-glass); box-shadow: 0 6px 12px -4px rgba(0,0,0,0.05);
         }
 
         /* Sleek Modern Header */
         .group-header {
-            background: #f8fafc; 
-            color: var(--text-main); 
-            padding: 16px 20px;
-            font-family: 'Oswald', sans-serif; 
-            font-size: 1.25rem; 
-            font-weight: 700;
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            border-bottom: 1px solid var(--border-glass);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: #f8fafc; color: var(--text-main); padding: 16px 20px;
+            font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-glass);
+            display: flex; align-items: center; gap: 10px;
         }
         .group-header::before {
             content: ''; display: inline-block; width: 4px; height: 20px;
@@ -138,6 +148,15 @@
         .table-legend span { display: inline-flex; align-items: center; gap: 6px; }
         .table-legend strong { color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
 
+        /* Knockout Placeholder */
+        .knockout-placeholder {
+            background: var(--bg-card); border-radius: 16px; border: 1px dashed var(--border-glass);
+            padding: 60px 20px; text-align: center; color: var(--text-muted); display: flex;
+            flex-direction: column; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .knockout-placeholder i { width: 48px; height: 48px; color: var(--border-glass); }
+        .knockout-placeholder h3 { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: var(--text-main); margin: 0;}
+
         .loading-state { text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
@@ -179,28 +198,49 @@
             PITCH<span>90</span>
         </a>
         <div class="page-title-container">
-            <!-- 🚀 SEMANTIC H1 FOR SEO -->
             <h1 class="page-title">World Cup 2026 Standings</h1>
             <div id="timestamp" class="last-updated">Updating...</div>
         </div>
     </header>
 
+    <div class="phase-tabs-container">
+        <div class="phase-tabs">
+            <div class="phase-tab active" onclick="switchPhase('group-stage')" id="tab-group-stage">
+                <i data-lucide="layout-grid"></i> Group Stage
+            </div>
+            <div class="phase-tab" onclick="switchPhase('knockout-stage')" id="tab-knockout-stage">
+                <i data-lucide="git-merge"></i> Knockout Bracket
+            </div>
+        </div>
+    </div>
+
     <main class="content-container">
-        <div id="standings-container">
-            <div class="loading-state">Synchronizing Global Leaderboards...</div>
-        </div>
         
-        <!-- Legend Component -->
-        <div class="table-legend">
-            <span><strong>PL</strong> Played</span>
-            <span><strong>W</strong> Won</span>
-            <span><strong>D</strong> Drawn</span>
-            <span><strong>L</strong> Lost</span>
-            <span><strong>GF</strong> Goals For</span>
-            <span><strong>GA</strong> Goals Against</span>
-            <span><strong>GD</strong> Goal Difference</span>
-            <span><strong>PTS</strong> Points</span>
+        <div id="panel-group-stage" class="tab-panel active">
+            <div id="standings-container">
+                <div class="loading-state">Synchronizing Global Leaderboards...</div>
+            </div>
+            
+            <div class="table-legend">
+                <span><strong>PL</strong> Played</span>
+                <span><strong>W</strong> Won</span>
+                <span><strong>D</strong> Drawn</span>
+                <span><strong>L</strong> Lost</span>
+                <span><strong>GF</strong> Goals For</span>
+                <span><strong>GA</strong> Goals Against</span>
+                <span><strong>GD</strong> Goal Difference</span>
+                <span><strong>PTS</strong> Points</span>
+            </div>
         </div>
+
+        <div id="panel-knockout-stage" class="tab-panel">
+            <div class="knockout-placeholder">
+                <i data-lucide="calendar-clock"></i>
+                <h3>Bracket Unlocks Soon</h3>
+                <p>The Round of 32 knockout bracket will be revealed once the group stage results are finalized.</p>
+            </div>
+        </div>
+
     </main>
 
     <nav class="bottom-nav" aria-label="Main Navigation">
@@ -254,6 +294,15 @@
                                 .trim();
             return teamAliases[cleanName] || cleanName;
         };
+
+        // UI Controller for Phase Switching
+        function switchPhase(phase) {
+            document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            
+            document.getElementById(`tab-${phase}`).classList.add('active');
+            document.getElementById(`panel-${phase}`).classList.add('active');
+        }
 
         function renderForm(formString) {
             if (!formString) return '<span style="color:var(--text-muted)">-</span>';
