@@ -75,10 +75,10 @@
     {
       "name": "Group I",
       "teams": [
-        { "name": "France", "pld": 2, "w": 2, "d": 0, "l": 0, "gf": 6, "ga": 1, "gd": 5, "pts": 6, "code": "france", "form": "W,W" },
-        { "name": "Norway", "pld": 2, "w": 2, "d": 0, "l": 0, "gf": 7, "ga": 3, "gd": 4, "pts": 6, "code": "norway", "form": "W,W" },
-        { "name": "Senegal", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 3, "ga": 6, "gd": -3, "pts": 0, "code": "senegal", "form": "L,L" },
-        { "name": "Iraq", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 1, "ga": 7, "gd": -6, "pts": 0, "code": "iraq", "form": "L,L" }
+        { "name": "France", "pld": 3, "w": 3, "d": 0, "l": 0, "gf": 10, "ga": 2, "gd": 8, "pts": 9, "code": "france", "form": "W,W,W" },
+        { "name": "Norway", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 8, "ga": 7, "gd": 1, "pts": 6, "code": "norway", "form": "W,W,L" },
+        { "name": "Senegal", "pld": 3, "w": 1, "d": 0, "l": 2, "gf": 8, "ga": 6, "gd": 2, "pts": 3, "code": "senegal", "form": "L,L,W" },
+        { "name": "Iraq", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 1, "ga": 12, "gd": -11, "pts": 0, "code": "iraq", "form": "L,L,L" }
       ]
     },
     {
