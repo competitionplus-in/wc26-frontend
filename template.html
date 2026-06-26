@@ -80,7 +80,6 @@
         }
         .brand-title span { color: var(--accent-glow); }
 
-        /* 🚀 DESKTOP NAVBAR */
         .desktop-nav {
             display: none;
             gap: 25px;
@@ -140,7 +139,7 @@
             transition: opacity 0.3s ease;
         }
         .date-scroller::-webkit-scrollbar { display: none; }
-        .date-scroller.faded { opacity: 0.4; pointer-events: none; } /* When search is active */
+        .date-scroller.faded { opacity: 0.4; pointer-events: none; }
 
         .date-pill {
             display: flex;
@@ -182,7 +181,8 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
         
-        .content-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        /* 🛡️ FIX: Cleaned up spacing */
+        .content-container { max-width: 800px; margin: 0 auto; padding: 30px 20px 20px; }
         .group-section { margin-bottom: 30px; }
         
         .group-header {
@@ -285,7 +285,7 @@
             .bottom-nav { display: none; }
             .desktop-nav { display: flex; }
             body { padding-bottom: 20px; }
-            .content-container { padding: 30px; }
+            .content-container { padding: 40px 30px 30px; }
         }
         @media (max-width: 600px) {
             .match-card { padding: 28px 12px 16px 12px; gap: 8px; }
@@ -313,8 +313,8 @@
             </nav>
 
             <div class="search-container">
-                <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 0px;" aria-hidden="true"></i>
-                <input type="text" id="match-search" class="search-input" placeholder="Search teams..." aria-label="Search teams">
+                <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 18px;" aria-hidden="true"></i>
+                <input type="text" id="match-search" class="search-input" placeholder="Search teams..." aria-label="Search teams" spellcheck="false" autocomplete="off">
             </div>
         </div>
 
@@ -420,18 +420,15 @@
             const vault = document.getElementById('match-vault').content;
             const container = document.getElementById('active-matches-container');
 
-            // 🚀 THE NEW FILTER LOGIC: Search Bar Dictates All
             function applyFilters() {
                 const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
                 const isSearching = searchTerm.length > 0;
                 
-                // Dim the calendar if typing
                 if(isSearching) {
                     dateScroller.classList.add('faded');
                     datePills.forEach(p => p.classList.remove('active'));
                 } else {
                     dateScroller.classList.remove('faded');
-                    // Restore active state to the currently selected date
                     datePills.forEach(p => {
                         if (p.getAttribute('data-date') === currentDateFilter) p.classList.add('active');
                     });
@@ -440,7 +437,6 @@
                 container.innerHTML = '';
                 const activeView = vault.cloneNode(true);
                 const sections = activeView.querySelectorAll('.group-section');
-
                 let totalVisible = 0;
 
                 sections.forEach(section => {
@@ -452,8 +448,6 @@
                         const cardHref = card.getAttribute('href'); 
                         
                         const matchesSearch = cardText.includes(searchTerm);
-                        
-                        // IF searching: ignore the date completely. IF NOT searching: filter by current date.
                         const shouldShow = isSearching ? matchesSearch : (currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`));
 
                         if (shouldShow) {
@@ -474,13 +468,12 @@
                 }
                 
                 localizeMatchTimes();
-                hydrateLiveScores();
+                hydrateLiveScores(); // Ensure scores sync on render
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
             if (searchInput) {
                 searchInput.addEventListener('input', applyFilters);
-                // Clear search on escape key
                 searchInput.addEventListener('keydown', (e) => {
                     if(e.key === 'Escape') {
                         searchInput.value = '';
@@ -492,10 +485,7 @@
             datePills.forEach(pill => {
                 pill.addEventListener('click', (e) => {
                     e.preventDefault(); 
-                    
-                    // If user clicks a date, clear the search bar to enforce the date click
                     if(searchInput) searchInput.value = '';
-                    
                     datePills.forEach(p => {
                         p.classList.remove('active');
                         p.removeAttribute('aria-current');
@@ -525,53 +515,68 @@
 
             requestAnimationFrame(() => applyFilters());
 
-            // --- WEBSOCKET & DATA HYDRATION ---
+            // 🚀 THE BULK HYDRATION ENGINE (Prevents Server DDoS)
             async function hydrateLiveScores() {
+                // If WebSockets are active, don't spam the server via polling
+                if (window.isSocketConnected) return; 
+
                 const visibleCards = Array.from(document.querySelectorAll('.match-card'));
-                const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
+                if (visibleCards.length === 0) return;
 
-                visibleCards.forEach(async (card) => {
-                    try {
-                        const href = card.getAttribute('href'); 
-                        const parts = href.split('/');
-                        if(parts.length < 4) return;
+                const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-matches-bulk';
+                
+                // Gather all IDs currently shown on screen
+                const matchIds = visibleCards.map(card => {
+                    const parts = card.getAttribute('href').split('/');
+                    return `${parts[3]}-${parts[2]}`; // reconstructs slug-date
+                });
+
+                try {
+                    // Send 1 single bulk request instead of 16 individual ones
+                    const response = await fetch(`${BACKEND_URL}?ids=${matchIds.join(',')}`);
+                    if (!response.ok) return;
+                    const dataMap = await response.json();
+
+                    visibleCards.forEach(card => {
+                        const parts = card.getAttribute('href').split('/');
+                        const matchId = `${parts[3]}-${parts[2]}`;
+                        const matchData = dataMap[matchId];
                         
-                        const fixtureDate = parts[2]; 
-                        const slug = parts[3];
-                        const matchId = `${slug}-${fixtureDate}`; 
-
-                        const response = await fetch(`${BACKEND_URL}?id=${matchId}`);
-                        if (!response.ok) return;
-                        const data = await response.json();
+                        if (!matchData) return;
 
                         const scoreMain = card.querySelector('.score-main');
                         const scoreTime = card.querySelector('.score-time');
 
-                        if (data.setup.status === 'pre-match') {
+                        if (matchData.setup.status === 'pre-match') {
                             scoreTime.innerText = 'UPCOMING';
                             scoreTime.className = 'score-time'; 
                             scoreMain.innerText = 'V'; 
                             scoreMain.style.color = 'var(--text-main)';
-                        } else if (data.setup.status !== 'pre-match') {
-                            scoreMain.innerText = `${data.homeScore} - ${data.awayScore}`;
-
-                            if (data.setup.status === 'live') {
-                                scoreTime.innerHTML = `<span class="live-dot"></span>${data.clock}'`;
+                        } else {
+                            scoreMain.innerText = `${matchData.homeScore} - ${matchData.awayScore}`;
+                            if (matchData.setup.status === 'live') {
+                                scoreTime.innerHTML = `<span class="live-dot"></span>${matchData.clock}'`;
                                 scoreTime.className = 'score-time live-pill'; 
                                 scoreMain.style.color = 'var(--live-red)';
-                            } else if (data.setup.status === 'post-match') {
+                            } else if (matchData.setup.status === 'post-match') {
                                 scoreTime.innerText = 'FULL TIME';
                                 scoreTime.className = 'score-time ft-pill'; 
                                 scoreMain.style.color = 'var(--text-main)';
                             }
                         }
-                    } catch (error) {}
-                });
+                    });
+                } catch (error) {}
             }
 
             setInterval(hydrateLiveScores, 30000);
             
+            // --- WEBSOCKET ENGINE ---
+            window.isSocketConnected = false;
             const socket = io('https://wc26-backend-kd7l.onrender.com', { transports: ['websocket'] });
+            
+            socket.on('connect', () => { window.isSocketConnected = true; });
+            socket.on('disconnect', () => { window.isSocketConnected = false; });
+
             socket.on('global-match-updated', (data) => {
                 const cards = document.querySelectorAll('.match-card');
                 cards.forEach(card => {
