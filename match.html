@@ -537,7 +537,11 @@
         const matchDate = pathParts[1] || 'TBD';
         const matchSlug = pathParts[2] || 'tbd-vs-tbd';
 
-        const matchId = `${matchSlug}-${matchDate}`;
+        // 🚀 FIX 1: Changed to 'let' so we can update it if the URL is mirrored
+        let matchId = `${matchSlug}-${matchDate}`;
+        let matchSocket = null; // Prevent duplicate connections
+
+        
         
         // --- 2. CONFIGURATION & STATE ---
         const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com';
@@ -943,11 +947,10 @@
             }
 
             try {
-                // 🚀 Step 1: Try primary ID lookup (Give sleeping Render 8 seconds to wake up)
+                // 🚀 Step 1: Try primary ID lookup
                 let data = await executeFetch(matchId, window.isSocketConnected ? 5000 : 8000);
 
                 // 🚀 Step 2: Smart Mirror Fallback
-                // If it's a past match but comes back as an unedited default 'pre-match' block, flip the slug!
                 const isPastDate = new Date(matchDate) < new Date();
                 if (isPastDate && (data === null || (data.setup?.status === 'pre-match' && data.setup?.matchFacts === ""))) {
                     if (matchSlug.includes('-vs-')) {
@@ -960,6 +963,7 @@
                         
                         if (mirroredData && (mirroredData.setup?.status !== 'pre-match' || mirroredData.events?.length > 0)) {
                             data = mirroredData;
+                            matchId = mirroredId; // 🚀 FIX 2: Crucial! Update the global matchId so WebSockets join the correct room!
                         }
                     }
                 }
@@ -969,10 +973,11 @@
                     renderDOM(data);
                     window.fetchRetryDelay = 5000; // Reset backoff delay
 
+                    // 🚀 FIX 3: We now keep WebSockets alive even after the match ends 
                     if (data.setup?.status === 'post-match') {
-                        console.log("🛑 Match recently finished. Cancelling WebSocket connection.");
-                        return; 
+                        console.log("🏁 Match is finished, but maintaining socket for live admin corrections.");
                     }
+                    
                     initializeLiveStream();
                 } else {
                     throw new Error("Data null or fetch timed out");
@@ -991,36 +996,28 @@
             }
         }
 
-
-
-
-        
-
         function initializeLiveStream() {
-            const socket = io(BACKEND_URL, { 
+            if (matchSocket) return; // 🚀 Prevents duplicate connections if fetchInitialData runs twice
+
+            matchSocket = io(BACKEND_URL, { 
                 query: { viewerId: viewerId },
                 transports: ['websocket'] 
             });
 
-            socket.on('connect', () => {
+            matchSocket.on('connect', () => {
                 console.log("🟢 Connected to Live Match Stream!");
-                socket.emit('join-match', matchId);
-                window.fetchRetryDelay = 5000; // Reset retry delay on successful connection
+                matchSocket.emit('join-match', matchId);
+                window.fetchRetryDelay = 5000; 
             });
 
-            socket.on('reconnect', () => {
+            matchSocket.on('reconnect', () => {
                 console.log("🔄 Reconnected to stream. Fetching latest state...");
                 fetchInitialData();
             });
 
-            socket.on('match-updated', (newData) => {
+            matchSocket.on('match-updated', (newData) => {
                 console.log("⚡ Instant Update Received!");
                 renderDOM(newData);
-                
-                if (newData.setup?.status === 'post-match') {
-                    console.log("🏁 Match concluded. Disconnecting stream.");
-                    socket.disconnect();
-                }
             });
         }
 
