@@ -49,7 +49,7 @@
         .last-updated { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
 
         /* --- MAIN CONTENT --- */
-        .content-container { max-width: 1100px; margin: 0 auto; padding: 20px; display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .content-container { max-width: 1100px; margin: 0 auto; padding: 20px; display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
 
         .stat-card {
             background: var(--bg-card); border-radius: 12px; overflow: hidden;
@@ -69,12 +69,18 @@
         .header-yellow svg { color: var(--yellow-card); }
         .header-red svg { color: var(--live-red); }
 
-        .stat-list { display: flex; flex-direction: column; padding: 5px 20px 15px; }
+        .stat-list { display: flex; flex-direction: column; padding: 5px 20px 5px; }
         
         .stat-row {
             display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.05); gap: 15px;
+            transition: all 0.3s ease;
         }
         .stat-row:last-child { border-bottom: none; }
+
+        /* 🚀 Smooth collapse rules */
+        .stat-card:not(.expanded) .collapsible-row {
+            display: none !important;
+        }
 
         .stat-rank { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text-muted); width: 20px; text-align: center; flex-shrink: 0;}
         .stat-row:nth-child(1) .stat-rank { color: var(--gold); font-size: 1.4rem; text-shadow: 0 2px 4px rgba(234, 179, 8, 0.2); }
@@ -86,6 +92,18 @@
         .stat-team-name { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
 
         .stat-value { font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent-glow); flex-shrink: 0;}
+
+        /* 🚀 Sleek Expand Button */
+        .expand-btn {
+            background: var(--bg-elevated); border: none; border-top: 1px solid var(--border-glass);
+            color: var(--accent-glow); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px;
+            text-transform: uppercase; padding: 12px; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: auto;
+            transition: background 0.2s;
+        }
+        .expand-btn:hover { background: #f1f5f9; }
+        .expand-btn svg { width: 16 height: 16px; transition: transform 0.2s; }
+        .stat-card.expanded .expand-btn svg { transform: rotate(180deg); }
 
         /* --- BOTTOM NAV --- */
         .bottom-nav {
@@ -183,11 +201,16 @@
         function renderTournamentStats() {
             const container = document.getElementById('stats-main-container');
 
-            const generateRows = (players) => {
-                return players.map((p, index) => {
+            const generateCardHTML = (id, title, players, icon, customClass = '') => {
+                if (!players || players.length === 0) return '';
+
+                const showButton = players.length > 5;
+                
+                const rowsHTML = players.map((p, index) => {
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(p.teamName)] || p.fallbackLogo;
+                    const isCollapsible = index >= 5 ? 'collapsible-row' : '';
                     return `
-                        <div class="stat-row">
+                        <div class="stat-row ${isCollapsible}">
                             <div class="stat-rank">${index + 1}</div>
                             <div class="stat-player-info">
                                 <div class="stat-player-name">${p.name}</div>
@@ -200,54 +223,46 @@
                         </div>
                     `;
                 }).join('');
+
+                const buttonHTML = showButton ? `
+                    <button class="expand-btn" onclick="toggleCardExpansion(this)">
+                        <span>Show More</span> <i data-lucide="chevron-down"></i>
+                    </button>` : '';
+
+                return `
+                    <div class="stat-card" id="card-${id}">
+                        <div class="stat-header ${customClass}"><i data-lucide="${icon}"></i> ${title}</div>
+                        <div class="stat-list">${rowsHTML}</div>
+                        ${buttonHTML}
+                    </div>
+                `;
             };
 
             let htmlOutput = '';
+            htmlOutput += generateCardHTML('scorers', 'Golden Boot (Goals)', INJECTED_STATS.topScorers, 'crosshair');
+            htmlOutput += generateCardHTML('assists', 'Playmaker (Assists)', INJECTED_STATS.topAssists, 'footprints');
+            htmlOutput += generateCardHTML('sheets', 'Clean Sheets', INJECTED_STATS.cleanSheets, 'shield-check');
+            htmlOutput += generateCardHTML('yellow', 'Yellow Cards', INJECTED_STATS.yellowCards, 'square', 'header-yellow');
+            htmlOutput += generateCardHTML('red', 'Red Cards', INJECTED_STATS.redCards, 'square', 'header-red');
 
-            // 👑 Only render the card IF the data array exists and has length > 0
-            if (INJECTED_STATS.topScorers && INJECTED_STATS.topScorers.length > 0) {
-                htmlOutput += `
-                    <div class="stat-card">
-                        <div class="stat-header"><i data-lucide="crosshair"></i> Golden Boot (Goals)</div>
-                        <div class="stat-list">${generateRows(INJECTED_STATS.topScorers)}</div>
-                    </div>`;
-            }
-
-            if (INJECTED_STATS.topAssists && INJECTED_STATS.topAssists.length > 0) {
-                htmlOutput += `
-                    <div class="stat-card">
-                        <div class="stat-header"><i data-lucide="footprints"></i> Playmaker (Assists)</div>
-                        <div class="stat-list">${generateRows(INJECTED_STATS.topAssists)}</div>
-                    </div>`;
-            }
-
-            if (INJECTED_STATS.cleanSheets && INJECTED_STATS.cleanSheets.length > 0) {
-                htmlOutput += `
-                    <div class="stat-card">
-                        <div class="stat-header"><i data-lucide="shield-check"></i> Clean Sheets</div>
-                        <div class="stat-list">${generateRows(INJECTED_STATS.cleanSheets)}</div>
-                    </div>`;
-            }
-
-            if (INJECTED_STATS.yellowCards && INJECTED_STATS.yellowCards.length > 0) {
-                htmlOutput += `
-                    <div class="stat-card">
-                        <div class="stat-header header-yellow"><i data-lucide="square"></i> Yellow Cards</div>
-                        <div class="stat-list">${generateRows(INJECTED_STATS.yellowCards)}</div>
-                    </div>`;
-            }
-
-            if (INJECTED_STATS.redCards && INJECTED_STATS.redCards.length > 0) {
-                htmlOutput += `
-                    <div class="stat-card">
-                        <div class="stat-header header-red"><i data-lucide="square"></i> Red Cards</div>
-                        <div class="stat-list">${generateRows(INJECTED_STATS.redCards)}</div>
-                    </div>`;
-            }
-
-            // Fallback message if ALL arrays are totally empty
             container.innerHTML = htmlOutput || `<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;">Tournament statistics are currently being compiled.</div>`;
             lucide.createIcons();
+        }
+
+        // 🚀 Dynamic interaction controller
+        function toggleCardExpansion(button) {
+            const card = button.closest('.stat-card');
+            const label = button.querySelector('span');
+            
+            card.classList.toggle('expanded');
+            
+            if (card.classList.contains('expanded')) {
+                label.innerText = "Show Less";
+            } else {
+                label.innerText = "Show More";
+                // Smoothly pull layout focus back to top of the card when closing long lists
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
 
         renderTournamentStats();
