@@ -447,19 +447,21 @@
             container.innerHTML = htmlContent;
         }
 
-        // 🚀 THE NEW DYNAMIC KNOCKOUT BRACKET RENDER ENGINE
+// 🚀 THE NEW DYNAMIC KNOCKOUT BRACKET RENDER ENGINE
         function renderKnockoutBracket() {
             const container = document.getElementById('bracket-container');
             let bracketHTML = '';
 
-            const tbdLogo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23cbd5e1'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='30' font-weight='bold' fill='%2364748b' text-anchor='middle' dominant-baseline='middle'%3E?%3C/text%3E%3C/svg%3E";
+            // 🛡️ FIX 1: Fully encoded fallback SVG that works safely across Safari & iOS
+            const rawSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='#cbd5e1'/><text x='50' y='55' font-family='Arial' font-size='30' font-weight='bold' fill='#64748b' text-anchor='middle' dominant-baseline='middle'>?</text></svg>`;
+            const tbdLogo = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(rawSvg)}`;
 
             if (!INJECTED_BRACKET || INJECTED_BRACKET.length === 0) {
                 container.innerHTML = `
-                    <div class="knockout-placeholder">
-                        <i data-lucide="calendar-clock"></i>
-                        <h3>Bracket Unlocks Soon</h3>
-                        <p>The knockout stages will populate here automatically.</p>
+                    <div class="knockout-placeholder" style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                        <i data-lucide="calendar-clock" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 15px;"></i>
+                        <h3 style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; text-transform: uppercase; color: var(--text-main);">Bracket Unlocks Soon</h3>
+                        <p style="font-weight: 500; max-width: 400px; margin: 10px auto 0;">The knockout stages will populate here automatically as the Group Stage concludes.</p>
                     </div>`;
                 lucide.createIcons();
                 return;
@@ -475,14 +477,19 @@
                     const t1Class = match.team1 === 'TBD' ? 'bracket-team-tbd' : 'bracket-team-name';
                     const t2Class = match.team2 === 'TBD' ? 'bracket-team-tbd' : 'bracket-team-name';
 
-                    // Localize the UTC Date
+                    // 🛡️ FIX 2: Bulletproof UTC to Local Timezone Conversion
                     let formattedTime = "TBD";
                     if (match.utcDate) {
-                        const localDate = new Date(match.utcDate);
-                        formattedTime = localDate.toLocaleString(undefined, { 
-                            weekday: 'short', month: 'short', day: 'numeric', 
-                            hour: 'numeric', minute: '2-digit', hour12: true 
-                        });
+                        // Ensure strict UTC format by appending Z if missing
+                        const safeUtcString = match.utcDate.endsWith('Z') ? match.utcDate : `${match.utcDate}Z`;
+                        const localDate = new Date(safeUtcString);
+                        
+                        if (!isNaN(localDate)) {
+                            formattedTime = localDate.toLocaleString(undefined, { 
+                                weekday: 'short', month: 'short', day: 'numeric', 
+                                hour: 'numeric', minute: '2-digit', hour12: true 
+                            });
+                        }
                     }
 
                     matchesHTML += `
@@ -520,6 +527,7 @@
             container.innerHTML = bracketHTML;
             lucide.createIcons();
         }
+        
 
         renderMasterStandings();
         renderKnockoutBracket();
