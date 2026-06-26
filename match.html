@@ -913,6 +913,10 @@
             }
         }
 
+
+
+        
+
         // --- 5. THE HYBRID CONNECTION LOGIC ---
         async function fetchInitialData() {
             if (window.__INITIAL_MATCH_DATA__ && window.__INITIAL_MATCH_DATA__.setup?.status === 'post-match') {
@@ -921,43 +925,76 @@
                 return; 
             }
 
-            try {
-                // 🛑 NEW: Add a timeout to the fetch request (e.g., 5 seconds)
+            // 🚀 Helper to execute fetch with a clean timeout
+            async function executeFetch(targetId, timeoutMs = 6000) {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/live-match?id=${targetId}&viewerId=${viewerId}`, {
+                        signal: controller.signal 
+                    });
+                    clearTimeout(timeoutId);
+                    if (!response.ok) return null;
+                    return await response.json();
+                } catch (e) {
+                    clearTimeout(timeoutId);
+                    return null;
+                }
+            }
 
-                const response = await fetch(`${BACKEND_URL}/api/live-match?id=${matchId}&viewerId=${viewerId}`, {
-                    signal: controller.signal 
-                });
-                
-                clearTimeout(timeoutId); // Clear the timeout if successful
+            try {
+                // 🚀 Step 1: Try primary ID lookup (Give sleeping Render 8 seconds to wake up)
+                let data = await executeFetch(matchId, window.isSocketConnected ? 5000 : 8000);
 
-                if (!response.ok) throw new Error('Initial sync failed');
-                const data = await response.json();
-                
-                renderDOM(data);
-
-                if (data.setup?.status === 'post-match') {
-                    console.log("🛑 Match recently finished. Cancelling WebSocket connection.");
-                    return; 
+                // 🚀 Step 2: Smart Mirror Fallback
+                // If it's a past match but comes back as an unedited default 'pre-match' block, flip the slug!
+                const isPastDate = new Date(matchDate) < new Date();
+                if (isPastDate && (data === null || (data.setup?.status === 'pre-match' && data.setup?.matchFacts === ""))) {
+                    if (matchSlug.includes('-vs-')) {
+                        const teams = matchSlug.split('-vs-');
+                        const mirroredSlug = `${teams[1]}-vs-${teams[0]}`;
+                        const mirroredId = `${mirroredSlug}-${matchDate}`;
+                        
+                        console.log(`🔄 Primary data blank. Attempting mirror lookup: ${mirroredId}`);
+                        const mirroredData = await executeFetch(mirroredId, 5000);
+                        
+                        if (mirroredData && (mirroredData.setup?.status !== 'pre-match' || mirroredData.events?.length > 0)) {
+                            data = mirroredData;
+                        }
+                    }
                 }
 
-                initializeLiveStream();
+                // 🚀 Step 3: Render and manage sockets
+                if (data) {
+                    renderDOM(data);
+                    window.fetchRetryDelay = 5000; // Reset backoff delay
+
+                    if (data.setup?.status === 'post-match') {
+                        console.log("🛑 Match recently finished. Cancelling WebSocket connection.");
+                        return; 
+                    }
+                    initializeLiveStream();
+                } else {
+                    throw new Error("Data null or fetch timed out");
+                }
 
             } catch (err) {
                 console.error('Initial load breakdown:', err);
                 
-                // 🛑 NEW: Graceful degradation UI
                 if (!document.getElementById('timeline-container').innerHTML.includes('event-list')) {
                      document.getElementById('timeline-container').innerHTML = '<div style="text-align:center;color:var(--live-red);padding-top:20px;font-weight:600;">Data Sync Failed. Retrying...</div>';
                 }
 
-                // 🛑 NEW: Exponential backoff
                 let retryDelay = window.fetchRetryDelay || 5000; 
                 setTimeout(fetchInitialData, retryDelay);
-                window.fetchRetryDelay = Math.min(retryDelay * 1.5, 30000); // Cap at 30 seconds
+                window.fetchRetryDelay = Math.min(retryDelay * 1.5, 30000);
             }
         }
+
+
+
+
+        
 
         function initializeLiveStream() {
             const socket = io(BACKEND_URL, { 
