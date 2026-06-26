@@ -77,7 +77,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         let flagMap = {};
         
         // 🛡️ UNIVERSAL TEAM NAME DICTIONARY
-        // Maps all variations from API-Fixtures and API-Standings to the cached_flags.json keys
         const teamAliases = { 
             "czechia": "czech republic", 
             "turkiye": "turkey",
@@ -87,7 +86,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         };
         
         const normalizeName = (name) => {
-            // Lowercase, strip accents (e.g., "Côte d'Ivoire" -> "cote d'ivoire"), replace hyphens
             let cleanName = name.toLowerCase()
                                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                                 .replace(/-/g, ' ')
@@ -131,7 +129,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         
         const createSlug = (name) => name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-        const schedule = data.response.map(match => {
+        let schedule = data.response.map(match => {
             const dateStr = match.fixture.date.substring(0, 10);
             const homeName = match.teams.home.name;
             const awayName = match.teams.away.name;
@@ -153,6 +151,54 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 away: { fullName: awayName, logo: finalAwayLogo }
             };
         });
+
+        // --- STANDINGS PRE-FETCH ---
+        let mappedStandings = [];
+        let mappedBracket = [];
+        const outputDir = path.join(__dirname, 'public');
+        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+
+        const standingsCache = path.join(__dirname, 'cached_standings.json');
+        if (fs.existsSync(standingsCache)) {
+            try {
+                const raw = fs.readFileSync(standingsCache, 'utf8');
+                const parsedData = JSON.parse(raw);
+                if (Array.isArray(parsedData)) {
+                    mappedStandings = parsedData;
+                } else {
+                    mappedStandings = parsedData.groups || [];
+                    mappedBracket = parsedData.bracket || [];
+                }
+            } catch(e) {}
+        }
+        if (!mappedStandings || mappedStandings.length === 0) {
+            mappedStandings = [{ name: "Group A", teams: [] }];
+        }
+
+        // 🚀 NEW: Append known Knockout Bracket matches into the primary schedule engine
+        mappedBracket.forEach(round => {
+            round.matches.forEach(match => {
+                if (match.team1 !== "TBD" && match.team2 !== "TBD") {
+                    const dateStr = match.utcDate.substring(0, 10);
+                    const homeName = match.team1;
+                    const awayName = match.team2;
+                    const matchSlug = `${createSlug(homeName)}-vs-${createSlug(awayName)}`;
+                    
+                    schedule.push({
+                        date: dateStr,
+                        slug: matchSlug,
+                        utcDate: match.utcDate,
+                        group: round.round,
+                        home: { fullName: homeName, logo: flagMap[normalizeName(homeName)] || '' },
+                        away: { fullName: awayName, logo: flagMap[normalizeName(awayName)] || '' }
+                    });
+                }
+            });
+        });
+
+        // Ensure schedule is strictly sorted chronologically after merging
+        schedule.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+
 
         let calendarHTML = '';
         const tourneyStart = new Date('2026-06-11T00:00:00Z');
@@ -214,9 +260,6 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         const templatePath = path.join(__dirname, 'template.html');
         let htmlTemplate = fs.readFileSync(templatePath, 'utf8');
 
-        const outputDir = path.join(__dirname, 'public');
-        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
-
         const ogDir = path.join(outputDir, 'og');
         if (!fs.existsSync(ogDir)) fs.mkdirSync(ogDir, { recursive: true });
 
@@ -237,7 +280,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
                         <text x="600" y="100" font-family="Arial, sans-serif" font-size="35" font-weight="bold" fill="#cbd5e1" text-anchor="middle" letter-spacing="4">PITCH90 LIVE MATCH CENTER</text>
                         <text x="600" y="340" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#2563eb" text-anchor="middle">VS</text>
-                        <text x="600" y="550" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">FIFA WORLD CUP 2026</text>
+                        <text x="600" y="550" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">FIFA WORLD Cup 2026</text>
                     </svg>
                 `);
 
@@ -263,43 +306,11 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML);
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
-
-
-        
         // --- STANDINGS BUILD ---
-        let mappedStandings = [];
-        let mappedBracket = [];
-        
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
             
-            const standingsCache = path.join(__dirname, 'cached_standings.json');
-            
-            // 🛡️ 1. READ CUSTOM MASTER JSON FILE
-            if (fs.existsSync(standingsCache)) {
-                try {
-                    console.log("📊 Loading Master Standings from cached_standings.json...");
-                    const raw = fs.readFileSync(standingsCache, 'utf8');
-                    const parsedData = JSON.parse(raw);
-                    
-                    // Support both the old Array format and the new Object format
-                    if (Array.isArray(parsedData)) {
-                        mappedStandings = parsedData;
-                    } else {
-                        mappedStandings = parsedData.groups || [];
-                        mappedBracket = parsedData.bracket || [];
-                    }
-                } catch(e) {
-                    console.log("⚠️ Error reading cached_standings.json", e);
-                }
-            }
-
-            if (!mappedStandings || mappedStandings.length === 0) {
-                mappedStandings = [{ name: "Group A", teams: [] }];
-            }
-
-            // 🛡️ 3. INJECT INTO HTML
             let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); 
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
@@ -310,22 +321,44 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             console.log("✅ Physically generated the /standings directory.");
         }
 
-        
-
         // --- MATCH PAGES BUILD ---
         if (fs.existsSync(path.join(__dirname, 'match.html'))) {
             const matchTemplate = fs.readFileSync(path.join(__dirname, 'match.html'), 'utf8');
 
+            let bulkMatchData = {};
+            console.log("📡 Waking up backend to fetch bulk match states for SSG hydration...");
+            const allMatchIds = schedule.map(m => `${m.slug}-${m.date}`).filter(id => !id.includes('tbd'));
+            
+            for(let attempts = 1; attempts <= 4; attempts++) {
+                try {
+                    const bulkRes = await fetch(`https://wc26-backend-kd7l.onrender.com/api/live-matches-bulk?ids=${allMatchIds.join(',')}`, {
+                        headers: { "Authorization": process.env.ADMIN_PASSWORD || "super-secret-world-cup" } 
+                    });
+                    
+                    if (bulkRes.ok) {
+                        bulkMatchData = await bulkRes.json();
+                        console.log(`✅ Successfully pulled ${Object.keys(bulkMatchData).length} match states from database.`);
+                        break; 
+                    } else {
+                        console.log(`⚠️ Backend returned ${bulkRes.status}. Retrying...`);
+                    }
+                } catch (err) {
+                    console.log(`⏳ Server waking up (Attempt ${attempts}/4). Waiting 12 seconds...`);
+                    await new Promise(resolve => setTimeout(resolve, 12000));
+                }
+            }
+
             for (const match of schedule) {
+                // 🛑 🚀 NEW FIX: Skip folder generation entirely for TBD matches to save Vercel build time!
+                if (match.slug.includes('tbd')) continue;
+
                 const matchDir = path.join(outputDir, 'match', match.date, match.slug);
                 fs.mkdirSync(matchDir, { recursive: true });
 
-                // 🚀 Generate the OG Image
                 await generateOGImage(match.home.logo, match.away.logo, match.slug);
 
                 let matchHTML = matchTemplate;
 
-                // 🚀 Inject SEO URLs
                 const matchUrl = `${SITE_URL}/match/${match.date}/${match.slug}`;
                 const ogImageUrl = `${SITE_URL}/og/${match.slug}.png`;
                 
@@ -338,33 +371,14 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
                 matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
 
-                // 🛑 THE TBD FIX: Prevent Google from indexing placeholder pages
-                if (match.slug.includes('tbd')) {
-                    matchHTML = matchHTML.replace('<meta name="robots" content="index, follow">', '<meta name="robots" content="noindex, follow">');
-                }
-
-                // 🚀 STATIC HYDRATION: Admin Panel dictates the state, ignoring the clock!
                 let initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = null;</script>`;
+                const matchId = `${match.slug}-${match.date}`;
                 
-                try {
-                    const matchId = `${match.slug}-${match.date}`;
-                    // Securely hit backend to bypass rate limit
-                    const backendRes = await fetch(`https://wc26-backend-kd7l.onrender.com/api/live-match?id=${matchId}`, {
-                        headers: { "Authorization": process.env.ADMIN_PASSWORD || "super-secret-world-cup" } 
-                    });
-                    if (backendRes.ok) {
-                        const matchData = await backendRes.json();
-                        // 👑 THE ADMIN SWITCH: Only bake if Admin specifically set it to 'post-match'
-                        if (matchData.setup?.status === 'post-match') {
-                            initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = ${JSON.stringify(matchData)};</script>`;
-                            console.log(`🏆 Baked static data for completed match: ${matchId}`);
-                        }
-                    }
-                } catch (err) {
-                    console.log(`⚠️ Failed to statically hydrate ${match.slug}, falling back to client-side load.`);
+                if (bulkMatchData[matchId] && bulkMatchData[matchId].setup?.status === 'post-match') {
+                    initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = ${JSON.stringify(bulkMatchData[matchId])};</script>`;
+                    console.log(`🏆 Baked static data for completed match: ${matchId}`);
                 }
 
-                // Inject the static data into the <head> so it loads instantly
                 matchHTML = matchHTML.replace('</head>', `${initialDataScript}\n</head>`);
 
                 const groupData = mappedStandings.find(g => g.name === match.group);
