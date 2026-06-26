@@ -367,8 +367,14 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            
-            if (typeof lucide !== 'undefined') {
+    // 🚀 NEW: Generate or retrieve the unique visitor ID for analytics
+    let viewerId = localStorage.getItem('wc_viewer_id');
+    if (!viewerId) {
+        viewerId = Math.random().toString(36).substring(2, 15);
+        localStorage.setItem('wc_viewer_id', viewerId);
+    }
+    
+    if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             } else {
                 window.addEventListener('load', () => {
@@ -535,8 +541,15 @@ async function hydrateLiveScores(forceSync = false) {
                 });
 
                 try {
-                    // Send 1 single bulk request instead of 16 individual ones
-                    const response = await fetch(`${BACKEND_URL}?ids=${matchIds.join(',')}`);
+                    // 🚀 NEW: 6-second timeout so we don't hang the browser if Render is asleep
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+                    const response = await fetch(`${BACKEND_URL}?ids=${matchIds.join(',')}`, {
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+
                     if (!response.ok) return;
                     const dataMap = await response.json();
 
@@ -568,18 +581,24 @@ async function hydrateLiveScores(forceSync = false) {
                             }
                         }
                     });
-                } catch (error) {}
+                } catch (error) {
+                    // Silently fail on homepage if server is asleep. User still sees schedule!
+                }
             }
 
             setInterval(() => hydrateLiveScores(false), 30000);
             
             // --- WEBSOCKET ENGINE ---
             window.isSocketConnected = false;
-            const socket = io('https://wc26-backend-kd7l.onrender.com', { transports: ['websocket'] });
+            // 🚀 NEW: Pass the viewerId so the Admin Panel counts homepage visitors!
+            const socket = io('https://wc26-backend-kd7l.onrender.com', { 
+                query: { viewerId: viewerId },
+                transports: ['websocket'] 
+            });
             
             socket.on('connect', () => { window.isSocketConnected = true; });
             socket.on('disconnect', () => { window.isSocketConnected = false; });
-
+            
             socket.on('global-match-updated', (data) => {
                 const cards = document.querySelectorAll('.match-card');
                 cards.forEach(card => {
