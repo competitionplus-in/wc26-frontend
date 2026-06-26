@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
     <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
-    <link rel="" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
     <meta name="google-site-verification" content="Va50WY7JwzGXh5Vtkj4kAAmHYJk_ja8oUNfNALKj6Zo" />
     <meta name="keywords" content="world cup 2026 schedule, live football scores, match fixtures, football results, Pitch90, soccer timeline">
     <meta name="robots" content="index, follow">
@@ -47,7 +47,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 🚀 SEO: Visually hides content but keeps it fully readable by Googlebot and Screen Readers */
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
         .top-bar {
@@ -66,6 +65,43 @@
             border-bottom: 1px solid var(--border-glass);
             gap: 15px; 
         }
+
+        .brand-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .brand-title span { color: var(--accent-glow); }
+
+        /* 🚀 DESKTOP NAVBAR */
+        .desktop-nav {
+            display: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--accent-glow);
+        }
+        .desktop-nav a i { width: 18px; height: 18px; }
 
         .search-container {
             display: flex;
@@ -93,19 +129,6 @@
             margin-left: 8px;
         }
 
-        .brand-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .brand-title span { color: var(--accent-glow); }
-
         .date-scroller {
             display: flex;
             overflow-x: auto;
@@ -114,8 +137,10 @@
             padding: 12px 20px;
             gap: 15px;
             background: #f8fafc;
+            transition: opacity 0.3s ease;
         }
         .date-scroller::-webkit-scrollbar { display: none; }
+        .date-scroller.faded { opacity: 0.4; pointer-events: none; } /* When search is active */
 
         .date-pill {
             display: flex;
@@ -239,27 +264,8 @@
             background-color: var(--live-red); box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); 
         }
 
-
-        .seo-link-pill {
-            display: inline-block;
-            padding: 6px 12px;
-            background: #ffffff;
-            border: 1px solid var(--border-glass);
-            border-radius: 6px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .seo-link-pill:hover {
-            border-color: var(--accent-glow);
-            color: var(--accent-glow);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
-        
-        
         
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
@@ -277,6 +283,7 @@
 
         @media (min-width: 768px) {
             .bottom-nav { display: none; }
+            .desktop-nav { display: flex; }
             body { padding-bottom: 20px; }
             .content-container { padding: 30px; }
         }
@@ -294,19 +301,17 @@
 
     <header class="top-bar">
         <div class="brand-header">
-
-
-
+            <a href="/" class="brand-title" aria-label="Pitch90 Home">
+                <img src="/icon-512.png" alt="Pitch90 Logo" width="48" height="48" decoding="async" style="margin-right: 8px; border-radius: 100%;">
+                PITCH<span>90</span>
+            </a>
             
-            <a href="/" class="brand-title" aria-label="Pitch90 Home" style="text-decoration: none; display: flex; align-items: center;">
-            <img src="/icon-512.png" alt="Pitch90 Logo" width="48" height="48" decoding="async" style="margin-right: 8px; border-radius: 100%;">
-            PITCH<span>90</span>
-        </a>
+            <nav class="desktop-nav" aria-label="Main Navigation">
+                <a href="/" class="active"><i data-lucide="calendar-days"></i> Matches</a>
+                <a href="/standings"><i data-lucide="list-ordered"></i> Standings</a>
+                <a href="/stats"><i data-lucide="bar-chart-2"></i> Stats</a>
+            </nav>
 
-
-
-
-            
             <div class="search-container">
                 <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 0px;" aria-hidden="true"></i>
                 <input type="text" id="match-search" class="search-input" placeholder="Search teams..." aria-label="Search teams">
@@ -327,33 +332,22 @@
             [[INJECT_MATCHES_HERE]]
         </template>
 
-        
-
-
-
-
         <footer style="margin-top: 40px; padding: 20px; text-align: center;">
-        <details style="background: var(--bg-elevated); border-radius: 12px; padding: 15px; text-align: left; cursor: pointer; transition: all 0.3s ease;">
-            <summary style="font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px;">
-                <i data-lucide="chevron-down" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 8px;"></i> Match Directory (View All)
-            </summary>
-            <div style="margin-top: 15px; border-top: 1px solid var(--border-glass); padding-top: 15px;">
-                <ul style="list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0;">
-                    [[INJECT_SEO_LINKS_HERE]]
-                </ul>
-            </div>
-        </details>
-        <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">&copy; 2026 Pitch90 Live Match Center</p>
-    </footer>
-        
-
-
-
-
-        
+            <details style="background: var(--bg-elevated); border-radius: 12px; padding: 15px; text-align: left; cursor: pointer; transition: all 0.3s ease;">
+                <summary style="font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px;">
+                    <i data-lucide="chevron-down" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 8px;"></i> Match Directory (View All)
+                </summary>
+                <div style="margin-top: 15px; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <ul style="list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0;">
+                        [[INJECT_SEO_LINKS_HERE]]
+                    </ul>
+                </div>
+            </details>
+            <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">&copy; 2026 Pitch90 Live Match Center</p>
+        </footer>
     </main>
 
-    <nav class="bottom-nav" aria-label="Main Navigation">
+    <nav class="bottom-nav" aria-label="Mobile Navigation">
         <a href="/" class="nav-item active" aria-current="page">
             <i data-lucide="calendar-days" aria-hidden="true"></i>
             <span>Matches</span>
@@ -378,9 +372,7 @@
                 lucide.createIcons();
             } else {
                 window.addEventListener('load', () => {
-                    if (typeof lucide !== 'undefined') {
-                        lucide.createIcons();
-                    }
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
                 });
             }
 
@@ -415,28 +407,41 @@
                 const tournamentStart = '2026-06-11';
                 const tournamentEnd = '2026-07-19';
 
-                if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) {
-                    return localTodayStr; 
-                } else if (localTodayStr > tournamentEnd) {
-                    return tournamentEnd; 
-                } else {
-                    return tournamentStart; 
-                }
+                if (localTodayStr >= tournamentStart && localTodayStr <= tournamentEnd) return localTodayStr; 
+                else if (localTodayStr > tournamentEnd) return tournamentEnd; 
+                else return tournamentStart; 
             }
 
             let currentDateFilter = new URLSearchParams(window.location.search).get('date') || getSmartDefaultDate();
             
             const searchInput = document.getElementById('match-search');
+            const dateScroller = document.getElementById('date-scroller');
             const datePills = document.querySelectorAll('.date-pill');
             const vault = document.getElementById('match-vault').content;
             const container = document.getElementById('active-matches-container');
 
+            // 🚀 THE NEW FILTER LOGIC: Search Bar Dictates All
             function applyFilters() {
-                const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const isSearching = searchTerm.length > 0;
                 
+                // Dim the calendar if typing
+                if(isSearching) {
+                    dateScroller.classList.add('faded');
+                    datePills.forEach(p => p.classList.remove('active'));
+                } else {
+                    dateScroller.classList.remove('faded');
+                    // Restore active state to the currently selected date
+                    datePills.forEach(p => {
+                        if (p.getAttribute('data-date') === currentDateFilter) p.classList.add('active');
+                    });
+                }
+
                 container.innerHTML = '';
                 const activeView = vault.cloneNode(true);
                 const sections = activeView.querySelectorAll('.group-section');
+
+                let totalVisible = 0;
 
                 sections.forEach(section => {
                     let hasVisibleCards = false;
@@ -447,10 +452,13 @@
                         const cardHref = card.getAttribute('href'); 
                         
                         const matchesSearch = cardText.includes(searchTerm);
-                        const matchesDate = currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`);
+                        
+                        // IF searching: ignore the date completely. IF NOT searching: filter by current date.
+                        const shouldShow = isSearching ? matchesSearch : (currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`));
 
-                        if (matchesSearch && matchesDate) {
+                        if (shouldShow) {
                             hasVisibleCards = true;
+                            totalVisible++;
                         } else {
                             card.remove(); 
                         }
@@ -460,18 +468,33 @@
                 });
                 
                 container.appendChild(activeView);
+
+                if(totalVisible === 0 && isSearching) {
+                    container.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted); font-weight: 500;">No matches found for "${searchTerm}"</div>`;
+                }
                 
                 localizeMatchTimes();
                 hydrateLiveScores();
-                
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
-            if (searchInput) searchInput.addEventListener('input', applyFilters);
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+                // Clear search on escape key
+                searchInput.addEventListener('keydown', (e) => {
+                    if(e.key === 'Escape') {
+                        searchInput.value = '';
+                        applyFilters();
+                    }
+                });
+            }
 
             datePills.forEach(pill => {
                 pill.addEventListener('click', (e) => {
                     e.preventDefault(); 
+                    
+                    // If user clicks a date, clear the search bar to enforce the date click
+                    if(searchInput) searchInput.value = '';
                     
                     datePills.forEach(p => {
                         p.classList.remove('active');
@@ -486,25 +509,23 @@
                 });
             });
 
-            if (currentDateFilter) {
+            if (currentDateFilter && !searchInput?.value) {
                 datePills.forEach(p => p.classList.remove('active'));
                 const activePill = Array.from(datePills).find(p => p.getAttribute('data-date') === currentDateFilter);
                 if (activePill) {
                     activePill.classList.add('active');
                     activePill.setAttribute('aria-current', 'date');
                     
-                    const scroller = document.getElementById('date-scroller');
-                    if (scroller) {
-                        const scrollLeft = activePill.offsetLeft - (scroller.clientWidth / 2) + (activePill.clientWidth / 2);
-                        scroller.scrollTo({ left: scrollLeft, behavior: 'instant' });
+                    if (dateScroller) {
+                        const scrollLeft = activePill.offsetLeft - (dateScroller.clientWidth / 2) + (activePill.clientWidth / 2);
+                        dateScroller.scrollTo({ left: scrollLeft, behavior: 'instant' });
                     }
                 }
             }
 
-            requestAnimationFrame(() => {
-                applyFilters();
-            });
+            requestAnimationFrame(() => applyFilters());
 
+            // --- WEBSOCKET & DATA HYDRATION ---
             async function hydrateLiveScores() {
                 const visibleCards = Array.from(document.querySelectorAll('.match-card'));
                 const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-match';
@@ -549,19 +570,16 @@
             }
 
             setInterval(hydrateLiveScores, 30000);
-            // 🚀 NEW: Instant Homepage Updates via WebSockets!
-            const socket = io('https://wc26-backend-kd7l.onrender.com', { transports: ['websocket'] });
             
+            const socket = io('https://wc26-backend-kd7l.onrender.com', { transports: ['websocket'] });
             socket.on('global-match-updated', (data) => {
-                // Look through all the match cards on the homepage
                 const cards = document.querySelectorAll('.match-card');
                 cards.forEach(card => {
                     const href = card.getAttribute('href'); 
                     const parts = href.split('/');
                     if(parts.length >= 4) {
-                        const cardMatchId = `${parts[3]}-${parts[2]}`; // Reconstruct the ID (slug-date)
+                        const cardMatchId = `${parts[3]}-${parts[2]}`; 
                         
-                        // If this card is the one that just scored, update it instantly!
                         if(cardMatchId === data._id) {
                             const scoreMain = card.querySelector('.score-main');
                             const scoreTime = card.querySelector('.score-time');
