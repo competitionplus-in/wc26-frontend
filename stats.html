@@ -118,7 +118,6 @@
             PITCH<span>90</span>
         </a>
         <div class="page-title-container">
-            <!-- 🚀 SEMANTIC H1 FOR SEO -->
             <h1 class="page-title">World Cup Stats</h1>
             <div id="timestamp" class="last-updated">Updating...</div>
         </div>
@@ -185,11 +184,8 @@
             const container = document.getElementById('stats-main-container');
 
             const generateRows = (players) => {
-                if(!players || players.length === 0) return `<div style="padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">No data available yet.</div>`;
-                
                 return players.map((p, index) => {
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(p.teamName)] || p.fallbackLogo;
-
                     return `
                         <div class="stat-row">
                             <div class="stat-rank">${index + 1}</div>
@@ -206,42 +202,51 @@
                 }).join('');
             };
 
-            container.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-header"><i data-lucide="crosshair"></i> Golden Boot (Goals)</div>
-                    <div class="stat-list">
-                        ${generateRows(INJECTED_STATS.topScorers)}
-                    </div>
-                </div>
+            let htmlOutput = '';
 
-                <div class="stat-card">
-                    <div class="stat-header"><i data-lucide="footprints"></i> Playmaker (Assists)</div>
-                    <div class="stat-list">
-                        ${generateRows(INJECTED_STATS.topAssists)}
-                    </div>
-                </div>
+            // 👑 Only render the card IF the data array exists and has length > 0
+            if (INJECTED_STATS.topScorers && INJECTED_STATS.topScorers.length > 0) {
+                htmlOutput += `
+                    <div class="stat-card">
+                        <div class="stat-header"><i data-lucide="crosshair"></i> Golden Boot (Goals)</div>
+                        <div class="stat-list">${generateRows(INJECTED_STATS.topScorers)}</div>
+                    </div>`;
+            }
 
-                <div class="stat-card">
-                    <div class="stat-header"><i data-lucide="shield-check"></i> Clean Sheets</div>
-                    <div class="stat-list">
-                        ${generateRows(INJECTED_STATS.cleanSheets)}
-                    </div>
-                </div>
+            if (INJECTED_STATS.topAssists && INJECTED_STATS.topAssists.length > 0) {
+                htmlOutput += `
+                    <div class="stat-card">
+                        <div class="stat-header"><i data-lucide="footprints"></i> Playmaker (Assists)</div>
+                        <div class="stat-list">${generateRows(INJECTED_STATS.topAssists)}</div>
+                    </div>`;
+            }
 
-                <div class="stat-card">
-                    <div class="stat-header header-yellow"><i data-lucide="square"></i> Yellow Cards</div>
-                    <div class="stat-list">
-                        ${generateRows(INJECTED_STATS.yellowCards)}
-                    </div>
-                </div>
+            if (INJECTED_STATS.cleanSheets && INJECTED_STATS.cleanSheets.length > 0) {
+                htmlOutput += `
+                    <div class="stat-card">
+                        <div class="stat-header"><i data-lucide="shield-check"></i> Clean Sheets</div>
+                        <div class="stat-list">${generateRows(INJECTED_STATS.cleanSheets)}</div>
+                    </div>`;
+            }
 
-                <div class="stat-card">
-                    <div class="stat-header header-red"><i data-lucide="square"></i> Red Cards</div>
-                    <div class="stat-list">
-                        ${generateRows(INJECTED_STATS.redCards)}
-                    </div>
-                </div>
-            `;
+            if (INJECTED_STATS.yellowCards && INJECTED_STATS.yellowCards.length > 0) {
+                htmlOutput += `
+                    <div class="stat-card">
+                        <div class="stat-header header-yellow"><i data-lucide="square"></i> Yellow Cards</div>
+                        <div class="stat-list">${generateRows(INJECTED_STATS.yellowCards)}</div>
+                    </div>`;
+            }
+
+            if (INJECTED_STATS.redCards && INJECTED_STATS.redCards.length > 0) {
+                htmlOutput += `
+                    <div class="stat-card">
+                        <div class="stat-header header-red"><i data-lucide="square"></i> Red Cards</div>
+                        <div class="stat-list">${generateRows(INJECTED_STATS.redCards)}</div>
+                    </div>`;
+            }
+
+            // Fallback message if ALL arrays are totally empty
+            container.innerHTML = htmlOutput || `<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;">Tournament statistics are currently being compiled.</div>`;
             lucide.createIcons();
         }
 
