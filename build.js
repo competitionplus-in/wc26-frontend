@@ -170,7 +170,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     mappedStandings = parsedData.groups || [];
                     mappedBracket = parsedData.bracket || [];
                     mappedThirdPlace = parsedData.thirdPlaceRankingTable || {}; // 🚀 NEW
-                }                }
+                }                
             } catch(e) {}
         }
         if (!mappedStandings || mappedStandings.length === 0) {
