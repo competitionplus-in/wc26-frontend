@@ -428,15 +428,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
 
                 
 
-                let initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = null;</script>`;
-                const matchId = `${match.slug}-${match.date}`;
                 
-                if (bulkMatchData[matchId] && bulkMatchData[matchId].setup?.status === 'post-match') {
-                    initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = ${JSON.stringify(bulkMatchData[matchId])};</script>`;
-                    console.log(`🏆 Baked static data for completed match: ${matchId}`);
-                }
-
-                matchHTML = matchHTML.replace('</head>', `${initialDataScript}\n</head>`);
 
                 const groupData = mappedStandings.find(g => g.name === match.group);
                 let groupHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Standings will synchronize here shortly...</td></tr>';
