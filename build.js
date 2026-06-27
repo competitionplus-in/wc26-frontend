@@ -370,7 +370,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 
                 
                 
-                
+                matchHTML = matchHTML.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {})); // 🚀 NEW
                 matchHTML = matchHTML.replace(/\[\[MATCH_URL\]\]/g, matchUrl);
                 matchHTML = matchHTML.replace(/\[\[MATCH_OG_IMAGE\]\]/g, ogImageUrl);
                 matchHTML = matchHTML.replace(/\[\[HOME_NAME\]\]/g, match.home.fullName);
@@ -441,7 +441,10 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                         const isQualified = index < 2; 
                         const rowClass = isQualified ? 'row-qualified' : '';
                         const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
-                        const flagSrc = flagMap[team.code] || team.fallbackLogo || '';
+                        
+                        // 🚀 FIXED: Route the team name through the alias dictionary!
+                        const cleanName = normalizeName(team.name);
+                        const flagSrc = flagMap[cleanName] || team.fallbackLogo || '';
                         
                         return `
                             <tr class="${rowClass}">
