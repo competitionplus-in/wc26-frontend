@@ -155,6 +155,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         // --- STANDINGS PRE-FETCH ---
         let mappedStandings = [];
         let mappedBracket = [];
+        let mappedThirdPlace = {}; // 🚀 NEW
         const outputDir = path.join(__dirname, 'public');
         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
@@ -168,7 +169,8 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 } else {
                     mappedStandings = parsedData.groups || [];
                     mappedBracket = parsedData.bracket || [];
-                }
+                    mappedThirdPlace = parsedData.thirdPlaceRankingTable || {}; // 🚀 NEW
+                }                }
             } catch(e) {}
         }
         if (!mappedStandings || mappedStandings.length === 0) {
@@ -315,6 +317,7 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
             standingsTemplate = standingsTemplate.replace('[[INJECT_BRACKET_HERE]]', JSON.stringify(mappedBracket));
+            standingsTemplate = standingsTemplate.replace('[[INJECT_THIRD_PLACE_HERE]]', JSON.stringify(mappedThirdPlace)); // 🚀 NEW
             standingsTemplate = standingsTemplate.replace('[[INJECT_BUILD_TIME_HERE]]', new Date().toISOString());
             
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
