@@ -1,4 +1,6 @@
 {
+  "lastUpdated": "2026-06-27T04:15:00.000Z",
+  "tournament": "FIFA World Cup 2026",
   "groups": [
     {
       "name": "Group A",
@@ -57,19 +59,19 @@
     {
       "name": "Group G",
       "teams": [
-        { "name": "Egypt", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 4, "ga": 2, "gd": 2, "pts": 4, "code": "egypt", "form": "D,W" },
-        { "name": "Iran", "pld": 2, "w": 0, "d": 2, "l": 0, "gf": 2, "ga": 2, "gd": 0, "pts": 2, "code": "iran", "form": "D,D" },
-        { "name": "Belgium", "pld": 2, "w": 0, "d": 2, "l": 0, "gf": 1, "ga": 1, "gd": 0, "pts": 2, "code": "belgium", "form": "D,D" },
-        { "name": "New Zealand", "pld": 2, "w": 0, "d": 1, "l": 1, "gf": 3, "ga": 5, "gd": -2, "pts": 1, "code": "new zealand", "form": "D,L" }
+        { "name": "Egypt", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 5, "ga": 3, "gd": 2, "pts": 5, "code": "egypt", "form": "D,W,D" },
+        { "name": "Belgium", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 2, "ga": 1, "gd": 1, "pts": 5, "code": "belgium", "form": "D,D,W" },
+        { "name": "Iran", "pld": 3, "w": 0, "d": 3, "l": 0, "gf": 3, "ga": 3, "gd": 0, "pts": 3, "code": "iran", "form": "D,D,D" },
+        { "name": "New Zealand", "pld": 3, "w": 0, "d": 1, "l": 2, "gf": 3, "ga": 6, "gd": -3, "pts": 1, "code": "new zealand", "form": "D,L,L" }
       ]
     },
     {
       "name": "Group H",
       "teams": [
-        { "name": "Spain", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 4, "ga": 0, "gd": 4, "pts": 4, "code": "spain", "form": "D,W" },
-        { "name": "Uruguay", "pld": 2, "w": 0, "d": 2, "l": 0, "gf": 3, "ga": 3, "gd": 0, "pts": 2, "code": "uruguay", "form": "D,D" },
-        { "name": "Cabo Verde", "pld": 2, "w": 0, "d": 2, "l": 0, "gf": 2, "ga": 2, "gd": 0, "pts": 2, "code": "cabo verde", "form": "D,D" },
-        { "name": "Saudi Arabia", "pld": 2, "w": 0, "d": 1, "l": 1, "gf": 1, "ga": 5, "gd": -4, "pts": 1, "code": "saudi arabia", "form": "D,L" }
+        { "name": "Spain", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 5, "ga": 0, "gd": 5, "pts": 7, "code": "spain", "form": "D,W,W" },
+        { "name": "Cabo Verde", "pld": 3, "w": 0, "d": 3, "l": 0, "gf": 2, "ga": 2, "gd": 0, "pts": 3, "code": "cabo verde", "form": "D,D,D" },
+        { "name": "Uruguay", "pld": 3, "w": 0, "d": 2, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 2, "code": "uruguay", "form": "D,D,L" },
+        { "name": "Saudi Arabia", "pld": 3, "w": 0, "d": 2, "l": 1, "gf": 1, "ga": 5, "gd": -4, "pts": 2, "code": "saudi arabia", "form": "D,L,D" }
       ]
     },
     {
@@ -109,6 +111,20 @@
       ]
     }
   ],
+  "thirdPlaceRankingTable": {
+    "description": "Top 8 third-placed teams qualify for the Knockout Stage. Ranked strictly by Pts, GD, then GF.",
+    "stands": [
+      { "position": 1, "group": "F", "team": "Sweden", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 7, "ga": 7, "gd": 0, "pts": 4, "status": "PENDING" },
+      { "position": 2, "group": "E", "team": "Ecuador", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "status": "PENDING" },
+      { "position": 3, "group": "B", "team": "Bosnia and Herzegovina", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 6, "gd": -1, "pts": 4, "status": "PENDING" },
+      { "position": 4, "group": "D", "team": "Paraguay", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 4, "status": "PENDING" },
+      { "position": 5, "group": "I", "team": "Senegal", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 8, "ga": 6, "gd": 2, "pts": 3, "status": "PENDING" },
+      { "position": 6, "group": "G", "team": "Iran", "mp": 3, "w": 0, "d": 3, "l": 0, "gf": 3, "ga": 3, "gd": 0, "pts": 3, "status": "PENDING" },
+      { "position": 7, "group": "A", "team": "South Korea", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 2, "ga": 3, "gd": -1, "pts": 3, "status": "PENDING" },
+      { "position": 8, "group": "C", "team": "Scotland", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 1, "ga": 4, "gd": -3, "pts": 3, "status": "PENDING" },
+      { "position": 9, "group": "H", "team": "Uruguay", "mp": 3, "w": 0, "d": 2, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 2, "status": "ELIMINATED" }
+    ]
+  },
   "bracket": [
     {
       "round": "Round of 32",
