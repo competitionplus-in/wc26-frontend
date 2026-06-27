@@ -31,7 +31,12 @@
     { "name": "Roberto Alvarado", "teamName": "Mexico", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/16.png" },
     { "name": "Viktor Gyökeres", "teamName": "Sweden", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1187.png" }
   ],
-  "cleanSheets": [],
+  "cleanSheets": [
+    { "name": "Luis Malagón", "teamName": "Mexico", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/16.png" },
+    { "name": "Unai Simón", "teamName": "Spain", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/9.png" },
+    { "name": "Emiliano Martínez", "teamName": "Argentina", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/26.png" },
+    { "name": "Lawrence Ati-Zigi", "teamName": "Ghana", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1504.png" }
+  ],
   "yellowCards": [
     { "name": "Ahmed Fathy", "teamName": "Qatar", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1572.png" },
     { "name": "Gervane Kastaneer", "teamName": "Curaçao", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/5534.png" },
