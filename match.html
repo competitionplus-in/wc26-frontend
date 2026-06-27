@@ -463,7 +463,9 @@
             </section>
             
             <section id="panel-timeline" class="tab-panel">
-                <h3 class="sr-only">Match Events Timeline</h3>
+             <h3 class="sr-only">Match Events Timeline and Highlights</h3>
+
+                
                 <div id="timeline-container" class="event-list"></div>
             </section>
 
@@ -810,6 +812,10 @@
                 return { year: parts[0]?.trim(), comp: parts[1]?.trim(), homeGoals: parseInt(parts[2]), awayGoals: parseInt(parts[3]) };
             }) : [];
             renderH2H(currentHomeTeamName, currentHomeTeamLogo, currentAwayTeamName, currentAwayTeamLogo, h2hData);
+
+
+
+
             
             // Scoreboard UI
             const badge = document.getElementById('match-status-badge');
@@ -819,6 +825,21 @@
             const dividerEl = document.getElementById('central-divider');
             
             const matchStatus = data.setup?.status || 'pre-match';
+            
+            // 🚀 NEW: Dynamic Document Title Updates for Live Users
+            const hScoreStr = data.homeScore || 0;
+            const aScoreStr = data.awayScore || 0;
+            
+            if (matchStatus === 'live') {
+                document.title = `🔴 LIVE: ${currentHomeTeamName} ${hScoreStr}-${aScoreStr} ${currentAwayTeamName} | Pitch90`;
+            } else if (matchStatus === 'post-match') {
+                document.title = `${currentHomeTeamName} ${hScoreStr}-${aScoreStr} ${currentAwayTeamName} Final Result & Highlights | Pitch90`;
+            } else {
+                document.title = `${currentHomeTeamName} vs ${currentAwayTeamName} Preview | Pitch90`;
+            }
+
+
+            
 
             if(lastKnownStatus !== matchStatus) {
                 if(matchStatus === 'pre-match') switchTab(null, 'panel-preview');
@@ -854,6 +875,7 @@
                 homeScoreEl.innerText = currentHS; awayScoreEl.innerText = currentAS;
                 prevHomeScore = currentHS; prevAwayScore = currentAS;
             }
+
 
             // Timeline Engine
             let timelineHTML = '';
