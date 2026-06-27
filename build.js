@@ -362,14 +362,71 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                 const matchUrl = `${SITE_URL}/match/${match.date}/${match.slug}`;
                 const ogImageUrl = `${SITE_URL}/og/${match.slug}.png`;
                 
+                
+                
+                
+                
+                
+                
                 matchHTML = matchHTML.replace(/\[\[MATCH_URL\]\]/g, matchUrl);
                 matchHTML = matchHTML.replace(/\[\[MATCH_OG_IMAGE\]\]/g, ogImageUrl);
-
                 matchHTML = matchHTML.replace(/\[\[HOME_NAME\]\]/g, match.home.fullName);
                 matchHTML = matchHTML.replace(/\[\[AWAY_NAME\]\]/g, match.away.fullName);
                 matchHTML = matchHTML.replace(/\[\[HOME_LOGO\]\]/g, match.home.logo);
                 matchHTML = matchHTML.replace(/\[\[AWAY_LOGO\]\]/g, match.away.logo);
                 matchHTML = matchHTML.replace(/\[\[MATCH_GROUP\]\]/g, match.group);
+
+                // --- 🚀 NEW: DYNAMIC SEO INJECTION ---
+                let matchStatus = 'pre-match';
+                let homeScoreStr = "";
+                let awayScoreStr = "";
+                
+                const matchId = `${match.slug}-${match.date}`;
+                let initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = null;</script>`;
+                
+                if (bulkMatchData[matchId]) {
+                    matchStatus = bulkMatchData[matchId].setup?.status || 'pre-match';
+                    homeScoreStr = bulkMatchData[matchId].homeScore || 0;
+                    awayScoreStr = bulkMatchData[matchId].awayScore || 0;
+                    
+                    if (matchStatus === 'post-match') {
+                        initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = ${JSON.stringify(bulkMatchData[matchId])};</script>`;
+                        console.log(`🏆 Baked static data for completed match: ${matchId}`);
+                    }
+                }
+
+                let seoTitle, seoDesc, seoKeywords;
+
+                if (matchStatus === 'live') {
+                    seoTitle = `🔴 LIVE: ${match.home.fullName} ${homeScoreStr}-${awayScoreStr} ${match.away.fullName} Live Score & Tracker | Pitch90`;
+                    seoDesc = `Live score updates! Follow ${match.home.fullName} vs ${match.away.fullName} live text commentary, match event timeline, and instant stats. Current Score: ${match.home.fullName} ${homeScoreStr}-${awayScoreStr} ${match.away.fullName}.`;
+                    seoKeywords = `live score ${match.home.fullName} vs ${match.away.fullName}, world cup live tracker, current football score, ${match.home.fullName} match updates`;
+                } else if (matchStatus === 'post-match') {
+                    seoTitle = `${match.home.fullName} ${homeScoreStr}-${awayScoreStr} ${match.away.fullName} Final Result & Text Highlights | Pitch90`;
+                    seoDesc = `Full-time report! Check out the final result, goal scorers, match stats, and definitive text highlights for ${match.home.fullName} vs ${match.away.fullName}. Final score: ${homeScoreStr}-${awayScoreStr}.`;
+                    seoKeywords = `${match.home.fullName} vs ${match.away.fullName} highlights, final score ${match.home.fullName} vs ${match.away.fullName}, who won ${match.home.fullName} vs ${match.away.fullName}, goals stats`;
+                } else {
+                    // pre-match
+                    seoTitle = `${match.home.fullName} vs ${match.away.fullName} Preview, Kick-Off Time & Predictions | Pitch90`;
+                    seoDesc = `Catch the preview, predicted lineups, win probabilities, and kick-off details for ${match.home.fullName} vs ${match.away.fullName} in the FIFA World Cup 2026.`;
+                    seoKeywords = `${match.home.fullName} vs ${match.away.fullName} preview, world cup 2026 ${match.group.toLowerCase()}, when does ${match.home.fullName} play ${match.away.fullName}, prediction`;
+                }
+
+                // Replace the static tags in match.html with the dynamic ones
+                matchHTML = matchHTML.replace('<title>[[HOME_NAME]] vs [[AWAY_NAME]] Live Score & Stats | World Cup 2026 [[MATCH_GROUP]]</title>', `<title>${seoTitle}</title>`);
+                matchHTML = matchHTML.replace('<meta name="description" content="Get real-time live scores, timeline events, and match stats for [[HOME_NAME]] vs [[AWAY_NAME]] in the 2026 World Cup [[MATCH_GROUP]].">', `<meta name="description" content="${seoDesc}">`);
+                matchHTML = matchHTML.replace('<meta name="keywords" content="[[HOME_NAME]] vs [[AWAY_NAME]], world cup 2026, [[MATCH_GROUP]], live football match, live score, match center">', `<meta name="keywords" content="${seoKeywords}">`);
+                
+                // Add "Highlights" to the Timeline section header for better DOM indexing
+                matchHTML = matchHTML.replace('<h3 class="sr-only">Match Events Timeline</h3>', '<h3 class="sr-only">Match Events Timeline and Highlights</h3>');
+
+                matchHTML = matchHTML.replace('</head>', `${initialDataScript}\n</head>`);
+
+
+
+
+
+                
 
                 let initialDataScript = `<script>window.__INITIAL_MATCH_DATA__ = null;</script>`;
                 const matchId = `${match.slug}-${match.date}`;
