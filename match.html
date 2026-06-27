@@ -527,6 +527,26 @@
         const STATIC_AWAY_NAME = "[[AWAY_NAME]]";
         const STATIC_HOME_LOGO = "[[HOME_LOGO]]";
         const STATIC_AWAY_LOGO = "[[AWAY_LOGO]]";
+        const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
+        
+        // 🛡️ Frontend Alias Dictionary
+        const teamAliases = { 
+            "czechia": "czech republic", 
+            "turkiye": "turkey",
+            "bosnia and herzegovina": "bosnia",
+            "dr congo": "congo dr",
+            "cote d'ivoire": "ivory coast",
+            "cabo verde": "cabo verde" 
+        };
+        
+        const normalizeName = (name) => {
+            if (name === 'TBD') return 'tbd';
+            let cleanName = name.toLowerCase()
+                                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                                .replace(/-/g, ' ')
+                                .trim();
+            return teamAliases[cleanName] || cleanName;
+        };
     </script>
 
     <script src="/lucide.min.js" defer></script>
