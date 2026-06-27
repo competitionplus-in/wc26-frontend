@@ -277,9 +277,42 @@
 
     <main class="content-container">
         
+        
+        
         <div id="panel-group-stage" class="tab-panel active">
             <div id="standings-container">
                 <div class="loading-state">Synchronizing Global Leaderboards...</div>
+            </div>
+
+            <div id="third-place-container" style="margin-top: 40px;">
+                <div class="group-card">
+                    <div class="group-header" style="background: #1e293b; color: white;">
+                        <i data-lucide="award" style="margin-right:8px;"></i> Third-Place Wildcard Ranking
+                    </div>
+                    <div style="padding: 12px 20px; font-size: 0.85rem; color: var(--text-muted); background: #f8fafc; border-bottom: 1px solid var(--border-glass);">
+                        Top 8 third-placed teams qualify for the Knockout Stage. Ranked strictly by Pts, GD, then GF.
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="center-col">#</th>
+                                    <th>Team (Grp)</th>
+                                    <th class="center-col">PL</th>
+                                    <th class="center-col hide-mobile">W</th>
+                                    <th class="center-col hide-mobile">D</th>
+                                    <th class="center-col hide-mobile">L</th>
+                                    <th class="center-col hide-mobile">GF</th>
+                                    <th class="center-col hide-mobile">GA</th>
+                                    <th class="center-col">GD</th>
+                                    <th class="center-col">PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="third-place-tbody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             
             <div class="table-legend">
@@ -326,6 +359,7 @@
         const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
         const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];
         const INJECTED_BRACKET = [[INJECT_BRACKET_HERE]];
+        const INJECTED_THIRD_PLACE = [[INJECT_THIRD_PLACE_HERE]]; // 🚀 NEW
         const BUILD_TIME = "[[INJECT_BUILD_TIME_HERE]]";
         
         // 🕒 Localized Timestamp Logic
@@ -445,6 +479,48 @@
             });
 
             container.innerHTML = htmlContent;
+
+            // 🚀 NEW: Render the Third-Place Table
+            if (INJECTED_THIRD_PLACE && INJECTED_THIRD_PLACE.stands) {
+                const thirdPlaceBody = document.getElementById('third-place-tbody');
+                let thirdPlaceHTML = '';
+                
+                INJECTED_THIRD_PLACE.stands.forEach((team, index) => {
+                    // Top 8 qualify, so index 0-7 get the green highlight
+                    const isQualified = index < 8 && team.status !== 'ELIMINATED'; 
+                    const rowClass = isQualified ? 'qualified-row' : '';
+                    const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
+                    // Safely normalize name for flag lookup
+                    const cleanName = normalizeName(team.team);
+                    const finalFlagUrl = FLAG_DICTIONARY[cleanName] || 'https://media.api-sports.io/flags/default.svg';
+                    
+                    // Add styling for eliminated teams
+                    const opacityStyle = team.status === 'ELIMINATED' ? 'opacity: 0.5;' : '';
+
+                    thirdPlaceHTML += `
+                        <tr class="${rowClass}" style="${opacityStyle}">
+                            <td class="col-pos">${index + 1}</td>
+                            <td>
+                                <div class="col-team">
+                                    <img src="${finalFlagUrl}" alt="${team.team} Flag">
+                                    <span>${team.team} <span style="color:var(--text-muted); font-size:0.8rem; font-weight:700;">(${team.group})</span></span>
+                                </div>
+                            </td>
+                            <td class="center-col" style="color: var(--text-muted);">${team.mp}</td>
+                            <td class="center-col hide-mobile">${team.w}</td>
+                            <td class="center-col hide-mobile">${team.d}</td>
+                            <td class="center-col hide-mobile">${team.l}</td>
+                            <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.gf}</td>
+                            <td class="center-col hide-mobile" style="color: var(--text-muted);">${team.ga}</td>
+                            <td class="center-col col-gd">${displayGD}</td>
+                            <td class="center-col col-pts">${team.pts}</td>
+                        </tr>
+                    `;
+                });
+                thirdPlaceBody.innerHTML = thirdPlaceHTML;
+            } else {
+                document.getElementById('third-place-container').style.display = 'none';
+            }
         }
 
 // 🚀 THE NEW DYNAMIC KNOCKOUT BRACKET RENDER ENGINE
