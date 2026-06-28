@@ -308,6 +308,22 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
         finalHTML = finalHTML.replace('[[INJECT_SEO_LINKS_HERE]]', seoLinksHTML);
         fs.writeFileSync(path.join(outputDir, 'index.html'), finalHTML);
 
+
+
+
+
+        
+
+        // 🚀 NEW: Create a dictionary mapping teams to their latest match URLs
+        const teamMatchUrls = {};
+        schedule.forEach(match => {
+            if (!match.slug.includes('tbd')) {
+                const matchUrl = `/match/${match.date}/${match.slug}`;
+                teamMatchUrls[normalizeName(match.home.fullName)] = matchUrl;
+                teamMatchUrls[normalizeName(match.away.fullName)] = matchUrl;
+            }
+        });
+
         // --- STANDINGS BUILD ---
         if (fs.existsSync(path.join(__dirname, 'standings.html'))) { 
             const standingsDir = path.join(outputDir, 'standings');
@@ -317,8 +333,13 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
             standingsTemplate = standingsTemplate.replace('[[INJECT_BRACKET_HERE]]', JSON.stringify(mappedBracket));
-            standingsTemplate = standingsTemplate.replace('[[INJECT_THIRD_PLACE_HERE]]', JSON.stringify(mappedThirdPlace)); // 🚀 NEW
+            standingsTemplate = standingsTemplate.replace('[[INJECT_THIRD_PLACE_HERE]]', JSON.stringify(mappedThirdPlace));
+            standingsTemplate = standingsTemplate.replace('[[INJECT_TEAM_URLS_HERE]]', JSON.stringify(teamMatchUrls)); // 🚀 NEW INJECTION
             standingsTemplate = standingsTemplate.replace('[[INJECT_BUILD_TIME_HERE]]', new Date().toISOString());
+
+
+
+            
             
             fs.writeFileSync(path.join(standingsDir, 'index.html'), standingsTemplate);
             console.log("✅ Physically generated the /standings directory.");
