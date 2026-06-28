@@ -84,43 +84,46 @@
     {
       "name": "Group J",
       "teams": [
-        { "name": "Argentina", "pld": 2, "w": 2, "d": 0, "l": 0, "gf": 5, "ga": 0, "gd": 5, "pts": 6, "code": "argentina", "form": "W,W" },
-        { "name": "Austria", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 3, "ga": 3, "gd": 0, "pts": 3, "code": "austria", "form": "W,L" },
-        { "name": "Algeria", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 3, "code": "algeria", "form": "L,W" },
-        { "name": "Jordan", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 2, "ga": 5, "gd": -3, "pts": 0, "code": "jordan", "form": "L,L" }
+        { "name": "Argentina", "pld": 3, "w": 3, "d": 0, "l": 0, "gf": 8, "ga": 1, "gd": 7, "pts": 9, "code": "argentina", "form": "W,W,W" },
+        { "name": "Austria", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 6, "ga": 6, "gd": 0, "pts": 4, "code": "austria", "form": "W,L,D" },
+        { "name": "Algeria", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 7, "gd": -2, "pts": 4, "code": "algeria", "form": "L,W,D" },
+        { "name": "Jordan", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 3, "ga": 8, "gd": -5, "pts": 0, "code": "jordan", "form": "L,L,L" }
       ]
     },
     {
       "name": "Group K",
       "teams": [
-        { "name": "Colombia", "pld": 2, "w": 2, "d": 0, "l": 0, "gf": 4, "ga": 1, "gd": 3, "pts": 6, "code": "colombia", "form": "W,W" },
-        { "name": "Portugal", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 6, "ga": 1, "gd": 5, "pts": 4, "code": "portugal", "form": "D,W" },
-        { "name": "DR Congo", "pld": 2, "w": 0, "d": 1, "l": 1, "gf": 1, "ga": 2, "gd": -1, "pts": 1, "code": "dr congo", "form": "D,L" },
-        { "name": "Uzbekistan", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 1, "ga": 8, "gd": -7, "pts": 0, "code": "uzbekistan", "form": "L,L" }
+        { "name": "Colombia", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 4, "ga": 1, "gd": 3, "pts": 7, "code": "colombia", "form": "W,W,D" },
+        { "name": "Portugal", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 6, "ga": 1, "gd": 5, "pts": 5, "code": "portugal", "form": "D,W,D" },
+        { "name": "DR Congo", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 4, "ga": 3, "gd": 1, "pts": 4, "code": "dr congo", "form": "D,L,W" },
+        { "name": "Uzbekistan", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 2, "ga": 11, "gd": -9, "pts": 0, "code": "uzbekistan", "form": "L,L,L" }
       ]
     },
     {
       "name": "Group L",
       "teams": [
-        { "name": "England", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 4, "ga": 2, "gd": 2, "pts": 4, "code": "england", "form": "W,D" },
-        { "name": "Ghana", "pld": 2, "w": 1, "d": 1, "l": 0, "gf": 1, "ga": 0, "gd": 1, "pts": 4, "code": "ghana", "form": "W,D" },
-        { "name": "Croatia", "pld": 2, "w": 1, "d": 0, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 3, "code": "croatia", "form": "L,W" },
-        { "name": "Panama", "pld": 2, "w": 0, "d": 0, "l": 2, "gf": 0, "ga": 2, "gd": -2, "pts": 0, "code": "panama", "form": "L,L" }
+        { "name": "England", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 6, "ga": 2, "gd": 4, "pts": 7, "code": "england", "form": "W,D,W" },
+        { "name": "Croatia", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 5, "ga": 5, "gd": 0, "pts": 6, "code": "croatia", "form": "L,W,W" },
+        { "name": "Ghana", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "code": "ghana", "form": "W,D,L" },
+        { "name": "Panama", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 0, "ga": 4, "gd": -4, "pts": 0, "code": "panama", "form": "L,L,L" }
       ]
     }
   ],
   "thirdPlaceRankingTable": {
     "description": "Top 8 third-placed teams qualify for the Knockout Stage. Ranked strictly by Pts, GD, then GF.",
     "stands": [
-      { "position": 1, "group": "F", "team": "Sweden", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 7, "ga": 7, "gd": 0, "pts": 4, "status": "PENDING" },
-      { "position": 2, "group": "E", "team": "Ecuador", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "status": "PENDING" },
-      { "position": 3, "group": "B", "team": "Bosnia and Herzegovina", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 6, "gd": -1, "pts": 4, "status": "PENDING" },
-      { "position": 4, "group": "D", "team": "Paraguay", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 4, "status": "PENDING" },
-      { "position": 5, "group": "I", "team": "Senegal", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 8, "ga": 6, "gd": 2, "pts": 3, "status": "PENDING" },
-      { "position": 6, "group": "G", "team": "Iran", "mp": 3, "w": 0, "d": 3, "l": 0, "gf": 3, "ga": 3, "gd": 0, "pts": 3, "status": "PENDING" },
-      { "position": 7, "group": "A", "team": "South Korea", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 2, "ga": 3, "gd": -1, "pts": 3, "status": "PENDING" },
-      { "position": 8, "group": "C", "team": "Scotland", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 1, "ga": 4, "gd": -3, "pts": 3, "status": "PENDING" },
-      { "position": 9, "group": "H", "team": "Uruguay", "mp": 3, "w": 0, "d": 2, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 2, "status": "ELIMINATED" }
+      { "position": 1, "group": "K", "team": "DR Congo", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 4, "ga": 3, "gd": 1, "pts": 4, "status": "QUALIFIED" },
+      { "position": 2, "group": "F", "team": "Sweden", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 7, "ga": 7, "gd": 0, "pts": 4, "status": "QUALIFIED" },
+      { "position": 3, "group": "E", "team": "Ecuador", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "status": "QUALIFIED" },
+      { "position": 4, "group": "L", "team": "Ghana", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4, "status": "QUALIFIED" },
+      { "position": 5, "group": "B", "team": "Bosnia and Herzegovina", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 6, "gd": -1, "pts": 4, "status": "QUALIFIED" },
+      { "position": 6, "group": "J", "team": "Algeria", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 7, "gd": -2, "pts": 4, "status": "QUALIFIED" },
+      { "position": 7, "group": "D", "team": "Paraguay", "mp": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 4, "status": "QUALIFIED" },
+      { "position": 8, "group": "I", "team": "Senegal", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 8, "ga": 6, "gd": 2, "pts": 3, "status": "QUALIFIED" },
+      { "position": 9, "group": "G", "team": "Iran", "mp": 3, "w": 0, "d": 3, "l": 0, "gf": 3, "ga": 3, "gd": 0, "pts": 3, "status": "ELIMINATED" },
+      { "position": 10, "group": "A", "team": "South Korea", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 2, "ga": 3, "gd": -1, "pts": 3, "status": "ELIMINATED" },
+      { "position": 11, "group": "C", "team": "Scotland", "mp": 3, "w": 1, "d": 0, "l": 2, "gf": 1, "ga": 4, "gd": -3, "pts": 3, "status": "ELIMINATED" },
+      { "position": 12, "group": "H", "team": "Uruguay", "mp": 3, "w": 0, "d": 2, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 2, "status": "ELIMINATED" }
     ]
   },
   "bracket": [
@@ -133,16 +136,16 @@
         { "utcDate": "2026-06-30T01:00:00Z", "team1": "Netherlands", "team2": "Morocco", "matchNumber": 76 },
         { "utcDate": "2026-06-30T17:00:00Z", "team1": "Côte d'Ivoire", "team2": "Norway", "matchNumber": 77 },
         { "utcDate": "2026-06-30T21:00:00Z", "team1": "France", "team2": "Sweden", "matchNumber": 78 },
-        { "utcDate": "2026-07-01T01:00:00Z", "team1": "Mexico", "team2": "TBD", "matchNumber": 79 },
-        { "utcDate": "2026-07-01T16:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 80 },
-        { "utcDate": "2026-07-01T20:00:00Z", "team1": "Belgium", "team2": "TBD", "matchNumber": 81 },
+        { "utcDate": "2026-07-01T01:00:00Z", "team1": "Mexico", "team2": "Senegal", "matchNumber": 79 },
+        { "utcDate": "2026-07-01T16:00:00Z", "team1": "Portugal", "team2": "Croatia", "matchNumber": 80 },
+        { "utcDate": "2026-07-01T20:00:00Z", "team1": "Belgium", "team2": "Algeria", "matchNumber": 81 },
         { "utcDate": "2026-07-02T00:00:00Z", "team1": "USA", "team2": "Bosnia and Herzegovina", "matchNumber": 82 },
-        { "utcDate": "2026-07-02T19:00:00Z", "team1": "Spain", "team2": "TBD", "matchNumber": 83 },
-        { "utcDate": "2026-07-02T23:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 84 },
-        { "utcDate": "2026-07-03T03:00:00Z", "team1": "Switzerland", "team2": "TBD", "matchNumber": 85 },
+        { "utcDate": "2026-07-02T19:00:00Z", "team1": "Spain", "team2": "Austria", "matchNumber": 83 },
+        { "utcDate": "2026-07-02T23:00:00Z", "team1": "England", "team2": "DR Congo", "matchNumber": 84 },
+        { "utcDate": "2026-07-03T03:00:00Z", "team1": "Switzerland", "team2": "Ecuador", "matchNumber": 85 },
         { "utcDate": "2026-07-03T18:00:00Z", "team1": "Australia", "team2": "Egypt", "matchNumber": 86 },
         { "utcDate": "2026-07-03T22:00:00Z", "team1": "Argentina", "team2": "Cabo Verde", "matchNumber": 87 },
-        { "utcDate": "2026-07-04T01:30:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 88 }
+        { "utcDate": "2026-07-04T01:30:00Z", "team1": "Colombia", "team2": "Ghana", "matchNumber": 88 }
       ]
     },
     {
