@@ -329,10 +329,27 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             const standingsDir = path.join(outputDir, 'standings');
             fs.mkdirSync(standingsDir, { recursive: true });
             
+            // 🚀 NEW: Decorate the bracket matches with static URLs if both teams are declared
+            const decoratedBracket = mappedBracket.map(round => ({
+                ...round,
+                matches: round.matches.map(match => {
+                    if (match.team1 !== "TBD" && match.team2 !== "TBD" && match.team1 !== match.team2) {
+                        const dateStr = match.utcDate.substring(0, 10);
+                        const matchSlug = `${createSlug(match.team1)}-vs-${createSlug(match.team2)}`;
+                        return {
+                            ...match,
+                            matchUrl: `/match/${dateStr}/${matchSlug}`
+                        };
+                    }
+                    return match;
+                })
+            }));
+
             let standingsTemplate = fs.readFileSync(path.join(__dirname, 'standings.html'), 'utf8'); 
             standingsTemplate = standingsTemplate.replace('[[INJECT_FLAG_DICTIONARY_HERE]]', JSON.stringify(flagMap || {}));
             standingsTemplate = standingsTemplate.replace('[[INJECT_STANDINGS_HERE]]', JSON.stringify(mappedStandings));
-            standingsTemplate = standingsTemplate.replace('[[INJECT_BRACKET_HERE]]', JSON.stringify(mappedBracket));
+            standingsTemplate = standingsTemplate.replace('[[INJECT_BRACKET_HERE]]', JSON.stringify(decoratedBracket)); // Use decorated array
+            
             standingsTemplate = standingsTemplate.replace('[[INJECT_THIRD_PLACE_HERE]]', JSON.stringify(mappedThirdPlace));
             standingsTemplate = standingsTemplate.replace('[[INJECT_TEAM_URLS_HERE]]', JSON.stringify(teamMatchUrls)); // 🚀 NEW INJECTION
             standingsTemplate = standingsTemplate.replace('[[INJECT_BUILD_TIME_HERE]]', new Date().toISOString());
