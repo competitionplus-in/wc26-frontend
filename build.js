@@ -186,20 +186,38 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
                     const awayName = match.team2;
                     const matchSlug = `${createSlug(homeName)}-vs-${createSlug(awayName)}`;
                     
-                    schedule.push({
+                    const newMatchData = {
                         date: dateStr,
                         slug: matchSlug,
                         utcDate: match.utcDate,
                         group: round.round,
                         home: { fullName: homeName, logo: flagMap[normalizeName(homeName)] || '' },
                         away: { fullName: awayName, logo: flagMap[normalizeName(awayName)] || '' }
+                    };
+
+                    // 🛡️ CRITICAL FIX: Find and replace the corresponding TBD placeholder
+                    // We compare the round name and the exact UTC timestamp.
+                    const targetTime = new Date(match.utcDate).getTime();
+                    
+                    const existingIndex = schedule.findIndex(s => {
+                        const sTime = new Date(s.utcDate).getTime();
+                        return s.group === round.round && sTime === targetTime && s.slug.includes('tbd');
                     });
+
+                    if (existingIndex !== -1) {
+                        // Overwrite the placeholder with the confirmed match!
+                        schedule[existingIndex] = newMatchData;
+                    } else {
+                        // Fallback push if the placeholder is somehow missing
+                        schedule.push(newMatchData);
+                    }
                 }
             });
         });
 
         // Ensure schedule is strictly sorted chronologically after merging
         schedule.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+        
 
 
         let calendarHTML = '';
