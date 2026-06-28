@@ -367,14 +367,14 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-    // 🚀 NEW: Generate or retrieve the unique visitor ID for analytics
-    let viewerId = localStorage.getItem('wc_viewer_id');
-    if (!viewerId) {
-        viewerId = Math.random().toString(36).substring(2, 15);
-        localStorage.setItem('wc_viewer_id', viewerId);
-    }
-    
-    if (typeof lucide !== 'undefined') {
+            // 🚀 Generate or retrieve the unique visitor ID for analytics
+            let viewerId = localStorage.getItem('wc_viewer_id');
+            if (!viewerId) {
+                viewerId = Math.random().toString(36).substring(2, 15);
+                localStorage.setItem('wc_viewer_id', viewerId);
+            }
+            
+            if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             } else {
                 window.addEventListener('load', () => {
@@ -382,8 +382,27 @@
                 });
             }
 
+            // 🛡️ VAULT PRE-PROCESSOR: Stamps local dates BEFORE filtering
+            const vault = document.getElementById('match-vault');
+            const vaultCards = vault.content.querySelectorAll('.match-card');
+            
+            vaultCards.forEach(card => {
+                const timeBar = card.querySelector('.local-time-bar');
+                if (timeBar) {
+                    let kickoffStr = timeBar.getAttribute('data-kickoff');
+                    if (kickoffStr && kickoffStr !== 'undefined') {
+                        if (!kickoffStr.endsWith('Z') && !kickoffStr.match(/[+-]\d{2}:\d{2}$/)) kickoffStr += 'Z';
+                        const d = new Date(kickoffStr);
+                        if (!isNaN(d)) {
+                            const localDateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                            card.setAttribute('data-local-date', localDateStr); // Stamp the card!
+                        }
+                    }
+                }
+            });
+
             function localizeMatchTimes() {
-                const timeBars = document.querySelectorAll('.local-time-bar');
+                const timeBars = document.querySelectorAll('#active-matches-container .local-time-bar');
                 const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
                 const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
                 
@@ -391,10 +410,7 @@
                     let kickoffStr = bar.getAttribute('data-kickoff');
                     if (!kickoffStr || kickoffStr === 'undefined') return;
 
-                    // 🛡️ Safe timezone append: only add Z if missing completely
-                    if (!kickoffStr.endsWith('Z') && !kickoffStr.match(/[+-]\d{2}:\d{2}$/)) {
-                        kickoffStr += 'Z';
-                    }
+                    if (!kickoffStr.endsWith('Z') && !kickoffStr.match(/[+-]\d{2}:\d{2}$/)) kickoffStr += 'Z';
                     const localDateObj = new Date(kickoffStr);
 
                     if (isNaN(localDateObj)) {
@@ -403,23 +419,12 @@
                     }
 
                     bar.querySelector('.local-date-text').innerText = `${dateFormatter.format(localDateObj)} | ${timeFormatter.format(localDateObj)}`;
-
-                    // 🚀 MIDNIGHT BUG FIX: Stamp the user's local YYYY-MM-DD onto the card
-                    const localYear = localDateObj.getFullYear();
-                    const localMonth = String(localDateObj.getMonth() + 1).padStart(2, '0');
-                    const localDay = String(localDateObj.getDate()).padStart(2, '0');
-                    bar.closest('.match-card').setAttribute('data-local-date', `${localYear}-${localMonth}-${localDay}`);
                 });
             }
-
             
             function getSmartDefaultDate() {
                 const todayObj = new Date();
-                const localYear = todayObj.getFullYear();
-                const localMonth = String(todayObj.getMonth() + 1).padStart(2, '0');
-                const localDay = String(todayObj.getDate()).padStart(2, '0');
-                const localTodayStr = `${localYear}-${localMonth}-${localDay}`;
-
+                const localTodayStr = `${todayObj.getFullYear()}-${String(todayObj.getMonth() + 1).padStart(2, '0')}-${String(todayObj.getDate()).padStart(2, '0')}`;
                 const tournamentStart = '2026-06-11';
                 const tournamentEnd = '2026-07-19';
 
@@ -433,7 +438,6 @@
             const searchInput = document.getElementById('match-search');
             const dateScroller = document.getElementById('date-scroller');
             const datePills = document.querySelectorAll('.date-pill');
-            const vault = document.getElementById('match-vault').content;
             const container = document.getElementById('active-matches-container');
 
             function applyFilters() {
@@ -451,7 +455,7 @@
                 }
 
                 container.innerHTML = '';
-                const activeView = vault.cloneNode(true);
+                const activeView = vault.content.cloneNode(true);
                 const sections = activeView.querySelectorAll('.group-section');
                 let totalVisible = 0;
 
@@ -459,32 +463,15 @@
                     let hasVisibleCards = false;
                     const cards = section.querySelectorAll('.match-card');
 
-                    
-                    
-                    
-                    
                     cards.forEach(card => {
                         const cardText = card.innerText.toLowerCase();
                         const cardHref = card.getAttribute('href'); 
-                        
-                        // 🚀 MIDNIGHT BUG FIX: Calculate local date dynamically on the fly from the vault clone
-                        let localDateStr = null;
-                        const timeBar = card.querySelector('.local-time-bar');
-                        if (timeBar) {
-                            let kickoffStr = timeBar.getAttribute('data-kickoff');
-                            if (kickoffStr && kickoffStr !== 'undefined') {
-                                if (!kickoffStr.endsWith('Z') && !kickoffStr.match(/[+-]\d{2}:\d{2}$/)) kickoffStr += 'Z';
-                                const d = new Date(kickoffStr);
-                                if (!isNaN(d)) {
-                                    localDateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-                                }
-                            }
-                        }
+                        const localDateAttr = card.getAttribute('data-local-date');
                         
                         const matchesSearch = cardText.includes(searchTerm);
                         
-                        // Use the dynamically calculated local date for filtering!
-                        const matchesDate = localDateStr ? (localDateStr === currentDateFilter) : cardHref.includes(`/${currentDateFilter}/`);
+                        // 🚀 FILTER ENGINE NOW USES THE STAMPED LOCAL DATE
+                        const matchesDate = localDateAttr ? (localDateAttr === currentDateFilter) : cardHref.includes(`/${currentDateFilter}/`);
 
                         const shouldShow = isSearching ? matchesSearch : (currentDateFilter === '' || matchesDate);
 
@@ -496,11 +483,6 @@
                         }
                     });
 
-
-
-
-                    
-
                     if (!hasVisibleCards) section.remove();
                 });
                 
@@ -510,8 +492,8 @@
                     container.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted); font-weight: 500;">No matches found for "${searchTerm}"</div>`;
                 }
                 
-                localizeMatchTimes();
-                hydrateLiveScores(true); // Ensure scores sync on render
+                localizeMatchTimes(); // Updates text visuals AFTER filtering
+                hydrateLiveScores(true); 
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
@@ -558,27 +540,21 @@
 
             requestAnimationFrame(() => applyFilters());
 
-            // 🚀 THE BULK HYDRATION ENGINE 
-async function hydrateLiveScores(forceSync = false) {
-    // If WebSockets are active AND we aren't forcing a layout sync, don't spam
-    if (window.isSocketConnected && !forceSync) return; 
+            // --- BULK HYDRATION AND WEBSOCKETS RETAINED AS IS BELOW ---
+            async function hydrateLiveScores(forceSync = false) {
+                if (window.isSocketConnected && !forceSync) return; 
 
-    const visibleCards = Array.from(document.querySelectorAll('.match-card'));
-    if (visibleCards.length === 0) return;
-
-                    
-                
+                const visibleCards = Array.from(document.querySelectorAll('.match-card'));
+                if (visibleCards.length === 0) return;
 
                 const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com/api/live-matches-bulk';
                 
-                // Gather all IDs currently shown on screen
                 const matchIds = visibleCards.map(card => {
                     const parts = card.getAttribute('href').split('/');
-                    return `${parts[3]}-${parts[2]}`; // reconstructs slug-date
+                    return `${parts[3]}-${parts[2]}`;
                 });
 
                 try {
-                    // 🚀 NEW: 6-second timeout so we don't hang the browser if Render is asleep
                     const controller = new AbortController();
                     const timeoutId = setTimeout(() => controller.abort(), 6000);
 
@@ -618,16 +594,12 @@ async function hydrateLiveScores(forceSync = false) {
                             }
                         }
                     });
-                } catch (error) {
-                    // Silently fail on homepage if server is asleep. User still sees schedule!
-                }
+                } catch (error) {}
             }
 
             setInterval(() => hydrateLiveScores(false), 30000);
             
-            // --- WEBSOCKET ENGINE ---
             window.isSocketConnected = false;
-            // 🚀 NEW: Pass the viewerId so the Admin Panel counts homepage visitors!
             const socket = io('https://wc26-backend-kd7l.onrender.com', { 
                 query: { viewerId: viewerId },
                 transports: ['websocket'] 
