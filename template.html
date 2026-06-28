@@ -391,7 +391,10 @@
                     let kickoffStr = bar.getAttribute('data-kickoff');
                     if (!kickoffStr || kickoffStr === 'undefined') return;
 
-                    kickoffStr = kickoffStr.replace('+00:00Z', 'Z');
+                    // 🛡️ Safe timezone append: only add Z if missing completely
+                    if (!kickoffStr.endsWith('Z') && !kickoffStr.match(/[+-]\d{2}:\d{2}$/)) {
+                        kickoffStr += 'Z';
+                    }
                     const localDateObj = new Date(kickoffStr);
 
                     if (isNaN(localDateObj)) {
@@ -400,9 +403,16 @@
                     }
 
                     bar.querySelector('.local-date-text').innerText = `${dateFormatter.format(localDateObj)} | ${timeFormatter.format(localDateObj)}`;
+
+                    // 🚀 MIDNIGHT BUG FIX: Stamp the user's local YYYY-MM-DD onto the card
+                    const localYear = localDateObj.getFullYear();
+                    const localMonth = String(localDateObj.getMonth() + 1).padStart(2, '0');
+                    const localDay = String(localDateObj.getDate()).padStart(2, '0');
+                    bar.closest('.match-card').setAttribute('data-local-date', `${localYear}-${localMonth}-${localDay}`);
                 });
             }
 
+            
             function getSmartDefaultDate() {
                 const todayObj = new Date();
                 const localYear = todayObj.getFullYear();
