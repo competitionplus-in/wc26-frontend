@@ -459,12 +459,34 @@
                     let hasVisibleCards = false;
                     const cards = section.querySelectorAll('.match-card');
 
+                    
+                    
+                    
+                    
                     cards.forEach(card => {
                         const cardText = card.innerText.toLowerCase();
                         const cardHref = card.getAttribute('href'); 
                         
+                        // 🚀 MIDNIGHT BUG FIX: Calculate local date dynamically on the fly from the vault clone
+                        let localDateStr = null;
+                        const timeBar = card.querySelector('.local-time-bar');
+                        if (timeBar) {
+                            let kickoffStr = timeBar.getAttribute('data-kickoff');
+                            if (kickoffStr && kickoffStr !== 'undefined') {
+                                if (!kickoffStr.endsWith('Z') && !kickoffStr.match(/[+-]\d{2}:\d{2}$/)) kickoffStr += 'Z';
+                                const d = new Date(kickoffStr);
+                                if (!isNaN(d)) {
+                                    localDateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                                }
+                            }
+                        }
+                        
                         const matchesSearch = cardText.includes(searchTerm);
-                        const shouldShow = isSearching ? matchesSearch : (currentDateFilter === '' || cardHref.includes(`/${currentDateFilter}/`));
+                        
+                        // Use the dynamically calculated local date for filtering!
+                        const matchesDate = localDateStr ? (localDateStr === currentDateFilter) : cardHref.includes(`/${currentDateFilter}/`);
+
+                        const shouldShow = isSearching ? matchesSearch : (currentDateFilter === '' || matchesDate);
 
                         if (shouldShow) {
                             hasVisibleCards = true;
@@ -473,6 +495,11 @@
                             card.remove(); 
                         }
                     });
+
+
+
+
+                    
 
                     if (!hasVisibleCards) section.remove();
                 });
