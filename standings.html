@@ -357,10 +357,17 @@
 
         // 🧠 Data Injections
         const FLAG_DICTIONARY = [[INJECT_FLAG_DICTIONARY_HERE]];
-        const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];
+        const INJECTED_STANDINGS = [[INJECT_STANDINGS_HERE]];    
         const INJECTED_BRACKET = [[INJECT_BRACKET_HERE]];
-        const INJECTED_THIRD_PLACE = [[INJECT_THIRD_PLACE_HERE]]; // 🚀 NEW
+        const INJECTED_THIRD_PLACE = [[INJECT_THIRD_PLACE_HERE]];
+        const TEAM_URLS = [[INJECT_TEAM_URLS_HERE]]; // 🚀 NEW CATCH
         const BUILD_TIME = "[[INJECT_BUILD_TIME_HERE]]";
+
+
+
+
+
+
         
         // 🕒 Localized Timestamp Logic
         if (BUILD_TIME && !BUILD_TIME.includes('INJECT')) {
@@ -423,7 +430,8 @@
                     const rowClass = isQualified ? 'qualified-row' : '';
                     const displayGD = team.gd > 0 ? `+${team.gd}` : team.gd;
                     const finalFlagUrl = FLAG_DICTIONARY[normalizeName(team.name)] || team.fallbackLogo;
-                    const formHTML = renderForm(team.form || 'W,D,L'); 
+                    const formHTML = renderForm(team.form || 'W,D,L');
+                    const matchUrl = TEAM_URLS[normalizeName(team.name)] || '#'; // 🚀 GET URL
 
                     rowsHTML += `
                         <tr class="${rowClass}">
@@ -493,20 +501,23 @@
                     // Safely normalize name for flag lookup
                     const cleanName = normalizeName(team.team);
                     const finalFlagUrl = FLAG_DICTIONARY[cleanName] || 'https://media.api-sports.io/flags/default.svg';
-                    
-                    // Add styling for eliminated teams
                     const opacityStyle = team.status === 'ELIMINATED' ? 'opacity: 0.5;' : '';
+                    const matchUrl = TEAM_URLS[cleanName] || '#'; // 🚀 GET URL
 
                     thirdPlaceHTML += `
                         <tr class="${rowClass}" style="${opacityStyle}">
                             <td class="col-pos">${index + 1}</td>
                             <td>
-                                <div class="col-team">
+                                <a href="${matchUrl}" class="col-team" style="text-decoration: none; color: inherit;">
                                     <img src="${finalFlagUrl}" alt="${team.team} Flag">
                                     <span>${team.team} <span style="color:var(--text-muted); font-size:0.8rem; font-weight:700;">(${team.group})</span></span>
-                                </div>
+                                </a>
                             </td>
                             <td class="center-col" style="color: var(--text-muted);">${team.mp}</td>
+
+
+
+                            
                             <td class="center-col hide-mobile">${team.w}</td>
                             <td class="center-col hide-mobile">${team.d}</td>
                             <td class="center-col hide-mobile">${team.l}</td>
