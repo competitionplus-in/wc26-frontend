@@ -215,43 +215,36 @@ console.log("🚀 Starting Pitch90 Automated SEO Build Process...");
             });
         });
 
+        
+        
+        
+        
         // Ensure schedule is strictly sorted chronologically after merging
         schedule.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
 
-// 🛡️ SAFE TIME-AWARE SANITIZER: Wipes out ghost duplicates without breaking simultaneous matches
+        // 🛡️ FATAL SANITIZER: Destroys overlapping ghost duplicates instantly
         schedule = schedule.filter((match, index, self) => {
             if (match.slug.includes('tbd')) {
-                const targetTime = new Date(match.utcDate).getTime();
-
-                // 1. Count how many total matches are officially allowed at this exact time in this round
-                const officialRoundMatches = mappedBracket.find(r => r.round === match.group)?.matches || [];
-                
-                // 🛑 TYPO FIXED: Changed match.utcDate to m.utcDate so it counts correctly!
-                const allowedCount = officialRoundMatches.filter(m => new Date(m.utcDate).getTime() === targetTime).length;
-
-                // 2. Count how many confirmed matches we've already generated for this time slot
-                const confirmedCount = self.filter(m => 
+                // 1. If a CONFIRMED match exists at this exact time, kill this TBD placeholder.
+                const hasConfirmedOverlay = self.some(m => 
                     !m.slug.includes('tbd') && 
-                    m.group === match.group && 
-                    new Date(m.utcDate).getTime() === targetTime
-                ).length;
-
-                // 3. Find our own position among the remaining TBD placeholders for this slot
-                const tbdSlotsAtThisTime = self.filter((m, i) => 
-                    m.slug.includes('tbd') && 
-                    m.group === match.group && 
-                    new Date(m.utcDate).getTime() === targetTime && 
-                    i <= index
+                    new Date(m.utcDate).getTime() === new Date(match.utcDate).getTime()
                 );
+                if (hasConfirmedOverlay) return false;
 
-                // If our placeholder rank exceeds the remaining available slots, we are a ghost copy!
-                const availableTbdSlotsNeeded = allowedCount - confirmedCount;
-                if (tbdSlotsAtThisTime.length > availableTbdSlotsNeeded) {
-                    return false; // Delete this ghost placeholder
-                }
+                // 2. If this is a duplicate TBD at the exact same time, keep only the first one.
+                const firstTbdIndex = self.findIndex(m => 
+                    m.slug.includes('tbd') && 
+                    new Date(m.utcDate).getTime() === new Date(match.utcDate).getTime()
+                );
+                if (firstTbdIndex !== index) return false;
             }
-            return true; // Keep the match
+            return true;
         });
+
+
+
+        
         
         
 
