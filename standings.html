@@ -567,11 +567,16 @@
                     const t1Class = match.team1 === 'TBD' ? 'bracket-team-tbd' : 'bracket-team-name';
                     const t2Class = match.team2 === 'TBD' ? 'bracket-team-tbd' : 'bracket-team-name';
 
-                    // 🛡️ FIX 2: Bulletproof UTC to Local Timezone Conversion
+                    // 🛡️ FIX 2: Intelligent UTC/Local Timezone Conversion
                     let formattedTime = "TBD";
                     if (match.utcDate) {
-                        // Ensure strict UTC format by appending Z if missing
-                        const safeUtcString = match.utcDate.endsWith('Z') ? match.utcDate : `${match.utcDate}Z`;
+                        let safeUtcString = match.utcDate;
+                        
+                        // Only append 'Z' if the string lacks ANY timezone indicator
+                        if (!safeUtcString.endsWith('Z') && !safeUtcString.match(/[+-]\d{2}:\d{2}$/)) {
+                            safeUtcString += 'Z';
+                        }
+                        
                         const localDate = new Date(safeUtcString);
                         
                         if (!isNaN(localDate)) {
