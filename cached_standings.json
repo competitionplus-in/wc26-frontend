@@ -151,9 +151,9 @@
     {
       "round": "Round of 16",
       "matches": [
-        { "utcDate": "2026-07-04T17:00:00Z", "team1": "CANADA", "team2": "TBD", "matchNumber": 89 },
-        { "utcDate": "2026-07-04T21:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 90 },
-        { "utcDate": "2026-07-05T20:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 91 },
+        { "utcDate": "2026-07-04T17:00:00Z", "team1": "Canada", "team2": "Morocco", "matchNumber": 89 },
+        { "utcDate": "2026-07-04T21:00:00Z", "team1": "Brazil", "team2": "TBD", "matchNumber": 90 },
+        { "utcDate": "2026-07-05T20:00:00Z", "team1": "Paraguay", "team2": "TBD", "matchNumber": 91 },
         { "utcDate": "2026-07-06T00:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 92 },
         { "utcDate": "2026-07-06T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 93 },
         { "utcDate": "2026-07-07T00:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 94 },
