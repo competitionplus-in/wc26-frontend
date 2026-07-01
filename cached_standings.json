@@ -137,7 +137,7 @@
         { "utcDate": "2026-06-30T17:00:00Z", "team1": "Côte d'Ivoire", "team2": "Norway", "matchNumber": 77 },
         { "utcDate": "2026-06-30T21:00:00Z", "team1": "France", "team2": "Sweden", "matchNumber": 78 },
         { "utcDate": "2026-07-01T01:00:00Z", "team1": "Mexico", "team2": "Ecuador", "matchNumber": 79 },
-        { "utcDate": "2026-07-01T16:00:00Z", "team1": "England", "team2": "Dr Congo", "matchNumber": 80 },
+        { "utcDate": "2026-07-01T16:00:00Z", "team1": "England", "team2": "DR Congo", "matchNumber": 80 },
         { "utcDate": "2026-07-01T20:00:00Z", "team1": "Belgium", "team2": "Senegal", "matchNumber": 81 },
         { "utcDate": "2026-07-02T00:00:00Z", "team1": "USA", "team2": "Bosnia and Herzegovina", "matchNumber": 82 },
         { "utcDate": "2026-07-02T19:00:00Z", "team1": "Spain", "team2": "Austria", "matchNumber": 83 },
