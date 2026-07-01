@@ -53,7 +53,10 @@
         .live-badge::before { content: ''; width: 6px; height: 6px; background-color: var(--live-red); border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
         .score-board { padding: 25px 20px 20px; text-align: center; position: relative; }
-        .match-clock { font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--accent-glow); font-weight: 700; margin-bottom: 12px; display: inline-flex; align-items: center; background: rgba(37, 99, 235, 0.08); padding: 4px 16px; border-radius: 9999px; border: 1px solid rgba(37, 99, 235, 0.15); letter-spacing: 0.5px; }
+        
+        /* Stop horizontal jittering with tabular-nums */
+        .match-clock { font-variant-numeric: tabular-nums; font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--accent-glow); font-weight: 700; margin-bottom: 12px; display: inline-flex; align-items: center; background: rgba(37, 99, 235, 0.08); padding: 4px 16px; border-radius: 9999px; border: 1px solid rgba(37, 99, 235, 0.15); letter-spacing: 0.5px; }
+        
         .teams-container { display: flex; justify-content: center; align-items: center; gap: 15px; }
         .team { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 130px; }
         .team-flag { width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 3px solid #ffffff; overflow: hidden; background-color: var(--bg-card); }
@@ -62,7 +65,7 @@
         .score-box { display: flex; align-items: center; gap: 15px; margin: 0 10px; }
         .score { font-family: 'Oswald', sans-serif; font-size: 5.5rem; font-weight: 800; line-height: 1; color: var(--text-main); display: inline-block; letter-spacing: -2px; }
         #home-score, #away-score { min-width: 50px; text-align: center; }
-        .score-divider { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: var(--text-muted); font-weight: 600; opacity: 0.6; margin-top: -5px; }
+        .score-divider { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: var(--text-muted); font-weight: 600; opacity: 0.6; margin-top: -5px; transition: all 0.3s ease; }
         .score-anim-goal { animation: goalPop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes goalPop { 0% { transform: scale(1); color: var(--text-main); } 30% { transform: scale(1.3); color: var(--accent-green); text-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); } 100% { transform: scale(1); color: var(--text-main); } }
         .match-venue { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 20px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; background: #f8fafc; padding: 6px 16px; border-radius: 9999px; border: 1px solid var(--border-glass); }
@@ -144,15 +147,23 @@
         .event-list::before { content: ''; position: absolute; top: 30px; bottom: 30px; left: 91px; width: 2px; background-color: var(--border-glass); z-index: 1; }
         .event { display: flex; align-items: center; position: relative; padding: 5px 0; width: 100%; justify-content: flex-start; }
         .event-wrapper { display: flex; align-items: center; gap: 16px; width: 100%; }
+        
         .event.highlight-goal .event-wrapper { background-color: rgba(16, 185, 129, 0.08); border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 5px solid var(--accent-green); }
         .event.highlight-red .event-wrapper { background-color: rgba(239, 68, 68, 0.08); border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 5px solid var(--live-red); }
+        .event.highlight-var .event-wrapper { background-color: rgba(139, 92, 246, 0.08); border-radius: 8px; padding: 10px 15px 10px 0; margin-left: -5px; border-left: 5px solid #8b5cf6; }
+
         .event-time { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); width: 60px; text-align: right; flex-shrink: 0; white-space: nowrap; }
         .event-icon { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-card); border: 1px solid var(--border-glass); z-index: 2; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0; }
         .event-icon svg { width: 14px; height: 14px; color: var(--text-main); }
         .event-details { flex: 1; font-size: 1rem; font-weight: 600; color: var(--text-main); text-align: left; word-wrap: break-word; overflow-wrap: break-word; }
+        
         .icon-goal { font-size: 16px; border-color: var(--accent-green); background-color: var(--bg-card); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); padding: 0; }
         .icon-yellow { background-color: var(--bg-card); border-color: var(--border-glass); }
         .icon-red { background-color: var(--bg-card); border-color: var(--live-red); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+        .icon-var { border-color: #8b5cf6; background-color: var(--bg-card); box-shadow: 0 0 10px rgba(139, 92, 246, 0.2); }
+        .icon-injury { border-color: #f97316; background-color: var(--bg-card); }
+        .icon-penalty-miss { border-color: var(--live-red); background-color: var(--bg-card); }
+
         .referee-card { width: 12px; height: 16px; border-radius: 2px; }
         .referee-card.yellow { background-color: var(--yellow-card); border: 1px solid rgba(0,0,0,0.1); }
         .referee-card.red { background-color: var(--live-red); }
@@ -279,7 +290,7 @@
             .event-time { font-size: 1.05rem; width: 55px; white-space: nowrap; }
             .event-details { font-size: 0.95rem; }
             .sub-out { font-size: 0.85rem; }
-            .event.highlight-goal, .event.highlight-red { padding: 8px 10px 8px 0; }
+            .event.highlight-goal, .event.highlight-red, .event.highlight-var { padding: 8px 10px 8px 0; }
             .h2h-team span { display: none; } 
             .h2h-scoreline { gap: 10px; }
             .event-list::before { left: 86px; } 
@@ -563,8 +574,6 @@
         let matchId = `${matchSlug}-${matchDate}`;
         let matchSocket = null; // Prevent duplicate connections
 
-        
-        
         // --- 2. CONFIGURATION & STATE ---
         const BACKEND_URL = 'https://wc26-backend-kd7l.onrender.com';
         
@@ -580,6 +589,13 @@
         let prevAwayScore = null;
         let prevEventsLength = 0;
         let currentActiveTab = 'panel-preview';
+
+        // 🚀 TICKER STATE VARIABLES
+        let liveMatchTickerInterval = null;
+        let lastBackendClock = null;
+        let currentBaseMin = 0;
+        let currentStoppageMin = null;
+        let currentSeconds = 0;
 
         // --- 3. UI HELPER FUNCTIONS ---
         function switchTab(event, panelId) {
@@ -643,10 +659,67 @@
             countdownTicker = setInterval(updateTicker, 1000);
         }
 
+        function syncLiveClock(backendClockStr) {
+            const clockEl = document.getElementById('match-clock');
+
+            if (["HT", "FT", "AET", "P", "SUSP"].includes(backendClockStr)) {
+                if (liveMatchTickerInterval) clearInterval(liveMatchTickerInterval);
+                clockEl.innerHTML = backendClockStr;
+                lastBackendClock = backendClockStr;
+                return;
+            }
+
+            if (backendClockStr !== lastBackendClock) {
+                lastBackendClock = backendClockStr;
+                
+                const parts = String(backendClockStr).replace(/[^0-9+]/g, '').split('+');
+                currentBaseMin = parseInt(parts[0]) || 0;
+                currentStoppageMin = parts.length > 1 ? parseInt(parts[1]) : null;
+                
+                if ((currentBaseMin === 45 || currentBaseMin === 90) && currentStoppageMin === null) {
+                    currentStoppageMin = 0; 
+                }
+                currentSeconds = 0; 
+            }
+
+            if (!liveMatchTickerInterval) {
+                liveMatchTickerInterval = setInterval(() => {
+                    currentSeconds++;
+                    
+                    if (currentSeconds >= 60) {
+                        currentSeconds = 0;
+                        if (currentStoppageMin !== null) {
+                            currentStoppageMin++; 
+                        } else {
+                            currentBaseMin++; 
+                            if (currentBaseMin === 45 || currentBaseMin === 90) {
+                                currentStoppageMin = 0;
+                            }
+                        }
+                    }
+                    
+                    const pad = (n) => String(n).padStart(2, '0');
+                    const liveDot = `<span style="animation: pulse 1.5s infinite; color: var(--live-red); font-size: 0.6em; margin-left: 4px; vertical-align: middle;">🔴</span>`;
+                    
+                    if (currentStoppageMin !== null) {
+                        clockEl.innerHTML = `${currentBaseMin}+${currentStoppageMin}:${pad(currentSeconds)} ${liveDot}`;
+                    } else {
+                        clockEl.innerHTML = `${pad(currentBaseMin)}:${pad(currentSeconds)} ${liveDot}`;
+                    }
+                    
+                }, 1000);
+            }
+        }
+
         const renderFormPills = (formArray) => formArray.map(result => `<div class="form-pill ${result === 'W' ? 'form-w' : (result === 'D' ? 'form-d' : 'form-l')}">${result}</div>`).join('');
 
-        const generateLineupHTML = (teamName, teamLogo, commaString, type) => {
+        const generateLineupHTML = (teamName, teamLogo, commaString, type, matchStatus) => {
             const players = commaString ? commaString.split(',').map(p => p.trim()) : [];
+            let lineupSubtitle = "Awaiting Info";
+            if (players.length > 0) {
+                lineupSubtitle = matchStatus === 'pre-match' ? "🟡 PREDICTED XI" : "🟢 CONFIRMED XI";
+            }
+
             let listHTML = '';
             if (players.length > 0) {
                 listHTML = players.map(p => {
@@ -655,8 +728,8 @@
                     if (match) return `<li><div class="player-shirt num">${match[1]}</div>${match[2]}</li>`;
                     else return `<li><div class="player-shirt"><i data-lucide="user"></i></div>${p}</li>`;
                 }).join('');
-            } else { listHTML = `<li style="color: var(--text-muted); font-weight: 500; text-align: center; padding: 20px 0;">Awaiting roster confirmation...</li>`; }
-            return `<div class="lineup-col"><div class="lineup-header ${type}"><img src="${teamLogo}" class="lineup-flag" alt="${teamName}"><div class="lineup-team-info"><span class="lineup-team-name">${teamName}</span><span class="lineup-subtitle">Starting XI</span></div></div><ul class="player-list">${listHTML}</ul></div>`;
+            } else { listHTML = `<li style="color: var(--text-muted); font-weight: 500; text-align: center; padding: 20px 0;">Awaiting roster predictions...</li>`; }
+            return `<div class="lineup-col"><div class="lineup-header ${type}"><img src="${teamLogo}" class="lineup-flag" alt="${teamName}"><div class="lineup-team-info"><span class="lineup-team-name">${teamName}</span><span class="lineup-subtitle">${lineupSubtitle}</span></div></div><ul class="player-list">${listHTML}</ul></div>`;
         };
 
         function renderH2H(homeName, homeLogo, awayName, awayLogo, h2hHistoryArray) {
@@ -811,8 +884,6 @@
             const currentHomeTeamLogo = STATIC_HOME_LOGO;
             const currentAwayTeamLogo = STATIC_AWAY_LOGO;
 
-
-
             if(data.setup?.matchVenue) document.getElementById('match-venue-text').innerText = data.setup.matchVenue;
             document.getElementById('home-player-name').innerText = data.setup?.playersToWatch?.home || "TBD";
             document.getElementById('away-player-name').innerText = data.setup?.playersToWatch?.away || "TBD";
@@ -840,10 +911,6 @@
             }) : [];
             renderH2H(currentHomeTeamName, currentHomeTeamLogo, currentAwayTeamName, currentAwayTeamLogo, h2hData);
 
-
-
-
-            
             // Scoreboard UI
             const badge = document.getElementById('match-status-badge');
             const clock = document.getElementById('match-clock');
@@ -853,7 +920,7 @@
             
             const matchStatus = data.setup?.status || 'pre-match';
             
-            // 🚀 NEW: Dynamic Document Title Updates for Live Users
+            // Dynamic Document Title Updates for Live Users
             const hScoreStr = data.homeScore || 0;
             const aScoreStr = data.awayScore || 0;
             
@@ -865,8 +932,13 @@
                 document.title = `${currentHomeTeamName} vs ${currentAwayTeamName} Preview | Pitch90`;
             }
 
-
-            
+            // --- LOCAL TIME INJECTION ---
+            if (matchStatus === 'pre-match' && data.setup?.countdownTarget) {
+                const localTime = new Date(data.setup.countdownTarget).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+                document.getElementById('match-info-text').innerHTML = `${data.setup.matchInfo} <span style="color:var(--border-glass); margin:0 6px;">|</span> <span style="color:var(--text-main); font-weight:700;">${localTime}</span>`;
+            } else {
+                document.getElementById('match-info-text').innerText = `${data.setup?.matchInfo} - World Cup 2026`;
+            }
 
             if(lastKnownStatus !== matchStatus) {
                 if(matchStatus === 'pre-match') switchTab(null, 'panel-preview');
@@ -878,20 +950,29 @@
                 badge.innerText = 'UPCOMING';
                 badge.style.color = '#64748b'; badge.style.borderColor = '#cbd5e1'; badge.style.backgroundColor = '#f8fafc';
                 clock.style.display = 'inline-flex';
-                homeScoreEl.innerText = '-'; awayScoreEl.innerText = '-'; dividerEl.innerText = 'V';
+                homeScoreEl.style.display = 'none'; 
+                awayScoreEl.style.display = 'none'; 
+                dividerEl.innerText = 'VS';
+                dividerEl.style.fontSize = '3.5rem';
+                dividerEl.style.color = 'var(--text-main)';
                 if(!countdownTicker && data.setup?.countdownTarget) startCountdownTimer(data.setup.countdownTarget);
             } else {
                 if(countdownTicker) { clearInterval(countdownTicker); countdownTicker = null; }
+                homeScoreEl.style.display = 'inline-block'; 
+                awayScoreEl.style.display = 'inline-block';
                 dividerEl.innerText = '-';
+                dividerEl.style.fontSize = '2.5rem';
+                dividerEl.style.color = 'var(--text-muted)';
 
                 if (matchStatus === 'post-match') {
                     badge.innerText = 'FULL TIME'; badge.style.color = '#0f172a'; badge.style.borderColor = '#cbd5e1'; badge.style.backgroundColor = '#e2e8f0';
                     clock.style.display = 'none'; 
+                    if(liveMatchTickerInterval) { clearInterval(liveMatchTickerInterval); liveMatchTickerInterval = null; }
                     homeScoreEl.innerText = data.homeScore || 0; awayScoreEl.innerText = data.awayScore || 0;
                 } else {
                     badge.innerText = 'LIVE'; badge.style.color = 'var(--live-red)'; badge.style.borderColor = 'rgba(239, 68, 68, 0.25)'; badge.style.backgroundColor = 'rgba(239, 68, 68, 0.12)';
                     clock.style.display = 'inline-flex';
-                    clock.innerHTML = `${data.clock || 0}<span style="animation: pulse 1.3s infinite;">'</span>`;
+                    syncLiveClock(data.clock || "0");
                 }
             }
 
@@ -902,7 +983,6 @@
                 homeScoreEl.innerText = currentHS; awayScoreEl.innerText = currentAS;
                 prevHomeScore = currentHS; prevAwayScore = currentAS;
             }
-
 
             // Timeline Engine
             let timelineHTML = '';
@@ -925,6 +1005,9 @@
                     else if(e.type === 'yellow') { mod = 'icon-yellow'; iconHTML = `<div class="referee-card yellow"></div>`; } 
                     else if(e.type === 'red') { mod = 'icon-red'; rowHighlightClass = 'highlight-red'; iconHTML = `<div class="referee-card red"></div>`; } 
                     else if(e.type === 'sub') { mod = 'icon-sub'; iconHTML = `<i data-lucide="arrow-left-right"></i>`; }
+                    else if (e.type === 'var') { mod = 'icon-var'; rowHighlightClass = 'highlight-var'; iconHTML = `<i data-lucide="monitor-play"></i>`; }
+                    else if (e.type === 'injury') { mod = 'icon-injury'; iconHTML = `<i data-lucide="plus-square"></i>`; }
+                    else if (e.type === 'penalty_miss') { mod = 'icon-penalty-miss'; iconHTML = `<i data-lucide="target"></i>`; }
 
                     let detailHTML = '';
                     if (e.type === 'goal') {
@@ -952,9 +1035,10 @@
             const statsHeaderHTML = `<div class="stats-header"><div class="stats-team"><img src="${currentHomeTeamLogo}" alt="Home"><span class="stats-team-name">${currentHomeTeamName}</span></div><div class="stats-team"><img src="${currentAwayTeamLogo}" alt="Away"><span class="stats-team-name">${currentAwayTeamName}</span></div></div>`;
             document.getElementById('stats-container').innerHTML = statsHeaderHTML + generateStatRow('Possession', data.stats?.possession?.home || 50, data.stats?.possession?.away || 50) + generateStatRow('Shots', data.stats?.shots?.home || 0, data.stats?.shots?.away || 0) + generateStatRow('Shots on Target', data.stats?.shotsOnTarget?.home || 0, data.stats?.shotsOnTarget?.away || 0);
 
-            document.getElementById('lineups-container').innerHTML = generateLineupHTML(currentHomeTeamName, currentHomeTeamLogo, data.lineups?.home || '', 'home') + generateLineupHTML(currentAwayTeamName, currentAwayTeamLogo, data.lineups?.away || '', 'away');
+            document.getElementById('lineups-container').innerHTML = 
+                generateLineupHTML(currentHomeTeamName, currentHomeTeamLogo, data.lineups?.home || '', 'home', matchStatus) + 
+                generateLineupHTML(currentAwayTeamName, currentAwayTeamLogo, data.lineups?.away || '', 'away', matchStatus);
 
-            
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             } else {
@@ -965,10 +1049,6 @@
                 });
             }
         }
-
-
-
-        
 
         // --- 5. THE HYBRID CONNECTION LOGIC ---
         async function fetchInitialData() {
