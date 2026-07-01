@@ -628,12 +628,17 @@
             function updateTicker() {
                 const distance = new Date(targetISOString).getTime() - new Date().getTime();
                 if (distance < 0) { badge.innerText = "UPCOMING"; clock.innerHTML = "00:00:00"; clearInterval(countdownTicker); return; }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 const pad = num => String(num).padStart(2, '0');
-                clock.innerHTML = `⏱️ ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-            }
+                if (days > 0) {
+        clock.innerHTML = `⏱️ ${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    } else {
+        clock.innerHTML = `⏱️ ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    }
+}
             updateTicker();
             countdownTicker = setInterval(updateTicker, 1000);
         }
