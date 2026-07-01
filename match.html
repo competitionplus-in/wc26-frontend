@@ -813,32 +813,6 @@
 
 
 
-
-
-            if (matchStatus === 'pre-match') {
-    // Hide the dash placeholders
-    homeScoreEl.style.display = 'none';
-    awayScoreEl.style.display = 'none';
-    
-    // Make the V prominent
-    dividerEl.innerText = 'VS';
-    dividerEl.style.fontSize = '3.5rem';
-    dividerEl.style.color = 'var(--text-main)';
-} else {
-    // Revert for Live/Post-match
-    homeScoreEl.style.display = 'inline-block';
-    awayScoreEl.style.display = 'inline-block';
-    dividerEl.innerText = '-';
-    dividerEl.style.fontSize = '2.5rem';
-    dividerEl.style.color = 'var(--text-muted)';
-}
-
-            
-
-
-
-            
-
             if(data.setup?.matchVenue) document.getElementById('match-venue-text').innerText = data.setup.matchVenue;
             document.getElementById('home-player-name').innerText = data.setup?.playersToWatch?.home || "TBD";
             document.getElementById('away-player-name').innerText = data.setup?.playersToWatch?.away || "TBD";
