@@ -858,9 +858,9 @@
             const aScoreStr = data.awayScore || 0;
             
             if (matchStatus === 'live') {
-                document.title = `🔴 LIVE: ${currentHomeTeamName} ${hScoreStr}-${aScoreStr} ${currentAwayTeamName} | Pitch90`;
+                document.title = `🔴 LIVE: ${currentHomeTeamName} vs ${currentAwayTeamName} | ${hScoreStr}-${aScoreStr} | Pitch90`;
             } else if (matchStatus === 'post-match') {
-                document.title = `${currentHomeTeamName} ${hScoreStr}-${aScoreStr} ${currentAwayTeamName} Final Result & Highlights | Pitch90`;
+                document.title = `${currentHomeTeamName} vs ${currentAwayTeamName} | Highlights | Final Result ${hScoreStr}-${aScoreStr} | Pitch90`;
             } else {
                 document.title = `${currentHomeTeamName} vs ${currentAwayTeamName} Preview | Pitch90`;
             }
