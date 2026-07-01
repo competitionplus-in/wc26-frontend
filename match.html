@@ -876,7 +876,7 @@
                 badge.innerText = 'UPCOMING';
                 badge.style.color = '#64748b'; badge.style.borderColor = '#cbd5e1'; badge.style.backgroundColor = '#f8fafc';
                 clock.style.display = 'inline-flex';
-                homeScoreEl.innerText = '-'; awayScoreEl.innerText = '-'; dividerEl.innerText = 'V';
+                homeScoreEl.innerText = ''; awayScoreEl.innerText = ''; dividerEl.innerText = 'V';
                 if(!countdownTicker && data.setup?.countdownTarget) startCountdownTimer(data.setup.countdownTarget);
             } else {
                 if(countdownTicker) { clearInterval(countdownTicker); countdownTicker = null; }
