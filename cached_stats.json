@@ -8,6 +8,7 @@
     { "name": "Vinícius Júnior", "teamName": "Brazil", "value": 4, "fallbackLogo": "https://media.api-sports.io/football/teams/6.png" },
     { "name": "Mikel Oyarzabal", "teamName": "Spain", "value": 4, "fallbackLogo": "https://media.api-sports.io/football/teams/9.png" },
     { "name": "Brian Brobbey", "teamName": "Netherlands", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/1118.png" },
+    { "name": "Breel Embolo", "teamName": "Switzerland", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/15.png" },
     { "name": "Deniz Undav", "teamName": "Germany", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/25.png" },
     { "name": "Folarin Balogun", "teamName": "USA", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/228.png" },
     { "name": "Habib Diarra", "teamName": "Senegal", "value": 3, "fallbackLogo": "https://media.api-sports.io/football/teams/13.png" },
@@ -34,6 +35,7 @@
     { "name": "Chris Wood", "teamName": "New Zealand", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1502.png" },
     { "name": "Denzel Dumfries", "teamName": "Netherlands", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1118.png" },
     { "name": "Hannibal Mejbri", "teamName": "Tunisia", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/28.png" },
+    { "name": "Johan Manzambi", "teamName": "Switzerland", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/15.png" },
     { "name": "Joshua Kimmich", "teamName": "Germany", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/25.png" },
     { "name": "Jude Bellingham", "teamName": "England", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/10.png" },
     { "name": "Kylian Mbappé", "teamName": "France", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/773.png" },
@@ -50,10 +52,12 @@
     { "name": "Emiliano Martínez", "teamName": "Argentina", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/26.png" },
     { "name": "Jordan Pickford", "teamName": "England", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/10.png" },
     { "name": "Lawrence Ati-Zigi", "teamName": "Ghana", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1504.png" },
-    { "name": "Mike Maignan", "teamName": "France", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/773.png" }
+    { "name": "Mike Maignan", "teamName": "France", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/773.png" },
+    { "name": "Yann Sommer", "teamName": "Switzerland", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/15.png" }
   ],
   "yellowCards": [
     { "name": "Ahmed Fathy", "teamName": "Qatar", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1572.png" },
+    { "name": "Farès Chaïbi", "teamName": "Algeria", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1188.png" },
     { "name": "Gervane Kastaneer", "teamName": "Curaçao", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/5534.png" },
     { "name": "Juninho Bacuna", "teamName": "Curaçao", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/5534.png" },
     { "name": "Marko Arnautović", "teamName": "Austria", "value": 2, "fallbackLogo": "https://media.api-sports.io/football/teams/1186.png" },
