@@ -1,6 +1,6 @@
 {
   "topScorers": [
-    { "name": "Lionel Messi", "teamName": "Argentina", "value": 6, "fallbackLogo": "https://media.api-sports.io/football/teams/26.png" },
+    { "name": "Lionel Messi", "teamName": "Argentina", "value": 7, "fallbackLogo": "https://media.api-sports.io/football/teams/26.png" },
     { "name": "Erling Haaland", "teamName": "Norway", "value": 6, "fallbackLogo": "https://media.api-sports.io/football/teams/1184.png" },
     { "name": "Kylian Mbappé", "teamName": "France", "value": 6, "fallbackLogo": "https://media.api-sports.io/football/teams/773.png" },
     { "name": "Harry Kane", "teamName": "England", "value": 5, "fallbackLogo": "https://media.api-sports.io/football/teams/10.png" },
