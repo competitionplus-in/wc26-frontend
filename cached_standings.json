@@ -165,7 +165,7 @@
       "round": "Quarter-finals",
       "matches": [
         { "utcDate": "2026-07-09T20:00:00Z", "team1": "Morocco", "team2": "France", "matchNumber": 97 },
-        { "utcDate": "2026-07-10T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 98 },
+        { "utcDate": "2026-07-10T19:00:00Z", "team1": "Norway", "team2": "England", "matchNumber": 98 },
         { "utcDate": "2026-07-11T21:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 99 },
         { "utcDate": "2026-07-12T01:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 100 }
       ]
