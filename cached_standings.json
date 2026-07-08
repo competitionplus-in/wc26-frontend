@@ -157,7 +157,7 @@
         { "utcDate": "2026-07-06T00:00:00Z", "team1": "Mexico", "team2": "England", "matchNumber": 92 },
         { "utcDate": "2026-07-06T19:00:00Z", "team1": "Belgium", "team2": "USA", "matchNumber": 93 },
         { "utcDate": "2026-07-07T00:00:00Z", "team1": "Spain", "team2": "Portugal", "matchNumber": 94 },
-        { "utcDate": "2026-07-07T16:00:00Z", "team1": "Argentina", "team2": "EgyptColombia", "matchNumber": 95 },
+        { "utcDate": "2026-07-07T16:00:00Z", "team1": "Argentina", "team2": "Egypt", "matchNumber": 95 },
         { "utcDate": "2026-07-07T20:00:00Z", "team1": "Colombia", "team2": "Switzerland", "matchNumber": 96 }
       ]
     },
