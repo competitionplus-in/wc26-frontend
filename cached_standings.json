@@ -173,7 +173,7 @@
     {
       "round": "Semi-finals",
       "matches": [
-        { "utcDate": "2026-07-14T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 101 },
+        { "utcDate": "2026-07-14T19:00:00Z", "team1": "France", "team2": "TBD", "matchNumber": 101 },
         { "utcDate": "2026-07-15T19:00:00Z", "team1": "TBD", "team2": "TBD", "matchNumber": 102 }
       ]
     },
